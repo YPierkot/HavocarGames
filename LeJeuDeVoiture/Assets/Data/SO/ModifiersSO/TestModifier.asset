@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f4c5f46d5e4d4f43bb50e70db039c42, type: 3}
+  m_Name: TestModifier
+  m_EditorClassIdentifier: 
+  modifierName: Test
+  modifierDescription: "Envoie un Debug Log lorsqu'une abilit\xE9 est utilis\xE9e"
+  type: 1
+  message: "Modifier Test Enclench\xE9"

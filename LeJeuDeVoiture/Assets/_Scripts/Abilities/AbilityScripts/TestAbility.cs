@@ -1,16 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class TestAbility : Ability
+namespace AbilityNameSpace
 {
-    [Header("ABILITY PARAMETERS")] 
-    [SerializeField] private string message;
-
-    public override void StartAbility()
+    public class TestAbility : Ability
     {
-        base.StartAbility();
-        Debug.Log(message);
+        [Header("ABILITY PARAMETERS")] [SerializeField]
+        private string message;
+
+        public override void StartAbility()
+        {
+            base.StartAbility();
+            Debug.Log(message);
+        }
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace Car
+namespace CarNameSpace
 {
     public class CarController : MonoBehaviour
     {

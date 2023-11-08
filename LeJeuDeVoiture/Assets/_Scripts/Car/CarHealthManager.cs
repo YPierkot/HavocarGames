@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using ManagerNameSpace;
 using UnityEngine;
 
-namespace Car
+namespace CarNameSpace
 {
     public class CarHealthManager : MonoBehaviour , IDamageable
     {
@@ -13,11 +12,12 @@ namespace Car
         {
             lifePoints -= damages;
             GameManager.instance.uiManager.SetHealthJauge((float) lifePoints / maxLifePoints);
-            if(lifePoints <= 0) Death();
+            if(lifePoints <= 0) Kill();
         }
-
-        public void Death()
+        
+        public void Kill()
         {
+            lifePoints = 0;
             // TODO : DEFINIR LA FONCTION DE MORT DU JOUEUR
         }
     }   

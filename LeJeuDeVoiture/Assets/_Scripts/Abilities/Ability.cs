@@ -1,48 +1,62 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using ManagerNameSpace;
 using UnityEngine;
 
-public abstract class Ability : MonoBehaviour
+namespace AbilityNameSpace
 {
-    [Header("MAIN PARAMETERS")]
-    public float cooldown = 10;
-    public string abilityName;
-    [TextArea] public string description;
-    [HideInInspector] public AbilitySocket socket;
-    [HideInInspector] public float cooldownTimer = 0;
-    [HideInInspector] public bool activable = true;
-    
-    
-    public virtual void SetupAbility(AbilitySocket currentSocket)
+    public abstract class Ability : MonoBehaviour
     {
-        GameManager.instance.uiManager.SetAbilityLabel(socket, abilityName);
-        activable = true;
-        cooldownTimer = 0;
-        socket = currentSocket;
-    }
-    public virtual void StartAbility()
-    {
-        activable = false;
-        cooldownTimer = cooldown;
-    }
-    
-    public virtual void UpdateAbility()
-    {
-        CoolDown();
-    }
+        [Header("MAIN PARAMETERS")] public float cooldown = 10;
+        public string abilityName;
+        [TextArea] public string description;
+        public AbilitySocket socket;
+        [HideInInspector] public float cooldownTimer = 0;
+        [HideInInspector] public bool activable = true;
 
-    public void CoolDown()
-    {
-        if (cooldownTimer > 0)
-        {
-            cooldownTimer -= Time.deltaTime;
-            GameManager.instance.uiManager.SetAbilityCooldown(socket,1-cooldownTimer/cooldown);
-        }
-        else
+        /// <summary>
+        /// Used Once At the Start of the start of the game, Setup the ability objects and essentials
+        /// </summary>
+        public virtual void SetupAbility(AbilitySocket currentSocket)
         {
             activable = true;
-            GameManager.instance.uiManager.SetAbilityCooldown(socket,1);
+            cooldownTimer = 0;
+            socket = currentSocket;
+            GameManager.instance.uiManager.SetAbilityLabel(socket, abilityName);
         }
+
+        /// <summary>
+        /// Apply the effect of the ability and start CoolDown
+        /// </summary>
+        public virtual void StartAbility()
+        {
+            activable = false;
+            cooldownTimer = cooldown;
+        }
+
+        public virtual void UpdateAbility()
+        {
+            CoolDown();
+        }
+
+        private void CoolDown()
+        {
+            if (cooldownTimer > 0)
+            {
+                cooldownTimer -= Time.deltaTime;
+                GameManager.instance.uiManager.SetAbilityCooldown(socket, 1 - cooldownTimer / cooldown);
+            }
+            else
+            {
+                activable = true;
+                GameManager.instance.uiManager.SetAbilityCooldown(socket, 1);
+            }
+        }
+    }
+
+    public enum AbilitySocket
+    {
+        ABILITY_X,
+        ABILITY_Y,
+        ABILITY_A,
+        ABILITY_B
     }
 }

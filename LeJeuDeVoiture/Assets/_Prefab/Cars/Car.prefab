@@ -557,7 +557,6 @@ Transform:
   m_Children:
   - {fileID: 2775345204013495234}
   - {fileID: 8498982921015654685}
-  - {fileID: 8073652948499960618}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3069492745428270138
@@ -848,10 +847,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8768df0af7d3bdb469048456ef569011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xAbility: {fileID: 3581798288439857022}
-  bAbility: {fileID: 3581798288439857022}
-  yAbility: {fileID: 3581798288439857022}
-  aAbility: {fileID: 3581798288439857022}
+  xAbility: {fileID: 0}
+  bAbility: {fileID: 0}
+  yAbility: {fileID: 0}
+  aAbility: {fileID: 0}
 --- !u!65 &3092943337702106326
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -970,57 +969,6 @@ Transform:
   - {fileID: 5819568073371629386}
   m_Father: {fileID: 9100204322241268650}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4563758600788107263
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8073652948499960618}
-  - component: {fileID: 3581798288439857022}
-  m_Layer: 0
-  m_Name: AbilityTest
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8073652948499960618
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4563758600788107263}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9100204322241268650}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3581798288439857022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4563758600788107263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 694ed7bc10ff59549bad7b457d307820, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldown: 10
-  abilityName: TestAbility
-  description: "Effectue un Debug Log du string souhait\xE9"
-  socket: 0
-  cooldownTimer: 0
-  activable: 1
-  message: "Abilit\xE9 Fonctionne"
 --- !u!1 &4880818711395867561
 GameObject:
   m_ObjectHideFlags: 0
