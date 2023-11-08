@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,19 +6,31 @@ public abstract class Enemy : MonoBehaviour
     // Variables
     [SerializeField] protected string name;
     [SerializeField] protected int healthPoints;
-    [SerializeField] protected float speed;
+    [SerializeField] protected float unitSpeed;
     [SerializeField] protected float updatePath = 0.35f;
     
     protected NavMeshAgent agent;
     protected bool isDead;
     protected float timer = 0;
-    protected Transform playerPos;
-    
-    void Start()
+    [SerializeField] protected Transform playerPos; //TODO - Link avec le Gamemanager
+
+    /// <summary>
+    /// Method appelé à la mort de l'entitée
+    /// </summary>
+    public abstract void Death();
+
+    /// <summary>
+    /// Method appelé au spawn de l'entitée
+    /// </summary>
+    protected virtual void Spawn()
     {
         agent = GetComponent<NavMeshAgent>();
+        agent.speed = unitSpeed;
+        isDead = false;
     }
 
-    public abstract void Death();
-    public abstract void Spawn();
+    /// <summary>
+    /// Méthod appelé lorsque l'entité est en collision avec la voiture (joueur)
+    /// </summary>
+    public abstract void CollideWithPlayer();
 }

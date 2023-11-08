@@ -1,59 +1,71 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFoddler : Enemy
+namespace EnemyNamespace
 {
-    //Variables
-    
-    [SerializeField] public Rigidbody[] ragdollHandler;
-    [SerializeField] public List<Collider> ragdollColliders;
-    
-    // Start is called before the first frame update
-    void Start()
+    public class EnemyFoddler : Enemy
     {
-        ragdollHandler = GetComponentsInChildren<Rigidbody>();
-        for (int i = 0; i < ragdollHandler.Length; i++)
-        {
-            ragdollColliders.Add(ragdollHandler[i].GetComponent<Collider>());
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (isDead) return;
+        //Variables
+        [SerializeField] public Rigidbody[] ragdollHandler;
+        [SerializeField] public List<Collider> ragdollColliders;
         
-        timer += Time.deltaTime;
-        if (timer > updatePath)
+        void Start()
         {
-            agent.SetDestination(playerPos.position);
-            timer = 0;
+            Spawn();
         }
-    }
-    
-    public override void Spawn()
-    {
-        throw new System.NotImplementedException();
-    }
+        
+        void Update()
+        {
+            if (isDead) return;
 
-    public override void Death()
-    {
-        throw new System.NotImplementedException();
-    }
-    
-    public void EnableRagdoll()
-    {
-        foreach (var r in ragdollHandler)
-        {
-            r.isKinematic = false;
-        }
-        foreach (var r in ragdollColliders)
-        {
-            r.enabled = true;
+            timer += Time.deltaTime;
+            if (timer > updatePath)
+            {
+                agent.SetDestination(playerPos.position);
+                timer = 0;
+            }
         }
 
-        isDead = true;
-        agent.enabled = false;
+        protected override void Spawn()
+        {
+            base.Spawn();
+
+            playerPos = FindObjectOfType<WaveManager>().gameObject.transform.parent;
+            
+            ragdollHandler = GetComponentsInChildren<Rigidbody>();
+            
+            for (int i = 0; i < ragdollHandler.Length; i++)
+            {
+                ragdollColliders.Add(ragdollHandler[i].GetComponent<Collider>());
+            }
+        }
+        
+        public override void Death()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void CollideWithPlayer()
+        {
+            EnableRagdoll();
+        }
+
+        private void EnableRagdoll()
+        {
+            foreach (var r in ragdollHandler)
+            {
+                r.isKinematic = false;
+            }
+
+            foreach (var r in ragdollColliders)
+            {
+                r.enabled = true;
+            }
+
+            isDead = true;
+            agent.enabled = false;
+        }
     }
 }
