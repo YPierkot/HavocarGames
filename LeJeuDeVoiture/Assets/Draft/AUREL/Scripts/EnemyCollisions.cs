@@ -16,8 +16,8 @@ namespace EnemyNamespace
             if (other.CompareTag("Player"))
             {
                 // TODO - A Changer quand il y aura la voiture
+                
                 enemyParent.CollideWithPlayer();
-                GetComponent<Collider>().enabled = false;
                 /*
                 // TODO : C'EST DE LA MERDE, C'EST TEMPORAIRE
                 CarController controller = other.GetComponent<CarController>();
@@ -37,11 +37,7 @@ namespace EnemyNamespace
                     GetComponent<Collider>().enabled = false;
                 //} */
             }
-            else
-            {
-                Debug.Log(other.gameObject.name);
-            }
-
+            
             /*
             if (other.CompareTag("PlayerBonusCollider"))
             {

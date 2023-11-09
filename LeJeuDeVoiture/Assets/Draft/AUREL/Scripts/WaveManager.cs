@@ -6,17 +6,18 @@ using Random = UnityEngine.Random;
 
 public class WaveManager : MonoBehaviour
 {
-    public GameObject enemyPrefab;
+    private Vector3[] positions;
     
+    [Header("Spawning Attributes")]
+    [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Vector2Int enemyPerWaveBoundsCount;
     [SerializeField] private float maxDistFromSpawner = 2.5f;
     [SerializeField] private float spawningInterval = 3f;
-    
+
     private float timer = 10;
 
-    private Vector3[] positions;
-
     [SerializeField] private SpawningShape SpawningShape = SpawningShape.Rect;
+
     [Header("CircleSpawnAttributes")]
     [SerializeField] private int spawnPointsCount = 10;
     [SerializeField] private float spawningRadius = 5f;
@@ -31,22 +32,34 @@ public class WaveManager : MonoBehaviour
         timer += Time.deltaTime;
         if (timer > spawningInterval)
         {
-            UpdateEnemySpawingPos();
-            timer = 0;
-            var spawnTr = positions[Random.Range(0, spawnPointsCount)];
-            var nbThisWave = Random.Range(enemyPerWaveBoundsCount.x, enemyPerWaveBoundsCount.y + 1);
-            
-            for (int i = 0; i < nbThisWave; i++)
-            {
-                Vector2 spawnPos =  Random.insideUnitCircle * maxDistFromSpawner;
-                Vector3 initPos = spawnTr + new Vector3(spawnPos.x, 0, spawnPos.y);
+            SpawnWave();
+        }
+    }
 
-                var GO = Instantiate(enemyPrefab, initPos, Quaternion.identity);
-                GO.GetComponent<Enemy>().playerPos = transform;
-            }
+    /// <summary>
+    /// Method qui est appelée pour faire spawn une vague d'ennemis
+    /// </summary>
+    void SpawnWave()
+    {
+        UpdateEnemySpawingPos();
+        timer = 0;
+        var temp = Random.Range(0, spawnPointsCount);
+        var spawnTr = positions[temp] + transform.InverseTransformPoint(positions[temp]);
+        var nbThisWave = Random.Range(enemyPerWaveBoundsCount.x, enemyPerWaveBoundsCount.y + 1);
+            
+        for (int i = 0; i < nbThisWave; i++)
+        {
+            Vector2 spawnPos =  Random.insideUnitCircle * maxDistFromSpawner;
+            Vector3 initPos = spawnTr + new Vector3(spawnPos.x, 0, spawnPos.y);
+
+            var GO = Instantiate(enemyPrefab, initPos, Quaternion.identity);
+            GO.GetComponent<Enemy>().playerPos = transform; // TODO - Link avec le GameManager pour pas l'appeler tt le temps
         }
     }
     
+    /// <summary>
+    /// Calculer la position des points de spawn des entités ennemis
+    /// </summary>
     void UpdateEnemySpawingPos()
     {
         var currentPos = transform.position;
@@ -68,15 +81,15 @@ public class WaveManager : MonoBehaviour
         {
             positions = new Vector3[spawningPointPerSideCount*4];
             
-            float demiLongueur = height / 2;
-            float demiLargeur = width / 2;
+            float semiHeight = height / 2;
+            float semiWidth = width / 2;
 
             // Créer les points sur le côté supérieur
             for (int i = 0; i < spawningPointPerSideCount; i++)
             {
                 float t = i / (float)(spawningPointPerSideCount - 1);
-                float x = Mathf.Lerp(-demiLongueur, demiLongueur, t);
-                float y = demiLargeur;
+                float x = Mathf.Lerp(-semiHeight, semiHeight, t);
+                float y = semiWidth;
                 
                 positions[i] = new Vector3(currentPos.x + x, 0, currentPos.z + y);
             }
@@ -85,8 +98,8 @@ public class WaveManager : MonoBehaviour
             for (int i = 0; i < spawningPointPerSideCount; i++)
             {
                 float t = i / (float)(spawningPointPerSideCount - 1);
-                float x = demiLongueur;
-                float y = Mathf.Lerp(demiLargeur, -demiLargeur, t);
+                float x = semiHeight;
+                float y = Mathf.Lerp(semiWidth, -semiWidth, t);
                 
                 positions[i + spawningPointPerSideCount] = new Vector3(currentPos.x + x, 0, currentPos.z + y);
             }
@@ -95,8 +108,8 @@ public class WaveManager : MonoBehaviour
             for (int i = 0; i < spawningPointPerSideCount; i++)
             {
                 float t = i / (float)(spawningPointPerSideCount - 1);
-                float x = Mathf.Lerp(demiLongueur, -demiLongueur, t);
-                float y = -demiLargeur;
+                float x = Mathf.Lerp(semiHeight, -semiHeight, t);
+                float y = -semiWidth;
 
                 positions[i + spawningPointPerSideCount * 2] = new Vector3(currentPos.x + x, 0, currentPos.z + y);
             }
@@ -105,8 +118,8 @@ public class WaveManager : MonoBehaviour
             for (int i = 0; i < spawningPointPerSideCount; i++)
             {
                 float t = i / (float)(spawningPointPerSideCount - 1);
-                float x = -demiLongueur;
-                float y = Mathf.Lerp(-demiLargeur, demiLargeur, t);
+                float x = -semiHeight;
+                float y = Mathf.Lerp(-semiWidth, semiWidth, t);
 
                 positions[i + spawningPointPerSideCount * 3] = new Vector3(currentPos.x + x, 0, currentPos.z + y);
             }
@@ -119,7 +132,7 @@ public class WaveManager : MonoBehaviour
         
         for (int i = 0; i < positions.Length; i++)
         {
-            Gizmos.DrawSphere(positions[i], 1);
+            Gizmos.DrawSphere( positions[i]+ transform.InverseTransformPoint(positions[i]), 1);
         }
     }
 }

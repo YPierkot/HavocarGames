@@ -45,11 +45,11 @@ namespace EnemyNamespace
         
         public override void Death()
         {
-            throw new NotImplementedException();
         }
 
         public override void CollideWithPlayer()
         {
+            GetComponent<Collider>().enabled = false;
             EnableRagdoll();
         }
 
