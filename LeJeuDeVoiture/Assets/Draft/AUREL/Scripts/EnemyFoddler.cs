@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace EnemyNamespace
 {
@@ -32,7 +33,7 @@ namespace EnemyNamespace
         {
             base.Spawn();
 
-            playerPos = FindObjectOfType<WaveManager>().gameObject.transform.parent;
+            playerPos = FindObjectOfType<WaveManager>().gameObject.transform;
             
             ragdollHandler = GetComponentsInChildren<Rigidbody>();
             
