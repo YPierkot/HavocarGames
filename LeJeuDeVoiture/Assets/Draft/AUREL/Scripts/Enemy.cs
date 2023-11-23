@@ -26,8 +26,12 @@ namespace EnemyNamespace
         /// </summary>
         protected virtual void Spawn()
         {
-            agent = GetComponent<NavMeshAgent>();
-            agent.speed = unitSpeed;
+            if (GetComponent<NavMeshAgent>() != null)
+            {
+                agent = GetComponent<NavMeshAgent>();
+                agent.speed = unitSpeed;
+            }
+            
             isDead = false;
         }
 
