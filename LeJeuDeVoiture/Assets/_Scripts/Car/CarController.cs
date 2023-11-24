@@ -15,6 +15,8 @@ namespace CarNameSpace
 
         [Header("REFERENCES")] [SerializeField]
         public Rigidbody rb;
+        public Collider collider;
+        [SerializeField] private CarAbilitiesManager abilitiesManager;
 
         [SerializeField] public Wheel[] wheels;
         [SerializeField] private Material bodyMat;
@@ -27,13 +29,17 @@ namespace CarNameSpace
         [SerializeField] private float anchoring = 0.2f;
 
         [Header("WHEEL")] [SerializeField] private float wheelMass = 0.1f;
-        [SerializeField] private float maxSpeed = 25f;
+        public float baseMaxSpeed = 25f;
+        [HideInInspector] public float maxSpeed = 25f;
         [SerializeField] private AnimationCurve accelerationBySpeedFactor;
         [SerializeField] private float acceleration = 12f;
         [SerializeField] private float braking = 12f;
         [SerializeField] private float decceleration = 4f;
-        [SerializeField] private AnimationCurve steeringByTriggerFactor;
+        [SerializeField] private AnimationCurve steeringBySpeedFactor;
         [SerializeField] private float steeringSpeed = 50f;
+        public bool wheelForcesApply = true;
+
+        public float speed => rb.velocity.magnitude;
 
         [Header("PHYSICVALUES")] [SerializeField]
         private Vector3 localCenterOfMass;
@@ -47,13 +53,27 @@ namespace CarNameSpace
 
         private bool driftEngaged;
         private float driftValue;
+        
+        [Header("NITROMODE")] [SerializeField]
+        private float nitroAcceleration = 2;
+        [SerializeField] private float nitroEnergyConsuption = 0.5f;
+        [SerializeField] private AnimationCurve nitroAccelerationByNitroTime;
 
         // INPUT VALUES
         private Vector2 stickValue;
-        private float accelForce, brakeForce;
-        private bool driftBrake;
+        private float brakeForce;
+        private bool driftBrake,nitroMode;
+        private float nitroModeEntryEnergy;
+        private float speedFactor => speed / maxSpeed;
+        
+        
+        // DRAFT VALUES - To be Deleted
+        public TMP_Text speedDisplay;
+        
 
         #endregion
+
+        #region Updates
 
         private void Start()
         {
@@ -62,7 +82,7 @@ namespace CarNameSpace
 
         private void Update()
         {
-            //Debug.Log(rb.velocity.magnitude);
+            // TOURNER LES ROUES
             for (int i = 0; i < wheels.Length; i++)
             {
                 if (wheels[i].steeringFactor > 0)
@@ -70,39 +90,31 @@ namespace CarNameSpace
                     wheels[i].wheelVisual.localRotation = wheels[i].transform.localRotation = Quaternion.Lerp(
                         wheels[i].transform.localRotation,
                         Quaternion.Euler(0,
-                            stickValue.x * wheels[i].steeringFactor * steeringByTriggerFactor.Evaluate(accelForce) *
-                            (driftBrake ? steeringMultiplier : 1), 0), Time.deltaTime * steeringSpeed);
+                            stickValue.x                                      // Valeur du Stick ( 0 - 1 )
+                            * wheels[i].steeringFactor                          // SteeringFactor de la roue ( 0 - 1 )
+                            * steeringBySpeedFactor.Evaluate(speedFactor)       // Courbe de steering par speedFactor ( 0 - 1 )
+                            * (baseMaxSpeed / maxSpeed)                         // Facteur de Vitesse Bonus ( 0 - 1 )
+                            * (driftBrake ? steeringMultiplier : 1), 0)       // DriftBrake Multiplier
+                        , Time.deltaTime * steeringSpeed);
                 }
             }
 
-            driftValue = 1 - Mathf.Abs(Vector3.Dot(new Vector3(rb.velocity.normalized.x, 0, rb.velocity.normalized.z),
-                transform.forward));
+            // EXECUTION DU NITRO MODE
+            if (nitroMode) ExecuteNitroMode();
 
-            // SORTIE DU DRIFT BRAKE SI ON LACHE L'ACCELERATION
-            if (driftBrake && accelForce < 0.1f)
-            {
-                driftBrake = false;
-                bodyMat.color = new Color(1, 0.6f, 0);
-            }
+            // EXECUTION DU DRIFT BRAKE
+            if (driftBrake) ExecuteDrift();
 
-            // SORTIE DU DRIFT BRAKE SI ON SE REALIGNE AVEC LA VELOCITE
-            if (driftBrake)
-            {
-                if (!driftEngaged && driftValue > angleMinToExitDrift + 0.1f)
-                {
-                    driftEngaged = true;
-                }
-                else if (driftEngaged && driftValue < angleMinToExitDrift)
-                {
-                    driftBrake = false;
-                    driftEngaged = false;
-                    bodyMat.color = new Color(1, 0.6f, 0);
-                }
-            }
+            speedDisplay.text = ((int) speed) + "/" + ((int) maxSpeed);
+
+            // SI PRISE D'UN MUR OU BRAKE AU DELA DE 20% DE VITESSE MAX, PERTE DU BONUS
+            if (speedFactor < 0.2f) maxSpeed = baseMaxSpeed;
         }
 
         void FixedUpdate()
         {
+            if (!wheelForcesApply) return;
+            
             for (int i = 0; i < wheels.Length; i++)
             {
                 // APPLICATION DES FORCES
@@ -110,6 +122,8 @@ namespace CarNameSpace
                 rb.AddForceAtPosition(wheelForce, wheels[i].transform.position);
             }
         }
+
+        #endregion
 
         #region Wheel Methods
 
@@ -169,9 +183,7 @@ namespace CarNameSpace
         {
             float force = 0;
 
-            float factor = rb.velocity.magnitude / maxSpeed;
-
-            float accel = accelForce * acceleration * accelerationBySpeedFactor.Evaluate(factor) * wheel.drivingFactor *
+            float accel = (1 - brakeForce) * acceleration * (speedFactor >= 1 ? 0 : 1) * accelerationBySpeedFactor.Evaluate(speedFactor) * wheel.drivingFactor *
                           (driftBrake ? accelMultiplier : 1);
 
             float brake = 0;
@@ -181,7 +193,7 @@ namespace CarNameSpace
             }
             else
             {
-                brake = brakeForce * -decceleration * wheel.drivingFactor;
+                brake = brakeForce * (speedFactor >= 1 ? 0 : 1) * accelerationBySpeedFactor.Evaluate(speedFactor) * -decceleration * wheel.drivingFactor;
             }
 
             force = accel + brake;
@@ -192,28 +204,30 @@ namespace CarNameSpace
         #endregion
 
         #region Inputs
-
+        
         public void RShoulder(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (context.started)
             {
-                accelForce = context.ReadValue<float>();
+                StartNitroMode();
             }
-            else
+
+            if (context.canceled)
             {
-                accelForce = 0;
+                EndNitroMode();
             }
         }
-
         public void LShoulder(InputAction.CallbackContext context)
         {
             if (context.performed)
             {
-                brakeForce = context.ReadValue<float>();
-                if (stickValue.x > 0.6f || stickValue.x < -0.6f)
+                if ((stickValue.x > 0.6f || stickValue.x < -0.6f) && speedFactor > 0.5f)
                 {
-                    driftBrake = true;
-                    bodyMat.color = Color.cyan;
+                    StartDrift();
+                }
+                else
+                {
+                    brakeForce = context.ReadValue<float>();
                 }
             }
             else
@@ -235,6 +249,76 @@ namespace CarNameSpace
         }
 
         #endregion
+
+        #region Drift
+
+        void StartDrift()
+        {
+            driftBrake = true;
+            bodyMat.color = Color.cyan;
+            for (int i = 0; i < wheels.Length; i++)
+            {
+                wheels[i].tireMarksGenerator.StartTireMark();
+            }
+        }
+
+        void ExecuteDrift()
+        {
+            driftValue = 1 - Mathf.Abs(Vector3.Dot(new Vector3(rb.velocity.normalized.x, 0, rb.velocity.normalized.z),
+                transform.forward));
+            
+            if (!driftEngaged && driftValue > angleMinToExitDrift + 0.1f)
+            {
+                driftEngaged = true;
+            }
+            else if (driftEngaged && driftValue < angleMinToExitDrift)
+            {
+                driftEngaged = false;
+                EndDrift();
+            }
+        }
+        
+        void EndDrift()
+        {
+            driftBrake = false;
+            bodyMat.color = new Color(1, 0.6f, 0);
+            for (int i = 0; i < wheels.Length; i++)
+            {
+                wheels[i].tireMarksGenerator.EndTireMark();
+            }
+        }
+
+        #endregion
+
+        #region Nitro Mode
+
+        void StartNitroMode()
+        {
+            nitroMode = true;
+            nitroModeEntryEnergy = abilitiesManager.energy;
+        }
+
+        void ExecuteNitroMode()
+        {
+            if (abilitiesManager.UseEnergy(Time.deltaTime * nitroEnergyConsuption))
+            {
+                maxSpeed += Time.deltaTime * nitroAcceleration *
+                            nitroAccelerationByNitroTime.Evaluate((nitroModeEntryEnergy - abilitiesManager.energy) /
+                                                                  abilitiesManager.energySegments);
+            }
+            else
+            {
+                EndNitroMode();
+            }
+        }
+        
+        void EndNitroMode()
+        {
+            if (!nitroMode) return;
+            nitroMode = false;
+        }
+
+        #endregion
     }
 
     [Serializable]
@@ -244,5 +328,6 @@ namespace CarNameSpace
         public float directionalDampening;
         public float drivingFactor;
         public float steeringFactor;
+        public TireMarksGenerator tireMarksGenerator;
     }
 }
