@@ -1,9 +1,9 @@
 {
-    "name": "_Managers",
+    "name": "_Utilities",
     "rootNamespace": "",
     "references": [
         "GUID:51cdb5562079a1f438441767e0739541",
-        "GUID:45569fa2115c72d4790a426b8581f96e"
+        "GUID:1d5401a29388f0741a716488bcc7b91c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
