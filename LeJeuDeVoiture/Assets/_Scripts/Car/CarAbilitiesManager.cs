@@ -100,9 +100,9 @@ namespace CarNameSpace
         private void Update()
         {
             aAbility.UpdateAbility();
-            bAbility.UpdateAbility();
-            xAbility.UpdateAbility();
-            yAbility.UpdateAbility();
+            //bAbility.UpdateAbility();
+            //xAbility.UpdateAbility();
+            //yAbility.UpdateAbility();
 
             if (timerBeforeRegen > 0)
             {

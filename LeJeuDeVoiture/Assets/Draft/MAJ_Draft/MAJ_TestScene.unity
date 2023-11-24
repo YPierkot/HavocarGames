@@ -2792,6 +2792,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &916305300 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7896358455825768559, guid: c2199272b0c3d91469c0c831564d6040,
+    type: 3}
+  m_PrefabInstance: {fileID: 3011232379449353205}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08c50a58a6fc52d4ab3ec44b9bfd39ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &982996603
 GameObject:
   m_ObjectHideFlags: 0
@@ -6462,6 +6474,56 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3069492745428270138, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3069492745428270138, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionId
+      value: 9fb150bb-9d75-4355-a223-4a3497d68168
+      objectReference: {fileID: 0}
+    - target: {fileID: 3069492745428270138, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionName
+      value: Inputs/RStick[/XInputControllerWindows/rightStick]
+      objectReference: {fileID: 0}
+    - target: {fileID: 3069492745428270138, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3069492745428270138, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3069492745428270138, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 916305300}
+    - target: {fileID: 3069492745428270138, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3069492745428270138, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RStick
+      objectReference: {fileID: 0}
+    - target: {fileID: 3069492745428270138, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DashAbility, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3069492745428270138, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3667153732990590383, guid: c2199272b0c3d91469c0c831564d6040,
         type: 3}
       propertyPath: m_Name
@@ -6482,6 +6544,11 @@ PrefabInstance:
       propertyPath: maxBonusIterations
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 6412814195045037145, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: dashInitialDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7739609525911154177, guid: c2199272b0c3d91469c0c831564d6040,
         type: 3}
       propertyPath: dissolveSpeed
@@ -6492,6 +6559,11 @@ PrefabInstance:
       propertyPath: maxBonusIterations
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 7739609525911154177, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: dashInitialDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7896358455825768559, guid: c2199272b0c3d91469c0c831564d6040,
         type: 3}
       propertyPath: dissolveSpeed
@@ -6501,6 +6573,11 @@ PrefabInstance:
         type: 3}
       propertyPath: maxBonusIterations
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7896358455825768559, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: dashInitialDistance
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 9100204322241268650, guid: c2199272b0c3d91469c0c831564d6040,
         type: 3}
@@ -6552,7 +6629,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6412814195045037145, guid: c2199272b0c3d91469c0c831564d6040, type: 3}
+    - {fileID: 7739609525911154177, guid: c2199272b0c3d91469c0c831564d6040, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
