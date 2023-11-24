@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using AbilityNameSpace;
+using ManagerNameSpace;
 using UnityEngine.Events;
 
 namespace CarNameSpace
@@ -14,9 +15,54 @@ namespace CarNameSpace
         [Header("KIT")] 
         public Ability xAbility, bAbility, yAbility, aAbility;
 
+        [Header("ENERGY")] 
+        public int energySegments;
+        public float energy;
+
+        [SerializeField] private float delayBeforeRegen;
+        private float timerBeforeRegen;
+        [SerializeField] private float regenSpeed;
+
         // DELEGATES
         public delegate void AbilityUsed(AbilitySocket socket);
         public AbilityUsed AbilityActivated;
+
+        public bool UseEnergy(float energyAmount)
+        {
+            if (energy > energyAmount)
+            {
+                energy -= energyAmount;
+                GameManager.instance.uiManager.SetEnergyJauge(energy);
+                timerBeforeRegen = delayBeforeRegen;
+                return true;
+            }
+            return false;
+        }
+        
+        public void AddEnergy(float energyAmount)
+        {
+            energy += energyAmount;
+            energy = Mathf.Clamp(energy, 0, energySegments);
+            GameManager.instance.uiManager.SetEnergyJauge(energy);
+        }
+
+        public bool UseEnergySegments(int segments)
+        {
+            if (energy > segments)
+            {
+                energy -= segments;
+                GameManager.instance.uiManager.SetEnergyJauge(energy);
+                timerBeforeRegen = delayBeforeRegen;
+                return true;
+            }
+            return false;
+        }
+
+        public float GetSegmentCurrentEnergy(int segment)
+        {
+            return Mathf.Clamp01(energy - segment);
+        }
+        
         
         public void ActivateXAbility()
         {
@@ -48,18 +94,24 @@ namespace CarNameSpace
 
         public void Setup()
         {
-            aAbility.SetupAbility(AbilitySocket.ABILITY_A);
-            xAbility.SetupAbility(AbilitySocket.ABILITY_X);
-            bAbility.SetupAbility(AbilitySocket.ABILITY_B);
-            yAbility.SetupAbility(AbilitySocket.ABILITY_Y);
+           
         }
 
         private void Update()
         {
             aAbility.UpdateAbility();
-            xAbility.UpdateAbility();
             bAbility.UpdateAbility();
+            xAbility.UpdateAbility();
             yAbility.UpdateAbility();
+
+            if (timerBeforeRegen > 0)
+            {
+                timerBeforeRegen -= Time.deltaTime;
+            }
+            else
+            {
+                AddEnergy(Time.deltaTime * regenSpeed);
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ namespace ManagerNameSpace
         [SerializeField] private Image xAbilityFill, yAbilityFill, aAbilityFill, bAbilityFill;
         [SerializeField] private TMP_Text xAbilityName, yAbilityName, aAbilityName, bAbilityName;
         [SerializeField] private Image healthJauge;
-
+        [SerializeField] private Image[] energySegments;
         
         /// <summary>
         /// Set the Fill Amount on an Ability Socket
@@ -64,6 +64,14 @@ namespace ManagerNameSpace
         public void SetHealthJauge(float value)
         {
             healthJauge.fillAmount = value;
+        }
+
+        public void SetEnergyJauge(float value)
+        {
+            for (int i = 0; i < energySegments.Length; i++)
+            {
+                energySegments[i].fillAmount = Mathf.Clamp01(value - i);
+            }
         }
     }
 }

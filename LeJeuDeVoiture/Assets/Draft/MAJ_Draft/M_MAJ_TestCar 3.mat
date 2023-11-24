@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_MAJ_TestCar
-  m_Shader: {fileID: -6465566751694194690, guid: 4e70f654f228b6d43894e8ebd9564daa,
+  m_Name: M_MAJ_TestCar 3
+  m_Shader: {fileID: -6465566751694194690, guid: 7a5240735aa81124b917cec82f0040ae,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -93,6 +93,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _Dissolve: 0.96294904
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
@@ -101,6 +102,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
+    - _NoiseScale: 200
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
@@ -120,10 +122,10 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 0.6, b: 0, a: 1}
     - _Color: {r: 1, g: 0.6, b: 0, a: 1}
-    - _ColorLight: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 0}
+    - _ColorLight: {r: 0.5613208, g: 0.9957882, b: 1, a: 0}
     - _ColorProjectedShadow: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 0}
     - _ColorProjectedShadowBis: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 0}
-    - _ColorShadow: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 0}
+    - _ColorShadow: {r: 0.27069238, g: 0.5472549, b: 0.745283, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

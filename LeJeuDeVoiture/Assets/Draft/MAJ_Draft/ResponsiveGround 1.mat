@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ResponsiveGround
+  m_Name: ResponsiveGround 1
   m_Shader: {fileID: -6465566751694194690, guid: 3709ccab44ec7aa43a793c1331619aed,
     type: 3}
   m_Parent: {fileID: 0}
@@ -46,20 +46,20 @@ Material:
     - _DecalMeshBiasType: 0
     - _DecalMeshDepthBias: 0
     - _DecalMeshViewBias: 0
-    - _DotFallOff: 0.31
-    - _DotSize: 0
-    - _DotZone: 0.13
+    - _DotFallOff: 0.8
+    - _DotSize: 3.43
+    - _DotZone: 1
     - _DrawOrder: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ResponsiveTextureAngle: 0
     - _Step: 2
-    - _dotFrequency: 1.1
+    - _dotFrequency: 15
     - _lineFrequency: 40
     - _lineHeight: 0.1
     m_Colors:
     - _CameraPos: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 0}
+    - _Color: {r: 0.9245283, g: 0.46736178, b: 0.45790315, a: 0}
     - _ColorLight: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0}
     - _ColorShadow: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 0}
     - _Emissive: {r: 0, g: 0, b: 0, a: 0}
