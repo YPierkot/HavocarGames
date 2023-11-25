@@ -1,6 +1,7 @@
 using ManagerNameSpace;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 namespace EnemyNamespace
 {
@@ -9,7 +10,7 @@ namespace EnemyNamespace
         // Variables
         [SerializeField] protected string name;
         [SerializeField] protected int healthPoints;
-        [SerializeField] protected float unitSpeed;
+        [SerializeField] protected float unitBaseSpeed;
         [SerializeField] protected float updatePath = 0.35f;
 
         protected NavMeshAgent agent;
@@ -27,12 +28,16 @@ namespace EnemyNamespace
         /// </summary>
         protected virtual void Spawn()
         {
-            playerPos = GameManager.instance.controller.transform;
+            if (GameManager.instance)
+            {
+                playerPos = GameManager.instance.controller.transform;
+            }
+           
             
             if (GetComponent<NavMeshAgent>() != null)
             {
                 agent = GetComponent<NavMeshAgent>();
-                agent.speed = unitSpeed;
+                agent.speed = unitBaseSpeed;
             }
             
             isDead = false;

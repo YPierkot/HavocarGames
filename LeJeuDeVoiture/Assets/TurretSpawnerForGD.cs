@@ -11,7 +11,7 @@ namespace EnemyNamespace
         [SerializeField] private List<Transform> pos;
         [SerializeField] private CombatState currentState = CombatState.Start;
         [SerializeField] private List<Transform> turretAlive = new();
-        [SerializeField] private GameObject turretPrefab;
+        [SerializeField] private GameObject EnemyPrefab;
 
         private void Update()
         {
@@ -76,7 +76,7 @@ namespace EnemyNamespace
             for (int i = 0; i < count; i++)
             {
                 Vector3 randPos = pos[Random.Range(0, pos.Count)].position + new Vector3(0, 0.2f, 0);
-                var turret = Instantiate(turretPrefab, randPos, Quaternion.identity);
+                var turret = Instantiate(EnemyPrefab, randPos, Quaternion.identity);
                 turretAlive.Add(turret.transform);
             }
 
