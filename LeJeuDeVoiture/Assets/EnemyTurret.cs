@@ -1,7 +1,8 @@
 using System;
-using System.Globalization;
 using System.Threading.Tasks;
+using CarNameSpace;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace EnemyNamespace
 {
@@ -20,6 +21,11 @@ namespace EnemyNamespace
         [SerializeField] private float bulletSpeed = 20f;
         [SerializeField] private float turretShotCooldown = 5f;
         [SerializeField] private bool isInCooldown;
+
+        [SerializeField] private CarController car;
+        [SerializeField] private MeshRenderer MeshRenderer;
+        [SerializeField] private Material[] mats;
+        [SerializeField] private float speedToExecuteTower;
         
         private LineRenderer lr;
         //private float timer = 0f;
@@ -30,6 +36,7 @@ namespace EnemyNamespace
             Spawn();
             lr = GetComponent<LineRenderer>();
             lr.enabled = false;
+            car = playerPos.GetComponent<CarController>();
         }
 
         // Update is called once per frame
@@ -79,6 +86,8 @@ namespace EnemyNamespace
             positions[1] = playerPos.position;
             lr.SetPositions(positions);
 
+            ModifyMeshFormPlayerSpeed(car.speed);
+
             if (isAiming)
             {
                 timer += Time.deltaTime;
@@ -94,12 +103,29 @@ namespace EnemyNamespace
 
         private async Task TurretShoot()
         {
-            var shootPos = playerPos.position;
-            await Task.Delay(shootDelayInMilliseconds);
+            var shootPos = playerPos.position; // Get la pos du player
+            await Task.Delay(shootDelayInMilliseconds); // Attendre le delay
+            
+            // Lancer le bullet feedback
             var go = Instantiate(turretProjectilePrefab, projectileLaunchPos.position, Quaternion.identity);
             go.transform.LookAt(shootPos);
             go.GetComponent<Rigidbody>().AddForce(go.transform.forward * bulletSpeed);
-            Task.Yield();
+            
+            // Lancer le tir 
+            Vector3 dir = ( shootPos - projectileLaunchPos.position).normalized;
+            if (Physics.Raycast(projectileLaunchPos.position, dir, out var hit, Mathf.Infinity))
+            {
+                if (hit.collider.CompareTag("Player"))
+                {
+                    if (hit.collider.GetComponent<CarController>().enabled)
+                    {
+                        hit.collider.GetComponent<CarController>().enabled = false;
+                        await Task.Delay(4000);
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                    }
+                    
+                }
+            }
         }
 
         #endregion
@@ -115,6 +141,8 @@ namespace EnemyNamespace
 
         private void TurretSleep()
         {
+            ModifyMeshFormPlayerSpeed(car.speed);
+            
             if (isInCooldown)
             {
                 timer += Time.deltaTime;
@@ -151,6 +179,11 @@ namespace EnemyNamespace
         
         private TurretState CurrentState() => currentState;
 
+        private void ModifyMeshFormPlayerSpeed(float playerSpeed)
+        {
+            MeshRenderer.material = playerSpeed < speedToExecuteTower ? mats[0] : mats[1];
+        }
+
         private void OnDrawGizmos()
         {
            Gizmos.DrawWireSphere(transform.position, detectionDst);
@@ -158,7 +191,12 @@ namespace EnemyNamespace
 
         public override void CollideWithPlayer()
         {
+            Debug.Log("COLLIDE");
             
+            if (car.speed < speedToExecuteTower) return;
+            Debug.Log("Enemy Dies");
+            Destroy(this.gameObject);
+            // TODO -> Passer en state mort quand on aura des assets & gamefeel pour différencier les deux states
         }
 
         private enum TurretState

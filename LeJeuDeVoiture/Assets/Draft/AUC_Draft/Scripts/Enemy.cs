@@ -1,3 +1,4 @@
+using ManagerNameSpace;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -26,6 +27,8 @@ namespace EnemyNamespace
         /// </summary>
         protected virtual void Spawn()
         {
+            playerPos = GameManager.instance.controller.transform;
+            
             if (GetComponent<NavMeshAgent>() != null)
             {
                 agent = GetComponent<NavMeshAgent>();
