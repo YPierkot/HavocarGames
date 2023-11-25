@@ -69,6 +69,7 @@ namespace CarNameSpace
         
         // DRAFT VALUES - To be Deleted
         public TMP_Text speedDisplay;
+        public Transform whiteCircle, whiteIndicator;
         
 
         #endregion
@@ -83,6 +84,15 @@ namespace CarNameSpace
         private void Update()
         {
             // TOURNER LES ROUES
+            
+            Vector2 carForwardCamera = Quaternion.Euler(0, 0, -45) * new Vector2(transform.forward.x, transform.forward.z);
+            float angleDiff = Vector2.SignedAngle(carForwardCamera, stickValue);
+            float rotationValue = -Mathf.Clamp(angleDiff / 90,-1,1);
+            whiteCircle.position = new Vector3(transform.position.x, 0.6f, transform.position.z);
+            whiteIndicator.position = whiteCircle.position + Quaternion.Euler(0,-45,0) * new Vector3(stickValue.x,0,stickValue.y).normalized * 7;
+            
+            
+            
             for (int i = 0; i < wheels.Length; i++)
             {
                 if (wheels[i].steeringFactor > 0)
@@ -90,7 +100,7 @@ namespace CarNameSpace
                     wheels[i].wheelVisual.localRotation = wheels[i].transform.localRotation = Quaternion.Lerp(
                         wheels[i].transform.localRotation,
                         Quaternion.Euler(0,
-                            stickValue.x                                      // Valeur du Stick ( 0 - 1 )
+                            rotationValue                                      // Valeur du Stick ( 0 - 1 )
                             * wheels[i].steeringFactor                          // SteeringFactor de la roue ( 0 - 1 )
                             * steeringBySpeedFactor.Evaluate(speedFactor)       // Courbe de steering par speedFactor ( 0 - 1 )
                             * (baseMaxSpeed / maxSpeed)                         // Facteur de Vitesse Bonus ( 0 - 1 )

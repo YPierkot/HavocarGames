@@ -16,41 +16,41 @@ public class DashAbility : Ability
     public Transform dashVisualBody;
     public Material dashMaterial;
     public int maxBonusIterations;
-
+    public Vector2 stickValue = Vector2.up;
     
     
     public void RStick(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.performed)
         {
-            Vector2 stickValue = context.ReadValue<Vector2>();
-            Vector2 carForwardCamera = Quaternion.Euler(0, 0, -45) * new Vector2(
-                GameManager.instance.controller.transform.forward.x,
-                GameManager.instance.controller.transform.forward.z);
-            
-
-            float angleDiff = Vector2.Dot(stickValue.normalized,carForwardCamera.normalized);
-
-            float sign = Vector2.SignedAngle(stickValue, carForwardCamera);
-
-            Debug.Log(angleDiff);
-            
-            if (angleDiff > 0.5)
-            {
-                directionIndex = 0;
-                StartAbility();
-            }
-            else if (angleDiff > -0.5f)
-            {
-                directionIndex = sign > 0 ? 2 : 1;
-                StartAbility();
-            }
+            stickValue = context.ReadValue<Vector2>();
         }
     }
     
     public override async void StartAbility()
     {
         base.StartAbility();
+        
+        Vector2 carForwardCamera = Quaternion.Euler(0, 0, -45) * new Vector2(
+            GameManager.instance.controller.transform.forward.x,
+            GameManager.instance.controller.transform.forward.z);
+            
+
+        float angleDiff = Vector2.Dot(stickValue.normalized,carForwardCamera.normalized);
+
+        float sign = Vector2.SignedAngle(stickValue, carForwardCamera);
+
+        
+            
+        if (angleDiff > 0.5)
+        {
+            directionIndex = 0;
+        }
+        else if (angleDiff > -0.5f)
+        {
+            directionIndex = sign > 0 ? 2 : 1;
+        }
+        
         Vector3 direction = GameManager.instance.controller.transform.forward;
         switch (directionIndex)
         {
