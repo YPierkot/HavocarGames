@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using CarNameSpace;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -85,6 +86,8 @@ namespace EnemyNamespace
             positions[0] = projectileLaunchPos.position;
             positions[1] = playerPos.position;
             lr.SetPositions(positions);
+            lr.startWidth = (1 - (timer / timeBeforeShootInSeconds)) * 0.55f;
+            lr.endWidth = (1 - (timer / timeBeforeShootInSeconds)) * 0.4f;
 
             ModifyMeshFormPlayerSpeed(car.speed);
 
@@ -186,7 +189,8 @@ namespace EnemyNamespace
 
         private void OnDrawGizmos()
         {
-           Gizmos.DrawWireSphere(transform.position, detectionDst);
+           Handles.color = Color.red;
+           Handles.DrawWireDisc(transform.position, Vector3.up, detectionDst, 10f);
         }
 
         public override void CollideWithPlayer()

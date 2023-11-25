@@ -25,7 +25,7 @@ namespace ManagerNameSpace
             float speedValue = controller.maxSpeed / controller.baseMaxSpeed;
             transform.localScale = Vector3.Lerp(transform.localScale,Vector3.one * Mathf.Clamp(speedValue,1,3) * cameraSize,Time.fixedDeltaTime * 5);
             cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, Mathf.Lerp(75, 80,speedValue - 1),Time.fixedDeltaTime * 5);
-            transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(0,controller.transform.eulerAngles.y,0),Time.fixedDeltaTime * 5 );
+            //transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(0,controller.transform.eulerAngles.y,0),Time.fixedDeltaTime * 5 );
         }
     }
 }

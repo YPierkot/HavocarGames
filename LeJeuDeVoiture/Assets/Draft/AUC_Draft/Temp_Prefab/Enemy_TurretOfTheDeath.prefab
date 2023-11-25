@@ -232,20 +232,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Turret
-  healthPoints: 0
-  unitSpeed: 0
+  healthPoints: 1
+  unitBaseSpeed: 0
   updatePath: 0.35
   playerPos: {fileID: 0}
   currentState: 1
   isAiming: 0
-  detectionDst: 1000
-  timeBeforeShootInSeconds: 1.5
-  shootDelayInMilliseconds: 35
+  detectionDst: 100
+  timeBeforeShootInSeconds: 4
+  shootDelayInMilliseconds: 70
   turretProjectilePrefab: {fileID: 8550481038089121249, guid: be6e8e84bf562574bb9b1b05d02838f9,
     type: 3}
   projectileLaunchPos: {fileID: 5411852750489440918}
-  bulletSpeed: 10000
-  turretShotCooldown: 4.5
+  bulletSpeed: 12500
+  turretShotCooldown: 7
   isInCooldown: 0
   car: {fileID: 0}
   MeshRenderer: {fileID: 580583731358321219}
@@ -347,7 +347,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
