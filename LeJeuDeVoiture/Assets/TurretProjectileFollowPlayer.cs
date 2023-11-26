@@ -1,13 +1,10 @@
-using System;
-using System.Threading.Tasks;
 using CarNameSpace;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace EnemyNamespace
 {
-    public class EnemyTurret : Enemy
+    public class TurretProjectileFollowPlayer : Enemy
     {
         [Space(3)]
         [Header("Turret Section")]
@@ -98,37 +95,37 @@ namespace EnemyNamespace
                 {
                     isAiming = false;
                     // Shoot sur le joueur
-                    await TurretShoot();
+                    TurretShoot();
                     SwitchState(TurretState.Sleep);
                 }
             }
         }
 
-        private async Task TurretShoot()
+        private void TurretShoot()
         {
             var shootPos = playerPos.position; // Get la pos du player
-            await Task.Delay(shootDelayInMilliseconds); // Attendre le delay
+            //await Task.Delay(shootDelayInMilliseconds); // Attendre le delay
             
-            // Lancer le bullet feedback
+            // Lancer le BulletBill
             var go = Instantiate(turretProjectilePrefab, projectileLaunchPos.position, Quaternion.identity);
             go.transform.LookAt(shootPos);
-            go.GetComponent<Rigidbody>().AddForce(go.transform.forward * bulletSpeed);
-            
-            // Lancer le tir 
-            Vector3 dir = ( shootPos - projectileLaunchPos.position).normalized;
-            if (Physics.Raycast(projectileLaunchPos.position, dir, out var hit, Mathf.Infinity))
-            {
-                if (hit.collider.CompareTag("Player"))
-                {
-                    if (hit.collider.GetComponent<CarController>().enabled)
-                    {
-                        hit.collider.GetComponent<CarController>().enabled = false;
-                        await Task.Delay(4000);
-                        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                    }
-                    
-                }
-            }
+            go.GetComponent<BulletBill>().Setup(car);
+            //
+            // // Lancer le tir 
+            // Vector3 dir = ( shootPos - projectileLaunchPos.position).normalized;
+            // if (Physics.Raycast(projectileLaunchPos.position, dir, out var hit, Mathf.Infinity))
+            // {
+            //     if (hit.collider.CompareTag("Player"))
+            //     {
+            //         if (hit.collider.GetComponent<CarController>().enabled)
+            //         {
+            //             hit.collider.GetComponent<CarController>().enabled = false;
+            //             await Task.Delay(4000);
+            //             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //         }
+            //         
+            //     }
+            // }
         }
 
         #endregion
@@ -169,7 +166,7 @@ namespace EnemyNamespace
 
         private void ToDead()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public override void Death()
@@ -206,3 +203,5 @@ namespace EnemyNamespace
         }
     }
 }
+
+
