@@ -17,7 +17,7 @@ public class DashAbility : Ability
     public Material dashMaterial;
     public int maxBonusIterations;
     public Vector2 stickValue = Vector2.up;
-    
+    public SpriteRenderer indicator;
     
     public void RStick(InputAction.CallbackContext context)
     {

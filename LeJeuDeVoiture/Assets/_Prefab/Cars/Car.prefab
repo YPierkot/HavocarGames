@@ -817,6 +817,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   speedDisplay: {fileID: 0}
+  whiteCircle: {fileID: 0}
+  whiteIndicator: {fileID: 0}
 --- !u!114 &4325485988081114880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1699,7 +1701,7 @@ MonoBehaviour:
   cooldownTimer: 0
   activable: 1
   directionIndex: 0
-  dashInitialDistance: 7
+  dashInitialDistance: 10
   checkDistance: 1
   collisionCheckRadius: 3
   dashThroughMask:
@@ -1733,6 +1735,8 @@ MonoBehaviour:
   dashVisualBody: {fileID: 5273690873642966826}
   dashMaterial: {fileID: 2100000, guid: 44f147d91119d9c49a7be127af9058be, type: 2}
   maxBonusIterations: 30
+  stickValue: {x: 0, y: 1}
+  indicator: {fileID: 0}
 --- !u!114 &6412814195045037145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1786,6 +1790,8 @@ MonoBehaviour:
   dashVisualBody: {fileID: 5273690873642966826}
   dashMaterial: {fileID: 2100000, guid: 44f147d91119d9c49a7be127af9058be, type: 2}
   maxBonusIterations: 30
+  stickValue: {x: 0, y: 1}
+  indicator: {fileID: 0}
 --- !u!114 &7739609525911154177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1839,6 +1845,8 @@ MonoBehaviour:
   dashVisualBody: {fileID: 5273690873642966826}
   dashMaterial: {fileID: 2100000, guid: 44f147d91119d9c49a7be127af9058be, type: 2}
   maxBonusIterations: 30
+  stickValue: {x: 0, y: 1}
+  indicator: {fileID: 0}
 --- !u!1 &6717018744735947953
 GameObject:
   m_ObjectHideFlags: 0
