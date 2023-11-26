@@ -495,7 +495,7 @@ GameObject:
   - component: {fileID: 2460150980905917548}
   m_Layer: 0
   m_Name: Car
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1732,6 +1732,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   dashVisualBody: {fileID: 5273690873642966826}
   dashMaterial: {fileID: 2100000, guid: 44f147d91119d9c49a7be127af9058be, type: 2}
+  maxBonusIterations: 30
 --- !u!114 &6412814195045037145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1784,6 +1785,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   dashVisualBody: {fileID: 5273690873642966826}
   dashMaterial: {fileID: 2100000, guid: 44f147d91119d9c49a7be127af9058be, type: 2}
+  maxBonusIterations: 30
 --- !u!114 &7739609525911154177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1836,6 +1838,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   dashVisualBody: {fileID: 5273690873642966826}
   dashMaterial: {fileID: 2100000, guid: 44f147d91119d9c49a7be127af9058be, type: 2}
+  maxBonusIterations: 30
 --- !u!1 &6717018744735947953
 GameObject:
   m_ObjectHideFlags: 0
