@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/BaseScene.unity
     guid: 1f502ad218476b34c96185d175499aba
+  - enabled: 1
+    path: Assets/Draft/BAV_Draft/BAV_Wall.unity
+    guid: 723cdde801bbf5648999b519319fb6e2
   m_configObjects: {}

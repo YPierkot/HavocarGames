@@ -181,11 +181,14 @@ namespace EnemyNamespace
 
         private void ModifyMeshFormPlayerSpeed(float playerSpeed) => MeshRenderer.material = playerSpeed < speedToExecuteTower ? mats[0] : mats[1];
         
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
            Handles.color = Color.red;
            Handles.DrawWireDisc(transform.position, Vector3.up, detectionDst, 8f);
         }
+#endif
+
 
         public override void CollideWithPlayer()
         {
