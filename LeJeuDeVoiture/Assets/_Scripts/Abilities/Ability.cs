@@ -47,7 +47,7 @@ namespace AbilityNameSpace
             else
             {
                 activable = true;
-                GameManager.instance.uiManager.SetAbilityCooldown(socket, 1);
+               // GameManager.instance.uiManager.SetAbilityCooldown(socket, 1);
             }
         }
     }

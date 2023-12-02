@@ -6,11 +6,8 @@ namespace EnemyNamespace
     {
         private Enemy enemyParent;
 
-        private void Start()
-        {
-            enemyParent = GetComponent<Enemy>();
-        }
-
+        private void Start() => enemyParent = GetComponent<Enemy>();
+        
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))

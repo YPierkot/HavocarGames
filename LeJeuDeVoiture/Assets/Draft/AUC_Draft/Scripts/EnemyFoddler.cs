@@ -33,7 +33,7 @@ namespace EnemyNamespace
         {
             base.Spawn();
 
-            playerPos = FindObjectOfType<WaveManager>().gameObject.transform;
+            //playerPos = FindObjectOfType<WaveManager>().gameObject.transform;
             
             ragdollHandler = GetComponentsInChildren<Rigidbody>();
             
