@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 using System.Threading.Tasks;
 
@@ -8,22 +9,17 @@ namespace AbilityNameSpace
         [Header("Shield Parameters")]
         public float shieldDuration = 5f; 
         public int energyCost = 2; 
-        public GameObject shieldVisualPrefab; 
+        public Transform shieldVisualBody; 
 
         private bool isShieldActive = false;
         private float shieldTimer = 0f;
-        private GameObject shieldVisualInstance;
         
+        [Header("Enable Debug Logs")]
+        public bool debugLogs = false;        
         public override void SetupAbility(AbilitySocket currentSocket)
         {
             base.SetupAbility(currentSocket);
-            if (shieldVisualInstance == null)
-            {
-                shieldVisualInstance = Instantiate(shieldVisualPrefab, transform.position, Quaternion.identity, parent: transform.parent);
-            }
-
-            shieldVisualInstance = shieldVisualPrefab;
-            shieldVisualInstance.SetActive(false);
+            
         }
 
         public override async void StartAbility()
@@ -36,47 +32,34 @@ namespace AbilityNameSpace
             }
             else
             {
-                Debug.Log("Not enough energy to activate the shield ability.");
+                if (debugLogs) Debug.Log("Not enough energy to activate the shield ability.");
             }
         }
 
         private async Task ActivateShieldAsync()
         {
             //TODO : Do the energy cost
+            ActivateShield();
 
-            // Turn on the shield
-            isShieldActive = true;
-            shieldTimer = shieldDuration;
 
-            // Turn on the shield visual
-            await DisplayShieldAsync();
-
-            Debug.Log("Shield activated!");
             
             await Task.Delay((int)(shieldDuration * 1000));
             DesactivateShield();
         }
 
-        private async Task DisplayShieldAsync()
+        private void ActivateShield()
         {
-            await Task.Run(() =>
-            {
-                //TODO : Delete this when we are doing the Setup
-                shieldVisualInstance = shieldVisualPrefab;
-                if (shieldVisualInstance == null)
-                {
-                    shieldVisualInstance = Instantiate(shieldVisualPrefab, transform.position, Quaternion.identity, parent: transform.parent);
-                }
-                shieldVisualInstance.SetActive(true);
-            });
+            isShieldActive = true;
+            shieldVisualBody.gameObject.SetActive(true);
+            if (debugLogs) Debug.Log("Shield activated!");
         }
 
         private void DesactivateShield()
         {
             // Turn the display off 
-            shieldVisualInstance.SetActive(false);
+            shieldVisualBody.gameObject.SetActive(false);
             isShieldActive = false;
-            Debug.Log("Shield deactivated!");
+            if (debugLogs) Debug.Log("Shield desactivated!");
         }
 
         public bool IsShieldActive()

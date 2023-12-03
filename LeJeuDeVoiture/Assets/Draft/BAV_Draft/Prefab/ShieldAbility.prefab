@@ -53,7 +53,7 @@ MonoBehaviour:
   activable: 1
   shieldDuration: 5
   energyCost: 2
-  shieldVisualPrefab: {fileID: 2024947422285516508}
+  shieldVisualBody: {fileID: 3099006995313787585}
 --- !u!1 &2024947422285516508
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 8477718993000248005}
   - component: {fileID: 4664908734103411831}
   - component: {fileID: 7456231096155211293}
-  - component: {fileID: 8157905438464537587}
+  - component: {fileID: 4047066469976944182}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -115,7 +115,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3099006995313787585}
@@ -170,7 +170,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &8157905438464537587
+--- !u!135 &4047066469976944182
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,7 +185,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
