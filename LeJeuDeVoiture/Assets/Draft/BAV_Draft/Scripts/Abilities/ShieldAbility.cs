@@ -1,6 +1,7 @@
 using System.Threading;
 using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine.Serialization;
 
 namespace AbilityNameSpace
 {
@@ -14,8 +15,16 @@ namespace AbilityNameSpace
         private bool isShieldActive = false;
         private float shieldTimer = 0f;
         
+        
         [Header("Enable Debug Logs")]
-        public bool debugLogs = false;        
+        public bool enabledDebugLogs = false;        
+        
+        //Material Renderer
+        [Header("Shield Material")]
+        public Material shieldMaterial;
+        public float shieldAppearSpeed = 0.2f;
+        public string positionMaskName = "_PositionMask";
+        
         public override void SetupAbility(AbilitySocket currentSocket)
         {
             base.SetupAbility(currentSocket);
@@ -32,7 +41,7 @@ namespace AbilityNameSpace
             }
             else
             {
-                if (debugLogs) Debug.Log("Not enough energy to activate the shield ability.");
+                if (enabledDebugLogs) Debug.Log("Not enough energy to activate the shield ability.");
             }
         }
 
@@ -40,26 +49,54 @@ namespace AbilityNameSpace
         {
             //TODO : Do the energy cost
             ActivateShield();
-
-
             
             await Task.Delay((int)(shieldDuration * 1000));
-            DesactivateShield();
+            Debug.Log("Hello");
+            DeactivateShield();
         }
 
-        private void ActivateShield()
+        private async void ActivateShield()
         {
             isShieldActive = true;
             shieldVisualBody.gameObject.SetActive(true);
-            if (debugLogs) Debug.Log("Shield activated!");
+            await LerpMaterialPropertyAsync(0f, 1f, shieldAppearSpeed);
+            if (enabledDebugLogs) Debug.Log("Shield activated. Material property lerped from 0 to 1.");
         }
 
-        private void DesactivateShield()
+        private async void DeactivateShield()
         {
-            // Turn the display off 
-            shieldVisualBody.gameObject.SetActive(false);
+            // Turn off the display 
             isShieldActive = false;
-            if (debugLogs) Debug.Log("Shield desactivated!");
+            await LerpMaterialPropertyAsync(1f, 0f, shieldAppearSpeed);
+            if (enabledDebugLogs) Debug.Log("Shield deactivated. Material property lerped from 1 to 0.");
+        }
+        
+        private async Task LerpMaterialPropertyAsync(float startValue, float endValue, float duration)
+        {
+            float startTime = Time.realtimeSinceStartup;
+            float elapsedTime = 0f;
+
+            while (elapsedTime < duration)
+            {
+                float t = elapsedTime / duration;
+                float currentValue = Mathf.Lerp(startValue, endValue, t);
+                shieldMaterial.SetFloat(positionMaskName, currentValue);
+
+                // Wait for the next frame
+                await Task.Yield();
+
+                // Update elapsed time using Time.realtimeSinceStartup
+                elapsedTime = Time.realtimeSinceStartup - startTime;
+                Debug.Log(t);
+            }
+
+
+            if (endValue == 0.0f)
+            {
+                shieldVisualBody.gameObject.SetActive(false);
+            }
+            // Ensure the final value is set
+            shieldMaterial.SetFloat(positionMaskName, endValue);
         }
 
         public bool IsShieldActive()
