@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 502693059235111299}
   - component: {fileID: 6657137761445651912}
+  - component: {fileID: 196066946528250424}
+  - component: {fileID: 1089300355262289928}
   m_Layer: 0
   m_Name: Sentinel
   m_TagString: Untagged
@@ -47,14 +49,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Sentinel
-  healthPoints: 10
+  currentHealthPoints: 15
+  maxHealthPoints: 15
   unitBaseSpeed: 0
   updatePath: 0.35
-  playerPos: {fileID: 0}
+  sentinelCount: 0
   spawningRadius: 0
   sentinelsPrefab: {fileID: 0}
+  isAutoRegen: 0
   parentEnemy: {fileID: 0}
   lifeText: {fileID: 7293199803397957496}
+--- !u!114 &196066946528250424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4625916277476175915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ed78adf02553f94d919b80a3850e330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1089300355262289928
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4625916277476175915}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 2.5, z: 2}
+  m_Center: {x: 0, y: 1.25, z: 0}
 --- !u!1 &6798041582822110788
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +371,6 @@ GameObject:
   - component: {fileID: 925710743652320514}
   - component: {fileID: 5542300945783322636}
   - component: {fileID: 5576460290568838509}
-  - component: {fileID: 6787189266783996671}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -407,24 +443,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6787189266783996671
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7871517406005097621}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.1, y: 2, z: 1.1}
-  m_Center: {x: 0, y: 0, z: 0}

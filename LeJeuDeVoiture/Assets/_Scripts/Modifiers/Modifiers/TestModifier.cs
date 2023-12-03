@@ -19,7 +19,7 @@ namespace ModifierNameSpace
 
         public void TestMethod(AbilitySocket socket)
         {
-            Debug.Log(message);
+            //Debug.Log(message);
         }
     }   
 }

@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using CarNameSpace;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 
@@ -20,11 +19,12 @@ namespace EnemyNamespace
         [SerializeField] private float bulletSpeed = 20f;
         [SerializeField] private float turretShotCooldown = 5f;
         [SerializeField] private bool isInCooldown;
-
-        [SerializeField] private CarController car;
+        
         [SerializeField] private MeshRenderer MeshRenderer;
         [SerializeField] private Material[] mats;
-        [SerializeField] private float speedToExecuteTower;
+        //[SerializeField] private float speedToExecuteTower;
+
+        [SerializeField] private TextMeshProUGUI lifeText;
         
         private LineRenderer lr;
         //private float timer = 0f;
@@ -35,30 +35,22 @@ namespace EnemyNamespace
             Spawn();
             lr = GetComponent<LineRenderer>();
             lr.enabled = false;
-            car = playerPos.GetComponent<CarController>();
         }
         
         void Update()
         {
             ExecuteState();
+            UpdateRegen();
         }
 
         private void ExecuteState()
         {
             switch (currentState)
             {
-                case TurretState.Aiming:
-                    TurretAiming();
-                    break;
-                case TurretState.Sleep:
-                    TurretSleep();
-                    break;
-                case TurretState.Dead:
-                    Death();
-                    break;
-                default:
-                    Debug.Log(currentState);
-                    break;
+                case TurretState.Aiming: TurretAiming(); break;
+                case TurretState.Sleep: TurretSleep(); break;
+                case TurretState.Dead: Death(); break;
+                default: Debug.Log(currentState); break;
             }
         }
 
@@ -66,19 +58,11 @@ namespace EnemyNamespace
         {
             switch (turretState)
             {
-                case TurretState.Aiming:
-                    ToAiming();
-                    break;
-                case TurretState.Sleep:
-                    ToSleep();
-                    break;
-                case TurretState.Dead:
-                    ToDead();
-                    break;
+                case TurretState.Aiming: ToAiming(); break; 
+                case TurretState.Sleep: ToSleep(); break;
+                case TurretState.Dead: ToDead(); break;
                 case TurretState.None: /*ToNone();*/ break;
-                default:
-                    Debug.Log(turretState);
-                    break;
+                default: Debug.Log(turretState); break;
             }
 
             currentState = turretState;
@@ -179,9 +163,9 @@ namespace EnemyNamespace
 
         #endregion
 
-        private TurretState CurrentState() => currentState;
+        //private TurretState CurrentState() => currentState;
 
-        private void ModifyMeshFormPlayerSpeed(float playerSpeed) => MeshRenderer.material = playerSpeed < speedToExecuteTower ? mats[0] : mats[1];
+        private void ModifyMeshFormPlayerSpeed(float playerSpeed) => MeshRenderer.material = playerSpeed < currentHealthPoints ? mats[0] : mats[1];
 
 #if UNITY_EDITOR
         private void OnDrawGizmos()
@@ -210,9 +194,21 @@ namespace EnemyNamespace
         
         public override void CollideWithPlayer()
         {
-            if (car.speed < speedToExecuteTower) return;
-            Destroy(gameObject);
-            // TODO -> Passer en state mort quand on aura des assets & gamefeel pour différencier les deux states
+            currentHealthPoints -= Mathf.FloorToInt(car.speed);
+            UpdateCanvas();
+            
+            if (currentHealthPoints < 1) Destroy(gameObject); // TODO -> Passer en state mort quand on aura des assets & gamefeel pour différencier les deux states
+        }
+
+        protected override void UpdateRegen()
+        {
+            base.UpdateRegen();
+            UpdateCanvas();
+        }
+
+        private void UpdateCanvas()
+        {
+            lifeText.text = $"{currentHealthPoints}/{maxHealthPoints}";
         }
         
         private enum TurretState

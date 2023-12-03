@@ -9,24 +9,23 @@ public class Sentinels : Enemy
     [Header("Sentinel")]
     public Enemy parentEnemy;
     public TextMeshProUGUI lifeText;
-
-    [HideInInspector] private int maxHealth;
+    
     private void Start()
     {
         Spawn();
-        maxHealth = healthPoints;
-        lifeText.text = $"{healthPoints} / {maxHealth}";
+        lifeText.text = $"{currentHealthPoints} / {maxHealthPoints}";
     }
 
     public override void Death()
     {
-        parentEnemy.OnSentinelDie(maxHealth);
+        parentEnemy.OnSentinelDie(maxHealthPoints);
         Destroy(gameObject);
     }
 
     public override void CollideWithPlayer()
     {
-        healthPoints -= (int)Math.Floor(car.speed);
-        if (healthPoints < 1 ) Death();
+        currentHealthPoints -= (int)Math.Floor(car.speed);
+        lifeText.text = $"{currentHealthPoints} / {maxHealthPoints}";
+        if (currentHealthPoints < 1 ) Death();
     }
 }

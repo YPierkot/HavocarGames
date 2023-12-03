@@ -11,7 +11,10 @@ namespace EnemyNamespace
     {
         // Variables
         [SerializeField] protected string name;
-        [SerializeField] protected int healthPoints;
+        
+        [SerializeField] protected int currentHealthPoints;
+        [SerializeField] protected int maxHealthPoints;
+        
         [SerializeField] protected float unitBaseSpeed;
         [SerializeField] protected float updatePath = 0.35f;
 
@@ -46,6 +49,7 @@ namespace EnemyNamespace
                 agent.speed = unitBaseSpeed;
             }
 
+            currentHealthPoints = maxHealthPoints;
             isDead = false;
 
             if (sentinelCount > 0) SetupSentinel();
@@ -78,14 +82,29 @@ namespace EnemyNamespace
                     .GetComponent<Sentinels>();
                 sentinelsList.Add(tempS);
                 tempS.parentEnemy = this;
-            }
+            } 
         }
 
         protected internal void OnSentinelDie(int health)
         {
-            healthPoints -= health;
+            currentHealthPoints -= health;
             sentinelCount--;
+            if (currentHealthPoints > maxHealthPoints) currentHealthPoints = maxHealthPoints;
             if (sentinelCount == 0) isAutoRegen = false;
+        }
+
+        private double regenTimer;
+        protected virtual void UpdateRegen()
+        {
+            if (!isAutoRegen) return;
+            if (currentHealthPoints >= maxHealthPoints) return;
+            
+            regenTimer += Time.deltaTime;
+            if (regenTimer > 1f)
+            {
+                currentHealthPoints++;
+                regenTimer = 0f;
+            }
         }
     }
 }

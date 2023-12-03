@@ -2515,22 +2515,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5772066190776265090, guid: 4a35c6a60f13cda418e5cb685eaac8a5,
-        type: 3}
-      propertyPath: spawningRadius
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 5772066190776265090, guid: 4a35c6a60f13cda418e5cb685eaac8a5,
-        type: 3}
-      propertyPath: sentinelsPrefab
-      value: 
-      objectReference: {fileID: 4625916277476175915, guid: dfa16819e20da2c46ab1708d67ca9b11,
-        type: 3}
-    - target: {fileID: 5772066190776265090, guid: 4a35c6a60f13cda418e5cb685eaac8a5,
-        type: 3}
-      propertyPath: spawnPointsCount
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 8439956771143502931, guid: 4a35c6a60f13cda418e5cb685eaac8a5,
         type: 3}
       propertyPath: m_Name

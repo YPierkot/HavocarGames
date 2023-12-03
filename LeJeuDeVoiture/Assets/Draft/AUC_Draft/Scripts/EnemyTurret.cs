@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using CarNameSpace;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -28,6 +29,8 @@ namespace EnemyNamespace
         [SerializeField] private Material[] mats;
         [SerializeField] private float speedToExecuteTower;
         
+        [SerializeField] private TextMeshProUGUI lifeText;
+        
         private LineRenderer lr;
         //private float timer = 0f;
         
@@ -37,7 +40,6 @@ namespace EnemyNamespace
             Spawn();
             lr = GetComponent<LineRenderer>();
             lr.enabled = false;
-            car = playerPos.GetComponent<CarController>();
         }
 
         // Update is called once per frame
@@ -180,24 +182,35 @@ namespace EnemyNamespace
         }
         #endregion
         
-        private TurretState CurrentState() => currentState;
+        //private TurretState CurrentState() => currentState;
 
-        private void ModifyMeshFormPlayerSpeed(float playerSpeed) => MeshRenderer.material = playerSpeed < speedToExecuteTower ? mats[0] : mats[1];
+        private void ModifyMeshFormPlayerSpeed(float playerSpeed) => MeshRenderer.material = playerSpeed < currentHealthPoints ? mats[0] : mats[1];
         
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
            Handles.color = Color.red;
            Handles.DrawWireDisc(transform.position, Vector3.up, detectionDst, 8f);
         }
-#endif
-
-
+        #endif
+        
         public override void CollideWithPlayer()
         {
-            if (car.speed < speedToExecuteTower) return;
-            Destroy(gameObject);
-            // TODO -> Passer en state mort quand on aura des assets & gamefeel pour différencier les deux states
+            currentHealthPoints -= Mathf.FloorToInt(car.speed);
+            UpdateCanvas();
+            
+            if (currentHealthPoints < 1) Destroy(gameObject); // TODO -> Passer en state mort quand on aura des assets & gamefeel pour différencier les deux states
+        }
+
+        protected override void UpdateRegen()
+        {
+            base.UpdateRegen();
+            UpdateCanvas();
+        }
+        
+        private void UpdateCanvas()
+        {
+            lifeText.text = $"{currentHealthPoints}/{maxHealthPoints}";
         }
 
         private enum TurretState
