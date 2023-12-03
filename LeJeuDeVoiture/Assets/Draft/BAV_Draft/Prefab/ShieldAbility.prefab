@@ -45,15 +45,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e8d13098307ab4c89393c8053ca3df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 10
-  abilityName: 
-  description: 
+  cooldown: 5
+  abilityName: Shield
+  description: "permet au joueur de mettre un bouclier autour de lui, permettant
+    de se prot\xE9ger de la prochaine attaque.\n"
   socket: 1
   cooldownTimer: 0
   activable: 1
   shieldDuration: 5
   energyCost: 2
   shieldVisualBody: {fileID: 3099006995313787585}
+  enabledDebugLogs: 0
+  shieldMaterial: {fileID: -876546973899608171, guid: ff85bcd256c942b4483ab1d1e6c7d47a,
+    type: 3}
+  shieldAppearSpeed: 0.2
+  positionMaskName: _PositionMask
 --- !u!1 &2024947422285516508
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,7 +142,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7390335174292207719}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -148,7 +154,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: -876546973899608171, guid: ff85bcd256c942b4483ab1d1e6c7d47a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

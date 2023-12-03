@@ -15,7 +15,7 @@ namespace AbilityNameSpace
         private bool isShieldActive = false;
         private float shieldTimer = 0f;
         
-        
+        //TODO : Delete for Debug
         [Header("Enable Debug Logs")]
         public bool enabledDebugLogs = false;        
         
@@ -51,7 +51,6 @@ namespace AbilityNameSpace
             ActivateShield();
             
             await Task.Delay((int)(shieldDuration * 1000));
-            Debug.Log("Hello");
             DeactivateShield();
         }
 
@@ -87,7 +86,6 @@ namespace AbilityNameSpace
 
                 // Update elapsed time using Time.realtimeSinceStartup
                 elapsedTime = Time.realtimeSinceStartup - startTime;
-                Debug.Log(t);
             }
 
 

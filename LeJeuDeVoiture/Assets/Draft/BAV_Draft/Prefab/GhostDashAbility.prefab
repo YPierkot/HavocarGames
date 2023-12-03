@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 10
   abilityName: 'Ghost Dash '
-  description: allows the player to dash through walls (which is not the case with
-    the standard dash).
+  description: 'permet au joueur de faire en sorte que son dash lui permettent de
+    traverser les murs '
   socket: 0
   cooldownTimer: 0
   activable: 1
