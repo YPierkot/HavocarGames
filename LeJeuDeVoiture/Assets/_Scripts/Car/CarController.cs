@@ -66,6 +66,7 @@ namespace CarNameSpace
         private float nitroModeEntryEnergy;
         private float speedFactor => speed / maxSpeed;
         
+        private ProwessManager prowessManager;
         
         // DRAFT VALUES - To be Deleted
         public TMP_Text speedDisplay;
@@ -78,6 +79,10 @@ namespace CarNameSpace
 
         private void Start()
         {
+            if (prowessManager == null)
+            {
+                prowessManager = GetComponent<ProwessManager>();
+            }
             rb.centerOfMass = localCenterOfMass;
         }
 
@@ -88,9 +93,9 @@ namespace CarNameSpace
             Vector2 carForwardCamera = Quaternion.Euler(0, 0, -45) * new Vector2(transform.forward.x, transform.forward.z);
             float angleDiff = Vector2.SignedAngle(carForwardCamera, stickValue);
             float rotationValue = -Mathf.Clamp(angleDiff / 90,-1,1);
-            whiteCircle.position = new Vector3(transform.position.x, 0.6f, transform.position.z);
-            whiteCircle.rotation = Quaternion.Euler(90,transform.eulerAngles.y,0);
-            whiteIndicator.position = whiteCircle.position + Quaternion.Euler(0,-45,0) * new Vector3(stickValue.x,0,stickValue.y).normalized * 7;
+            //whiteCircle.position = new Vector3(transform.position.x, 0.6f, transform.position.z);
+            //whiteCircle.rotation = Quaternion.Euler(90,transform.eulerAngles.y,0);
+            //whiteIndicator.position = whiteCircle.position + Quaternion.Euler(0,-45,0) * new Vector3(stickValue.x,0,stickValue.y).normalized * 7;
             
             
             
@@ -109,7 +114,7 @@ namespace CarNameSpace
                         , Time.deltaTime * steeringSpeed);
                 }
             }
-
+            
             // EXECUTION DU NITRO MODE
             if (nitroMode) ExecuteNitroMode();
 
