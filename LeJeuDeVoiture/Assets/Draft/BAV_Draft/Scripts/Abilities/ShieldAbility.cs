@@ -65,7 +65,7 @@ namespace AbilityNameSpace
 
         private void DesactivateShield()
         {
-            // Désactive visuellement le bouclier
+            // Turn the display off 
             shieldVisualInstance.SetActive(false);
             isShieldActive = false;
             Debug.Log("Shield deactivated!");
