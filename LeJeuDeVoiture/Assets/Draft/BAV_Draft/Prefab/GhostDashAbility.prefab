@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5181652912730768900}
+  - component: {fileID: 7546710779304595076}
   m_Layer: 0
   m_Name: GhostDashAbility
   m_TagString: Untagged
@@ -31,3 +32,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7546710779304595076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7714360027689716811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75e235cb30695db4e87fdef6c8d18bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 10
+  abilityName: 'Ghost Dash '
+  description: allows the player to dash through walls (which is not the case with
+    the standard dash).
+  socket: 0
+  cooldownTimer: 0
+  activable: 1
+  dashThroughTag: Wall

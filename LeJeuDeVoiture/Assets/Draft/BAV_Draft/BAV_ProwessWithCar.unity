@@ -2448,6 +2448,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8628570424868782911}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &604880185 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -1638763639580283455, guid: 6f97ae7dc0c72424d92f643bb551941c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8628570424868782911}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e8d13098307ab4c89393c8053ca3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &622723774
 GameObject:
   m_ObjectHideFlags: 0
@@ -8285,6 +8297,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1594679818850530654, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3069492745428270138, guid: c2199272b0c3d91469c0c831564d6040,
         type: 3}
       propertyPath: m_ActionEvents.Array.size
@@ -8355,6 +8372,11 @@ PrefabInstance:
       propertyPath: whiteIndicator
       value: 
       objectReference: {fileID: 119830322}
+    - target: {fileID: 5620132737468495727, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: xAbility
+      value: 
+      objectReference: {fileID: 604880185}
     - target: {fileID: 9100204322241268650, guid: c2199272b0c3d91469c0c831564d6040,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9390,6 +9412,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShieldAbility
+      objectReference: {fileID: 0}
+    - target: {fileID: 2024947422285516508, guid: 6f97ae7dc0c72424d92f643bb551941c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2890018856563106257, guid: 6f97ae7dc0c72424d92f643bb551941c,
         type: 3}

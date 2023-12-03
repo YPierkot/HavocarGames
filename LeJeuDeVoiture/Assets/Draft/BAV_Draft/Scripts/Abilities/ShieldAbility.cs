@@ -21,6 +21,8 @@ namespace AbilityNameSpace
             {
                 shieldVisualInstance = Instantiate(shieldVisualPrefab, transform.position, Quaternion.identity, parent: transform.parent);
             }
+
+            shieldVisualInstance = shieldVisualPrefab;
             shieldVisualInstance.SetActive(false);
         }
 
@@ -59,6 +61,12 @@ namespace AbilityNameSpace
         {
             await Task.Run(() =>
             {
+                //TODO : Delete this when we are doing the Setup
+                shieldVisualInstance = shieldVisualPrefab;
+                if (shieldVisualInstance == null)
+                {
+                    shieldVisualInstance = Instantiate(shieldVisualPrefab, transform.position, Quaternion.identity, parent: transform.parent);
+                }
                 shieldVisualInstance.SetActive(true);
             });
         }
