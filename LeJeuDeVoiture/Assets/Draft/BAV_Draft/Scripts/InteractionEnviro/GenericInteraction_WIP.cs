@@ -13,6 +13,7 @@ public class GenericInteraction_WIP : EnvironmentInteraction
     //Private
     private bool canBePickedUp = true;
     private bool isBoosting = false;
+    private bool isRotating = false;
     
     protected override void OnTriggerEnter(Collider other)
     {
@@ -65,20 +66,17 @@ public class GenericInteraction_WIP : EnvironmentInteraction
         if (rb != null)
         {
             Debug.Log(jumpForce);
-            // Sauvegarder la rotation actuelle et désactiver la rotation
             Quaternion originalRotation = rb.rotation;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             rb.freezeRotation = true;
 
             await Task.Delay((int)(3.0f * 1000));
             
-            // Restaurer la rotation et activer la rotation à nouveau
             await Task.Yield();
             rb.rotation = originalRotation;
             rb.freezeRotation = false;
         }
     }
-
     
     private async Task StartBoosterAsync(CarController player)
     {
