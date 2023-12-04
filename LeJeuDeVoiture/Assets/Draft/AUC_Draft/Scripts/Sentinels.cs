@@ -19,6 +19,7 @@ public class Sentinels : Enemy
     public override void Death()
     {
         parentEnemy.OnSentinelDie(maxHealthPoints);
+        Debug.Log(maxHealthPoints);
         Destroy(gameObject);
     }
 

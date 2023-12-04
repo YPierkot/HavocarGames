@@ -12,10 +12,9 @@ namespace EnemyNamespace
         {
             if (other.CompareTag("Player"))
             {
-                // TODO - A Changer quand il y aura la voiture
-                
                 _enemyParent.CollideWithPlayer();
-                //Debug.Log("CollideWithPlayer");
+                Debug.Log($"Collision from {other.name} on the {gameObject.name}");
+                
                 /*
                 // TODO : C'EST DE LA MERDE, C'EST TEMPORAIRE
                 CarController controller = other.GetComponent<CarController>();

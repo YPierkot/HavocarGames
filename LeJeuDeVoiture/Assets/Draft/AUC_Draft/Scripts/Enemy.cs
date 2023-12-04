@@ -85,15 +85,16 @@ namespace EnemyNamespace
             } 
         }
 
-        protected internal void OnSentinelDie(int health)
+        protected internal void OnSentinelDie(int sentinelHealth)
         {
-            currentHealthPoints -= health;
+            maxHealthPoints -= sentinelHealth; 
             sentinelCount--;
             if (currentHealthPoints > maxHealthPoints) currentHealthPoints = maxHealthPoints;
             if (sentinelCount == 0) isAutoRegen = false;
-        }
+        }   
 
         private double regenTimer;
+        public int hpRegenPerSeconds = 2;
         protected virtual void UpdateRegen()
         {
             if (!isAutoRegen) return;
@@ -102,7 +103,7 @@ namespace EnemyNamespace
             regenTimer += Time.deltaTime;
             if (regenTimer > 1f)
             {
-                currentHealthPoints++;
+                currentHealthPoints += hpRegenPerSeconds;
                 regenTimer = 0f;
             }
         }
