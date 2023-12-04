@@ -4,11 +4,12 @@ using System.Threading.Tasks;
 using TMPro;
 using Random = UnityEngine.Random;
 
-enum ProwessDescription
+[System.Serializable]
+public enum ProwessDescription
 { 
     None,
-    EnemyKilled,
-    EnviroDestroyed,
+    DashBeforeMissileHit,
+    DashTwoTime,
 }
 
 public class ProwessManager : MonoBehaviour
@@ -28,6 +29,10 @@ public class ProwessManager : MonoBehaviour
     public float defaultProwessValue = 1.0f;
     public float currentProwessMultiplier = 1.0f;
     
+    public delegate void ProwessEventHandler(ProwessDescription prowessEvent);
+    public static event ProwessEventHandler OnProwessEvent; //TODO : A voir si nécessaire de Stocker les events
+
+    
     [Header("UI Elements")]
     public TextMeshProUGUI prowessMultiplierText;
     public Color testColor;
@@ -41,6 +46,7 @@ public class ProwessManager : MonoBehaviour
     
     //Private Value
     private float currentTimeValue = 0.0f;
+    
     
     //TODO : Remove this part, just for debug
     [Header("Debug Values")]
@@ -77,12 +83,8 @@ public class ProwessManager : MonoBehaviour
 
     void Update()
     {
-        if (currentProwessMultiplier > defaultProwessValue)
-        {
-            DisplayProwessMultiplier();
-            DecreaseTime();
-        }
         //TODO : Remove this part, just for debug
+        /* 
         if(Input.GetKeyDown(IncreaseMultiplierKey))
         {
             IncreaseProwessMultiplier(increaseProwessMultiplier);
@@ -100,17 +102,37 @@ public class ProwessManager : MonoBehaviour
                 _ = ShakeTextAsync(timeBeforeLessCombo);
             }
         }
+        */
+        if (currentProwessMultiplier > defaultProwessValue)
+        {
+            DisplayProwessMultiplier();
+            //DecreaseTime();
+        }
     }
-
+    
+    
+    /// <summary>
+    /// Trigger the event and increase the currentProwessMultiplier
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <param name="prowessTextToDisplay"></param>
+    public void TriggerProwessEvent(float amount, string prowessTextToDisplay)
+    {
+        //OnProwessEvent?.Invoke(prowessEvent);
+        IncreaseProwessMultiplier(amount);
+        prowessMultiplierText.text = $"{prowessTextToDisplay} X. {currentProwessMultiplier}";
+    }
+    
     /// <summary>
     /// Increase the currentProwessMultiplier by the amount.
     /// </summary>
     /// <param name="amount"></param>
-    public void IncreaseProwessMultiplier(float amount)
+    private void IncreaseProwessMultiplier(float amount)
     {
         currentProwessMultiplier += amount;
         currentTimeValue = timeBeforeLessCombo; //Reset the timer
     }
+    
 
     /// <summary>
     /// Decrease the currentTimeValue and reset if the timer is 0.
@@ -125,15 +147,6 @@ public class ProwessManager : MonoBehaviour
         }
     }
     
-    private void DisplayProwessMultiplier()
-    {
-        if (prowessMultiplierText == null) return;
-        prowessMultiplierText.gameObject.SetActive(true);
-        prowessMultiplierText.text = $"X. <{testColor.ToHex()}> {currentProwessMultiplier:F1} </color> <size=50%> ({currentTimeValue:F1}) </size>";
-    }
-
-    
-
     /// <summary>
     ///  Reset the currentProwessMultiplier to defaultProwessValue and the currentTimeValue to TimeBeforeLessCombo.
     ///  This function is called when the player don't hit an enemy after a time.
@@ -144,7 +157,15 @@ public class ProwessManager : MonoBehaviour
         currentTimeValue = timeBeforeLessCombo;
         prowessMultiplierText.gameObject.SetActive(false);
     }
-    
+
+    #region UI Visual Effects Asyn
+
+    private void DisplayProwessMultiplier()
+    {
+        if (prowessMultiplierText == null) return;
+        prowessMultiplierText.gameObject.SetActive(true);
+        prowessMultiplierText.text = $"X. <{testColor.ToHex()}> {currentProwessMultiplier:F1} </color> <size=50%> ({currentTimeValue:F1}) </size>";
+    }
     async Task ShakeTextAsync(float shakeDuration)
     {
         float elapsed = 0.0f;
@@ -183,4 +204,5 @@ public class ProwessManager : MonoBehaviour
 
         prowessMultiplierText.rectTransform.localScale = originalScale;
     }
+    #endregion    
 }
