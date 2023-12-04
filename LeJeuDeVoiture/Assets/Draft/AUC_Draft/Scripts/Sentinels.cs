@@ -28,7 +28,7 @@ public class Sentinels : Enemy
     public override void CollideWithPlayer()
     {
         if(!car.abilitiesManager.isInBulletMode) return;
-        currentHealthPoints -= (int)Math.Floor(car.speed);
+        currentHealthPoints -= (int)Math.Floor(car.speed) * car.abilitiesManager.bulletModeSources.Count;
         lifeText.text = $"{currentHealthPoints} / {maxHealthPoints}";
         if (currentHealthPoints < 1 ) Death();
     }

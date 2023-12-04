@@ -39324,8 +39324,8 @@ MonoBehaviour:
   wheelForcesApply: 1
   steeringInputEnabled: 1
   directionalDampeningEnabled: 1
-  losingSpeedSpeed: 0.25
-  losingSpeedGoldMode: 0.75
+  losingSpeedSpeed: 0.1
+  losingSpeedGoldMode: 0.2
   localCenterOfMass: {x: 0, y: -0.5, z: 0}
   speedDisplay: {fileID: 0}
   whiteCircle: {fileID: 0}

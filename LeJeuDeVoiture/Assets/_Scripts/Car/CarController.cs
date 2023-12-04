@@ -118,7 +118,7 @@ namespace CarNameSpace
 
             if (maxSpeed > baseMaxSpeed)
                 maxSpeed -= (maxSpeed - baseMaxSpeed) *
-                            (abilitiesManager.isInGold ? losingSpeedGoldMode : losingSpeedSpeed);
+                            (abilitiesManager.isInGold ? losingSpeedGoldMode : losingSpeedSpeed) * Time.deltaTime;
         }
 
         void FixedUpdate()

@@ -33,7 +33,7 @@ namespace CarNameSpace
         private float rageModeTimer;
         
         [SerializeField] private bool bulletMode;
-        [SerializeField] private List<BulletModeSources> bulletModeSources;
+        public List<BulletModeSources> bulletModeSources;
 
         public bool isInBulletMode => bulletModeSources.Count > 0;
         public bool isInRage => bulletModeSources.Contains(BulletModeSources.Rage);

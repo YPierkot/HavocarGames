@@ -195,7 +195,7 @@ namespace EnemyNamespace
         public override void CollideWithPlayer()
         {
             if(!car.abilitiesManager.isInBulletMode) return;
-            currentHealthPoints -= Mathf.FloorToInt(car.speed);
+            currentHealthPoints -= Mathf.FloorToInt(car.speed) * car.abilitiesManager.bulletModeSources.Count;
             UpdateCanvas();
             
             if (currentHealthPoints < 1) Destroy(gameObject); // TODO -> Passer en state mort quand on aura des assets & gamefeel pour différencier les deux states
