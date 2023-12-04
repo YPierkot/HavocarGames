@@ -11,6 +11,7 @@ namespace AbilityNameSpace
         public AbilitySocket socket;
         [HideInInspector] public float cooldownTimer = 0;
         [HideInInspector] public bool activable = true;
+        public int energyCost;
 
         /// <summary>
         /// Used Once At the Start of the start of the game, Setup the ability objects and essentials
@@ -30,6 +31,7 @@ namespace AbilityNameSpace
         {
             activable = false;
             cooldownTimer = cooldown;
+            
         }
 
         public virtual void UpdateAbility()

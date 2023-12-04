@@ -6,7 +6,7 @@ using ManagerNameSpace;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GhostDashAbility : Ability
+public class BoostDashAbility : Ability
 {
     [Header("Ghost Dash Parameters")] 
     public float dashThroughTime;
@@ -14,7 +14,7 @@ public class GhostDashAbility : Ability
     public override void StartAbility()
     {
         base.StartAbility();
-        GameManager.instance.controller.abilitiesManager.dash.SetDashThroughWallsTimer(dashThroughTime);
+        GameManager.instance.controller.abilitiesManager.dash.boostedDashs++;
     }
 
 }

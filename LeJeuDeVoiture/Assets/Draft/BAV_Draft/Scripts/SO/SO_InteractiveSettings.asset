@@ -16,5 +16,5 @@ MonoBehaviour:
   shieldDuration: 5
   shieldRespawnValue: 5
   boosterDuration: 1
-  increaseSpeedMax: 40
+  increaseSpeedMax: 10
   jumpPadForce: 20

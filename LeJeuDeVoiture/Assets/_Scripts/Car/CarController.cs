@@ -16,7 +16,7 @@ namespace CarNameSpace
         [Header("REFERENCES")] [SerializeField]
         public Rigidbody rb;
         public Collider collider;
-        [SerializeField] private CarAbilitiesManager abilitiesManager;
+        [SerializeField] public CarAbilitiesManager abilitiesManager;
 
         [SerializeField] public Wheel[] wheels;
         [SerializeField] private Material bodyMat;

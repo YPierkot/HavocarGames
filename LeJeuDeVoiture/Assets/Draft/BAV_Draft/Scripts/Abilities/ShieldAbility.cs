@@ -8,8 +8,7 @@ namespace AbilityNameSpace
     public class ShieldAbility : Ability
     {
         [Header("Shield Parameters")]
-        public float shieldDuration = 5f; 
-        public int energyCost = 2; 
+        public float shieldDuration = 5f;
         public Transform shieldVisualBody; 
 
         private bool isShieldActive = false;

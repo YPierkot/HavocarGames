@@ -20,6 +20,8 @@ public class DashAbility : MonoBehaviour
     public LayerMask wallMask,dashThroughMask;
     public bool dashThroughWall;
     public float dashThroughWallTimer;
+    
+    public int boostedDashs;
 
 
     public void SetDashThroughWallsTimer(float time)
@@ -73,6 +75,9 @@ public class DashAbility : MonoBehaviour
 
         bool dashThrough = dashThroughWall;
         if (dashThrough) GameManager.instance.controller.gameObject.layer = 11;
+
+        bool dashBoosted = boostedDashs > 0;
+        
             
         if (angleDiff > 0.5)
         {
@@ -105,9 +110,17 @@ public class DashAbility : MonoBehaviour
         particleObj.SetActive(true);
         particleObj.transform.localScale = Vector3.zero;
         Collider[] results;
+
+        if (dashBoosted)
+        {
+            GameManager.instance.controller.abilitiesManager.EnterBulletMode(BulletModeSources.DashCapacity);
+            boostedDashs--;
+        }
         
         float i = 0;
-        while (i < dashDuration)
+        float duration = dashDuration * (dashBoosted ? 2 : 1);
+        
+        while (i < duration)
         {
             if (dashThrough)
             {
@@ -119,7 +132,7 @@ public class DashAbility : MonoBehaviour
                 i += Time.deltaTime;   
             }
 
-            Vector3 newPos = GameManager.instance.controller.rb.position + direction * Time.deltaTime * dashSpeed * speedCurve.Evaluate(i / dashDuration);
+            Vector3 newPos = GameManager.instance.controller.rb.position + direction * Time.deltaTime * dashSpeed * speedCurve.Evaluate(i / duration);
             results = Physics.OverlapSphere(newPos, collisionCheckRadius, dashThrough ? dashThroughMask : wallMask );
             Debug.Log(results.Length);
             if (results.Length == 0)
@@ -130,10 +143,11 @@ public class DashAbility : MonoBehaviour
             {
                 break;
             }
-            particleObj.transform.localScale = Vector3.one * particleSizeCurve.Evaluate(i / dashDuration);
+            particleObj.transform.localScale = Vector3.one * particleSizeCurve.Evaluate(i / duration);
             await Task.Yield();
         }
         
+        if(dashBoosted) GameManager.instance.controller.abilitiesManager.QuitBulletMode(BulletModeSources.DashCapacity);
         if (dashThrough) GameManager.instance.controller.gameObject.layer = 8;
         particleObj.SetActive(false);
     }

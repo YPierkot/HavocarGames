@@ -32,13 +32,17 @@ namespace CarNameSpace
         [SerializeField] private float rageModeTime;
         private float rageModeTimer;
         
-        [SerializeField] private bool bulletMode,rageMode;
+        [SerializeField] private bool bulletMode;
+        [SerializeField] private List<BulletModeSources> bulletModeSources;
 
-        public bool isInBulletMode => bulletMode || rageMode;
+        public bool isInBulletMode => bulletModeSources.Count > 0;
         
         [SerializeField] private GameObject particles;
 
         [SerializeField] private CarController carController;
+
+
+        public DashAbility dash;
         
         
         
@@ -100,14 +104,14 @@ namespace CarNameSpace
                 //GameManager.instance.uiManager.SetRageJauge(0);
                 rageModeCooldownTimer = rageModeCooldown;
                 rageModeTimer = rageModeTime;
-                EnterBulletMode(true);
+                EnterBulletMode(BulletModeSources.Rage);
                 
             }
         }
 
         private void UpdateBulletMode()
         {
-            if (!rageMode)
+            if (!bulletModeSources.Contains(BulletModeSources.Rage))
             {
                 if (rageModeCooldownTimer > 0)
                 {
@@ -128,34 +132,33 @@ namespace CarNameSpace
                 }
                 else
                 {
-                    QuitBulletMode(true);
+                    QuitBulletMode(BulletModeSources.Rage);
                 }
             }
 
-            if (carController.maxSpeed > speedAmountToBullet && !bulletMode)
+            if (carController.maxSpeed > speedAmountToBullet && !bulletModeSources.Contains(BulletModeSources.Speed))
             {
-                EnterBulletMode();
+                EnterBulletMode(BulletModeSources.Speed);
             }
-            if (carController.maxSpeed < speedAmountToBullet && bulletMode)
+            if (carController.maxSpeed < speedAmountToBullet && bulletModeSources.Contains(BulletModeSources.Speed))
             {
-                QuitBulletMode();
+                QuitBulletMode(BulletModeSources.Speed);
             }
         }
         
-        private void EnterBulletMode(bool fromRage = false)
+        public void EnterBulletMode(BulletModeSources source)
         {
-            if (fromRage) rageMode = true;
-            else bulletMode = true;
+            if(!bulletModeSources.Contains(source)) bulletModeSources.Add(source);
 
             particles.SetActive(true);
         }
         
-        private void QuitBulletMode(bool fromRage = false)
+        public void QuitBulletMode(BulletModeSources source)
         {
-            if (fromRage) rageMode = false;
-            else bulletMode = false;
+            Debug.Log("Quitt " + source);
+            bulletModeSources.Remove(source);
             
-            if (!bulletMode && !rageMode)
+            if (!isInBulletMode)
             {
                 particles.SetActive(false);
             }
@@ -168,21 +171,21 @@ namespace CarNameSpace
 
         public void ActivateXAbility()
         {
-            if (!xAbility.activable) return;
+            if (!xAbility.activable || !UseEnergy(xAbility.energyCost)) return;
             xAbility.StartAbility();
             AbilityActivated(AbilitySocket.ABILITY_X);
         }
 
         public void ActivateBAbility()
         {
-            if (!bAbility.activable) return;
+            if (!bAbility.activable || !UseEnergy(bAbility.energyCost)) return;
             bAbility.StartAbility();
             AbilityActivated(AbilitySocket.ABILITY_B);
         }
 
         public void ActivateYAbility()
         {
-            if (!yAbility.activable) return;
+            if (!yAbility.activable || !UseEnergy(yAbility.energyCost)) return;
             yAbility.StartAbility();
             AbilityActivated(AbilitySocket.ABILITY_Y);
         }
@@ -217,4 +220,9 @@ namespace CarNameSpace
     }
 }
 
-
+public enum BulletModeSources
+{
+    Speed,
+    Rage,
+    DashCapacity
+}

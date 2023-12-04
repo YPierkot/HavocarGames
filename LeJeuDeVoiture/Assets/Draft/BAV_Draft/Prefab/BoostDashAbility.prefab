@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7714360027689716811
+--- !u!1 &8980117285567113893
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5181652912730768900}
-  - component: {fileID: 7546710779304595076}
-  m_Layer: 0
-  m_Name: GhostDashAbility
+  - component: {fileID: 2187910318622454547}
+  - component: {fileID: 4553845975270019080}
+  m_Layer: 8
+  m_Name: BoostDashAbility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5181652912730768900
+--- !u!4 &2187910318622454547
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7714360027689716811}
+  m_GameObject: {fileID: 8980117285567113893}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -62.6, y: 2, z: 49.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7546710779304595076
+--- !u!114 &4553845975270019080
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7714360027689716811}
+  m_GameObject: {fileID: 8980117285567113893}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75e235cb30695db4e87fdef6c8d18bc7, type: 3}
+  m_Script: {fileID: 11500000, guid: e9b9775405e59ba4084b68c30715c946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 10
-  abilityName: 'Ghost Dash '
-  description: 'permet au joueur de faire en sorte que son dash lui permettent de
-    traverser les murs '
+  abilityName: Boost Dash
+  description: 'permet au joueur de faire en sorte que son dash soit 2 fois plus
+    long et en mode Bullet '
   socket: 0
   cooldownTimer: 0
   activable: 1
   energyCost: 1
-  dashThroughTime: 3
+  dashThroughTime: 0
