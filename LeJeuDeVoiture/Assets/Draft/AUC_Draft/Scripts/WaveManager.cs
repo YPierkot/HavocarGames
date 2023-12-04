@@ -18,9 +18,12 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField] private SpawningShape SpawningShape = SpawningShape.Rect;
 
+    [Space]
     [Header("CircleSpawnAttributes")]
     [SerializeField] private int spawnPointsCount = 10;
     [SerializeField] private float spawningRadius = 5f;
+    
+    [Space]
     [Header("RectSpawnAttributes")]
     [SerializeField] public int spawningPointPerSideCount = 7;
     [SerializeField] public float height = 30f;
@@ -53,7 +56,6 @@ public class WaveManager : MonoBehaviour
             Vector3 initPos = spawnTr + new Vector3(spawnPos.x, 0, spawnPos.y);
 
             var GO = Instantiate(enemyPrefab, initPos, Quaternion.identity);
-            GO.GetComponent<Enemy>().playerPos = transform; // TODO - Link avec le GameManager pour pas l'appeler tt le temps
         }
     }
     

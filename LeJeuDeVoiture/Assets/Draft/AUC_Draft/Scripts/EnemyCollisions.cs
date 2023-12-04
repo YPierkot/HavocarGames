@@ -4,20 +4,17 @@ namespace EnemyNamespace
 {
     public class EnemyCollisions : MonoBehaviour
     {
-        private Enemy enemyParent;
+        private Enemy _enemyParent;
 
-        private void Start()
-        {
-            enemyParent = GetComponent<Enemy>();
-        }
-
+        private void Start() => _enemyParent = GetComponent<Enemy>();
+        
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                // TODO - A Changer quand il y aura la voiture
+                _enemyParent.CollideWithPlayer();
+                Debug.Log($"Collision from {other.name} on the {gameObject.name}");
                 
-                enemyParent.CollideWithPlayer();
                 /*
                 // TODO : C'EST DE LA MERDE, C'EST TEMPORAIRE
                 CarController controller = other.GetComponent<CarController>();

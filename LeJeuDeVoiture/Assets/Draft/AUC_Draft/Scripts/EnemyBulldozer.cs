@@ -174,23 +174,7 @@ public class EnemyBulldozer : Enemy
             SwitchState(BulldozerState.Dizzy);
         }
     }
-
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     if (other.CompareTag("Wall"))
-    //     {
-    //         Debug.Log("Wall Collision");
-    //         if (currentState != BulldozerState.Dizzy)
-    //         {
-    //             var contactPos = other.ClosestPointOnBounds(transform.position);
-    //             var dir = (contactPos - transform.position).normalized;
-    //             Debug.DrawLine(contactPos, transform.position + dir, Color.red, 2f);
-    //             //SwitchState(BulldozerState.Dizzy);
-    //         }
-    //     }
-    //     
-    // }
-
+    
     private enum BulldozerState
     {
         Rolling,
