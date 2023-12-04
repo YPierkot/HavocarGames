@@ -1,6 +1,7 @@
 using System.Threading;
 using UnityEngine;
 using System.Threading.Tasks;
+using ManagerNameSpace;
 using UnityEngine.Serialization;
 
 namespace AbilityNameSpace
@@ -56,6 +57,7 @@ namespace AbilityNameSpace
         private async void ActivateShield()
         {
             isShieldActive = true;
+            GameManager.instance.controller.abilitiesManager.isShielded = true;
             shieldVisualBody.gameObject.SetActive(true);
             await LerpMaterialPropertyAsync(0f, 1f, shieldAppearSpeed);
             if (enabledDebugLogs) Debug.Log("Shield activated. Material property lerped from 0 to 1.");
@@ -65,6 +67,7 @@ namespace AbilityNameSpace
         {
             // Turn off the display 
             isShieldActive = false;
+            GameManager.instance.controller.abilitiesManager.isShielded = false;
             await LerpMaterialPropertyAsync(1f, 0f, shieldAppearSpeed);
             if (enabledDebugLogs) Debug.Log("Shield deactivated. Material property lerped from 1 to 0.");
         }

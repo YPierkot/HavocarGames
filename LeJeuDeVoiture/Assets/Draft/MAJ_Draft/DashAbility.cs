@@ -62,6 +62,14 @@ public class DashAbility : MonoBehaviour
     
     public async void ReleaseDash()
     {
+        Collider[] results;
+        results = Physics.OverlapSphere(transform.position, 2, LayerMask.NameToLayer("Projectile"));
+        if (results.Length > 0)
+        {
+            GameManager.instance.prowessManager.TriggerProwessEvent(0.1f,"Escaped a Bullet !",5);
+        }
+        
+        
         GameManager.instance.controller.steeringInputEnabled = true;
         
         Vector2 carForwardCamera = Quaternion.Euler(0, 0, -45) * new Vector2(
@@ -109,7 +117,6 @@ public class DashAbility : MonoBehaviour
 
         particleObj.SetActive(true);
         particleObj.transform.localScale = Vector3.zero;
-        Collider[] results;
 
         if (dashBoosted)
         {

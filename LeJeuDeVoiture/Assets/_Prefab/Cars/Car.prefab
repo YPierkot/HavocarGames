@@ -9710,6 +9710,7 @@ MonoBehaviour:
   socket: 0
   cooldownTimer: 0
   activable: 1
+  energyCost: 0
   message: "Abilit\xE9 Y Fonctionne"
 --- !u!1 &990123163690341885
 GameObject:
@@ -38965,6 +38966,7 @@ GameObject:
   - component: {fileID: 5620132737468495727}
   - component: {fileID: 3092943337702106326}
   - component: {fileID: 2460150980905917548}
+  - component: {fileID: 6644548871987067360}
   m_Layer: 8
   m_Name: Car
   m_TagString: Player
@@ -39322,6 +39324,8 @@ MonoBehaviour:
   wheelForcesApply: 1
   steeringInputEnabled: 1
   directionalDampeningEnabled: 1
+  losingSpeedSpeed: 0.25
+  losingSpeedGoldMode: 0.75
   localCenterOfMass: {x: 0, y: -0.5, z: 0}
   speedDisplay: {fileID: 0}
   whiteCircle: {fileID: 0}
@@ -39345,14 +39349,14 @@ MonoBehaviour:
   energy: 3
   delayBeforeRegen: 5
   regenSpeed: 0.5
-  speedAmountToBullet: 45
+  speedAmountToBullet: 40
   rageModeCooldown: 5
   rageModeTime: 3
   bulletMode: 0
-  rageMode: 0
   bulletModeSources: 
   particles: {fileID: 7144205470457046460}
   carController: {fileID: 3952043192983453746}
+  isShielded: 0
   dash: {fileID: 7896358455825768559}
 --- !u!65 &3092943337702106326
 BoxCollider:
@@ -39402,6 +39406,56 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6644548871987067360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3667153732990590383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e443d94ca77b31429e24e5a3f0c5ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prowessTimeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0.008092393
+      outSlope: 0.008092393
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.30492336
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minComboValue: 2
+  maxComboValue: 6
+  minTime: 2
+  maxTime: 6
+  defaultProwessValue: 1
+  currentProwessMultiplier: 1
+  prowessMultiplierText: {fileID: 0}
+  testColor: {r: 1, g: 0, b: 0, a: 1}
+  minShakeForce: 1
+  maxShakeForce: 2
+  stretchDuration: 0.5
+  sizeVariation: 1.5
+  increaseProwessMultiplier: 0.1
+  enableDebugLog: 1
 --- !u!1 &3675665750976638010
 GameObject:
   m_ObjectHideFlags: 0
@@ -39483,6 +39537,7 @@ MonoBehaviour:
   socket: 0
   cooldownTimer: 0
   activable: 1
+  energyCost: 0
   message: "Abilit\xE9 Y Fonctionne"
 --- !u!1 &4115544542186384623
 GameObject:
@@ -50074,6 +50129,7 @@ MonoBehaviour:
   socket: 0
   cooldownTimer: 0
   activable: 1
+  energyCost: 0
   dashThroughTime: 0
 --- !u!1 &8626068830092529284
 GameObject:

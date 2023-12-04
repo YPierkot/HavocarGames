@@ -14,6 +14,7 @@ namespace ManagerNameSpace
         public CarHealthManager healthManager;
         public UIManager uiManager;
         public CameraManager cameraManager;
+        public ProwessManager prowessManager;
 
         [SerializeField] private List<Modifier> gameModifiers;
         [SerializeField] private List<Modifier> itemsModifiers;

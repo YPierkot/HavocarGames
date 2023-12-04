@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using System.Threading.Tasks;
+using CarNameSpace;
 using TMPro;
 using Random = UnityEngine.Random;
 
@@ -46,6 +47,8 @@ public class ProwessManager : MonoBehaviour
     
     //Private Value
     private float currentTimeValue = 0.0f;
+    private string prowessTextToDisplay;
+    private CarController car;
     
     
     //TODO : Remove this part, just for debug
@@ -79,6 +82,7 @@ public class ProwessManager : MonoBehaviour
         currentTimeValue = timeBeforeLessCombo;
         prowessMultiplierText.gameObject.SetActive(false);
         originalTextPosition = prowessMultiplierText.transform.position;
+        car = GetComponent<CarController>();
     }
 
     void Update()
@@ -105,7 +109,7 @@ public class ProwessManager : MonoBehaviour
         */
         if (currentProwessMultiplier > defaultProwessValue)
         {
-            DisplayProwessMultiplier();
+            DisplayProwessMultiplier(prowessTextToDisplay);
             //DecreaseTime();
         }
     }
@@ -116,11 +120,14 @@ public class ProwessManager : MonoBehaviour
     /// </summary>
     /// <param name="amount"></param>
     /// <param name="prowessTextToDisplay"></param>
-    public void TriggerProwessEvent(float amount, string prowessTextToDisplay)
+    public void TriggerProwessEvent(float amount, string prowessTextToDisplay,float speedBonus)
     {
         //OnProwessEvent?.Invoke(prowessEvent);
         IncreaseProwessMultiplier(amount);
-        prowessMultiplierText.text = $"{prowessTextToDisplay} X. {currentProwessMultiplier}";
+        DisplayProwessMultiplier(prowessTextToDisplay);
+        this.prowessTextToDisplay = prowessTextToDisplay;
+        car.maxSpeed += speedBonus;
+
     }
     
     /// <summary>
@@ -151,7 +158,7 @@ public class ProwessManager : MonoBehaviour
     ///  Reset the currentProwessMultiplier to defaultProwessValue and the currentTimeValue to TimeBeforeLessCombo.
     ///  This function is called when the player don't hit an enemy after a time.
     /// </summary>
-    private void ResetProwess()
+    public void ResetProwess()
     {
         currentProwessMultiplier = defaultProwessValue;
         currentTimeValue = timeBeforeLessCombo;
@@ -160,11 +167,13 @@ public class ProwessManager : MonoBehaviour
 
     #region UI Visual Effects Asyn
 
-    private void DisplayProwessMultiplier()
+    private void DisplayProwessMultiplier(string prowessTextToDisplay)
     {
         if (prowessMultiplierText == null) return;
         prowessMultiplierText.gameObject.SetActive(true);
-        prowessMultiplierText.text = $"X. <{testColor.ToHex()}> {currentProwessMultiplier:F1} </color> <size=50%> ({currentTimeValue:F1}) </size>";
+        //prowessMultiplierText.text = $"X. <{testColor.ToHex()}> {currentProwessMultiplier:F1} </color> <size=50%> ({currentTimeValue:F1}) </size>";
+        prowessMultiplierText.text = $"{prowessTextToDisplay} X. {currentProwessMultiplier}";
+
     }
     async Task ShakeTextAsync(float shakeDuration)
     {

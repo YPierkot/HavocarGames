@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8124686858478451206}
   - component: {fileID: 638088876727417786}
   - component: {fileID: 1566977298632436086}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BulletBillPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89ad3d43ab939f0418daf0e84ed2dfc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 6000
+  bulletSpeed: 4000
   rb: {fileID: 638088876727417786}
   player: {fileID: 0}
 --- !u!1001 &3551916582477241966
@@ -180,6 +180,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bullet Bill
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 58d27bdf0be440b47b211f7529280695,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

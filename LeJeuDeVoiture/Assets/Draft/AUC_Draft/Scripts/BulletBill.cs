@@ -33,6 +33,7 @@ public class BulletBill : MonoBehaviour
             if (other.gameObject.GetComponent<CarController>().enabled)
             {
                 Destroy(gameObject);
+                if(player.abilitiesManager.isShielded) return;
                 other.gameObject.GetComponent<CarController>().enabled = false;
                 await Task.Delay(4000);
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);

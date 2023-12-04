@@ -36,12 +36,14 @@ namespace CarNameSpace
         [SerializeField] private List<BulletModeSources> bulletModeSources;
 
         public bool isInBulletMode => bulletModeSources.Count > 0;
+        public bool isInRage => bulletModeSources.Contains(BulletModeSources.Rage);
+        public bool isInGold => bulletModeSources.Contains(BulletModeSources.Speed);
         
         [SerializeField] private GameObject particles;
 
         [SerializeField] private CarController carController;
 
-
+        public bool isShielded;
         public DashAbility dash;
         
         

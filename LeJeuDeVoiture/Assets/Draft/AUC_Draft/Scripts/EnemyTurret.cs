@@ -23,8 +23,7 @@ namespace EnemyNamespace
         [SerializeField] private float bulletSpeed = 20f;
         [SerializeField] private float turretShotCooldown = 5f;
         [SerializeField] private bool isInCooldown;
-
-        [SerializeField] private CarController car;
+        
         [SerializeField] private MeshRenderer MeshRenderer;
         [SerializeField] private Material[] mats;
         [SerializeField] private float speedToExecuteTower;
@@ -122,9 +121,10 @@ namespace EnemyNamespace
             {
                 if (hit.collider.CompareTag("Player"))
                 {
-                    if (hit.collider.GetComponent<CarController>().enabled)
+                    if (car.abilitiesManager.isShielded) return;
+                    if (car.enabled)
                     {
-                        hit.collider.GetComponent<CarController>().enabled = false;
+                        car.enabled = false;
                         await Task.Delay(4000);
                         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                     }
@@ -196,6 +196,7 @@ namespace EnemyNamespace
         
         public override void CollideWithPlayer()
         {
+            if(!car.abilitiesManager.isInBulletMode) return;
             currentHealthPoints -= Mathf.FloorToInt(car.speed);
             UpdateCanvas();
             

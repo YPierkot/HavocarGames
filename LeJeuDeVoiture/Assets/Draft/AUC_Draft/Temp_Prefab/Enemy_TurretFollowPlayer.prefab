@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2703669635063328510}
   - component: {fileID: 2465344279916489425}
   - component: {fileID: 726526220222721629}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 7752113737685211887}
   - component: {fileID: 866214471904340646}
   - component: {fileID: 5344961519096206822}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: TowerCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 7394775959844421424}
   - component: {fileID: 1710439191476550489}
   - component: {fileID: 8895982663266297656}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: DebugCylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 8698593942630274903}
   - component: {fileID: 181952201685165552}
   - component: {fileID: 9191970905109708124}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: w
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 1042512664228231219}
   - component: {fileID: 7404771111548599887}
   - component: {fileID: 3554602224200218394}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -501,7 +501,7 @@ GameObject:
   - component: {fileID: 3157118766466618113}
   - component: {fileID: 2678380820146613730}
   - component: {fileID: 7440374224274963805}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Enemy_TurretFollowPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -549,6 +549,7 @@ MonoBehaviour:
   sentinelsPrefab: {fileID: 4625916277476175915, guid: dfa16819e20da2c46ab1708d67ca9b11,
     type: 3}
   isAutoRegen: 0
+  hpRegenPerSeconds: 2
   currentState: 1
   isAiming: 0
   detectionDst: 70
@@ -558,7 +559,7 @@ MonoBehaviour:
     type: 3}
   projectileLaunchPos: {fileID: 7293475293179559941}
   bulletSpeed: 20
-  turretShotCooldown: 5
+  turretShotCooldown: 10
   isInCooldown: 0
   MeshRenderer: {fileID: 8895982663266297656}
   mats:
@@ -757,7 +758,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7293475293179559941}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ProjectileSocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}

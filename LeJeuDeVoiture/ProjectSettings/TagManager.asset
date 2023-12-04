@@ -18,8 +18,8 @@ TagManager:
   - Wall
   - NoCollisions
   - PassThroughWalls
-  - 
-  - 
+  - Projectile
+  - Ennemy
   - 
   - 
   - 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ManagerNameSpace;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -42,9 +43,12 @@ namespace CarNameSpace
         public bool wheelForcesApply = true;
         public bool steeringInputEnabled = true;
         public bool directionalDampeningEnabled = true;
-        
+
 
         public float speed => rb.velocity.magnitude;
+
+        public float losingSpeedSpeed;
+        public float losingSpeedGoldMode;
 
         [Header("PHYSICVALUES")] [SerializeField]
         private Vector3 localCenterOfMass;
@@ -96,7 +100,7 @@ namespace CarNameSpace
                             * steeringBySpeedFactor.Evaluate(speedFactor)                                                   // Courbe de steering par speedFactor ( 0 / 1 )
                             * (baseMaxSpeed / maxSpeed)                                                                     // Facteur de Vitesse Bonus ( 0 / 1 )
                             * steeringByMaxSpeed.Evaluate(maxSpeed)                                                         // Courbe de steering par maxSpeed ( 1 / X )
-                            * (abilitiesManager.isInBulletMode ? bulletModeSteeringFactor : 1), 0)                        // Si en Bullet Mode driving factor reduit ( Value )
+                            * (abilitiesManager.isInRage ? bulletModeSteeringFactor : 1), 0)                        // Si en Bullet Mode driving factor reduit ( Value )
                         , Time.deltaTime * steeringSpeed);
                 }
             }
@@ -104,9 +108,17 @@ namespace CarNameSpace
             speedDisplay.text = ((int) speed) + "/" + ((int) maxSpeed);
 
             // SI PRISE D'UN MUR OU BRAKE AU DELA DE 20% DE VITESSE MAX, PERTE DU BONUS
-            if (speedFactor < 0.2f) maxSpeed = baseMaxSpeed;
+            if (speedFactor < 0.2f)
+            {
+                maxSpeed = baseMaxSpeed;
+                GameManager.instance.prowessManager.ResetProwess();
+            }
             
             if(speedFactor > 1) rb.velocity = Vector3.Lerp(rb.velocity,Vector3.ClampMagnitude(rb.velocity,maxSpeed),Time.deltaTime);
+
+            if (maxSpeed > baseMaxSpeed)
+                maxSpeed -= (maxSpeed - baseMaxSpeed) *
+                            (abilitiesManager.isInGold ? losingSpeedGoldMode : losingSpeedSpeed);
         }
 
         void FixedUpdate()
