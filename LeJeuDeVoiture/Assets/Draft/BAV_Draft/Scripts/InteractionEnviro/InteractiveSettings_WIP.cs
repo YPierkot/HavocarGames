@@ -13,7 +13,6 @@ public class InteractiveSettings_WIP : ScriptableObject
     public float shieldRespawnValue = 5;
     
     [Header("Booster Pad Settings")]
-    public float boosterForce = 10;
     public float boosterDuration = 5;
     public float increaseSpeedMax = 10;
     

@@ -12,6 +12,7 @@ public class GenericInteraction_WIP : EnvironmentInteraction
     
     //Private
     private bool canBePickedUp = true;
+    private bool isBoosting = false;
     
     protected override void OnTriggerEnter(Collider other)
     {
@@ -35,10 +36,11 @@ public class GenericInteraction_WIP : EnvironmentInteraction
                 break;
             //Implement Jump Pad
             case InteractionsType.JumpPad:
-                ActivateJump(player, interactiveSettings.jumpPadForce);
+                _ = ActivateJumpAsync(player, interactiveSettings.jumpPadForce);
                 break;
             //Implement Booster Pad
             case InteractionsType.BoosterPad:
+                _ = StartBoosterAsync(player);
                 break;
         }
     }
@@ -57,12 +59,46 @@ public class GenericInteraction_WIP : EnvironmentInteraction
         canBePickedUp = true;
     }
     
-    private void ActivateJump(CarController player, float jumpForce)
+    private async Task ActivateJumpAsync(CarController player, float jumpForce)
     {
         Rigidbody rb = player.GetComponent<Rigidbody>();
         if (rb != null)
         {
+            Debug.Log(jumpForce);
+            // Sauvegarder la rotation actuelle et désactiver la rotation
+            Quaternion originalRotation = rb.rotation;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            rb.freezeRotation = true;
+
+            await Task.Delay((int)(3.0f * 1000));
+            
+            // Restaurer la rotation et activer la rotation à nouveau
+            await Task.Yield();
+            rb.rotation = originalRotation;
+            rb.freezeRotation = false;
+        }
+    }
+
+    
+    private async Task StartBoosterAsync(CarController player)
+    {
+        if (!isBoosting)
+        {
+            player.maxSpeed += interactiveSettings.increaseSpeedMax;
+            isBoosting = true;
+
+            await Task.Delay((int)(interactiveSettings.boosterDuration * 1000));
+
+            await StopBoosterAsync(player);
+        }
+    }
+
+    private async Task StopBoosterAsync(CarController player)
+    {
+        if (isBoosting)
+        {
+            //player.maxSpeed = player.baseMaxSpeed;
+            isBoosting = false;
         }
     }
 }

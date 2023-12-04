@@ -29,8 +29,7 @@ public class GhostDashAbility : Ability
             Debug.Log("Ghost Dash activated!");
         }
         else
-        {
-            // Normal dash logic if player can't pass through walls
+        { 
             Debug.Log("Normal Dash activated!");
         }
     }
@@ -40,13 +39,12 @@ public class GhostDashAbility : Ability
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
         {
-            // Use CompareTag to check if the object can be passed through
             if (hit.collider.CompareTag(dashThroughTag))
             {
-                return true; // Player can pass through walls with the specified tag
+                return true; 
             }
         }
 
-        return false; // Player can't pass through walls
+        return false;
     }
 }
