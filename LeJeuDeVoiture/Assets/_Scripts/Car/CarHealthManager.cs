@@ -11,7 +11,7 @@ namespace CarNameSpace
         public void TakeDamage(int damages)
         {
             lifePoints -= damages;
-            GameManager.instance.uiManager.SetHealthJauge((float) lifePoints / maxLifePoints);
+            //GameManager.instance.uiManager.SetHealthJauge((float) lifePoints / maxLifePoints);
             if(lifePoints <= 0) Kill();
         }
         

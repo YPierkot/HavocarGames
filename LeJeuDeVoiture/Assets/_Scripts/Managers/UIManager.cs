@@ -11,8 +11,9 @@ namespace ManagerNameSpace
     {
         [SerializeField] private Image xAbilityFill, yAbilityFill, aAbilityFill, bAbilityFill;
         [SerializeField] private TMP_Text xAbilityName, yAbilityName, aAbilityName, bAbilityName;
-        [SerializeField] private Image healthJauge;
+        [SerializeField] private Image rageJaugeFill;
         [SerializeField] private Image[] energySegments;
+        [SerializeField] private Color rageJaugeMainColor, rageJaugeUsedColor;
         
         /// <summary>
         /// Set the Fill Amount on an Ability Socket
@@ -58,20 +59,26 @@ namespace ManagerNameSpace
             }
         }
 
-        /// <summary>
-        /// Set the Fill Amount of the Player's Health Jauge in the UI
-        /// </summary>
-        public void SetHealthJauge(float value)
-        {
-            healthJauge.fillAmount = value;
-        }
 
+        /// <summary>
+        /// Set the Fill Amount of the Player's Energy Jauge in the UI
+        /// </summary>
         public void SetEnergyJauge(float value)
         {
             for (int i = 0; i < energySegments.Length; i++)
             {
                 energySegments[i].fillAmount = Mathf.Clamp01(value - i);
             }
+        }
+        
+        /// <summary>
+        /// Set the Fill Amount of the Player's Rage Jauge in the UI
+        /// </summary>
+        public void SetRageJauge(float value,bool used)
+        {
+            rageJaugeFill.fillAmount = Mathf.Lerp(rageJaugeFill.fillAmount,Mathf.Clamp01(value),Time.deltaTime*5);
+            if(used) rageJaugeFill.color = Color.Lerp(rageJaugeFill.color,rageJaugeUsedColor,Time.deltaTime*5);
+            else rageJaugeFill.color = Color.Lerp(rageJaugeFill.color,rageJaugeMainColor,Time.deltaTime*5);
         }
     }
 }

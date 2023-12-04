@@ -16,7 +16,7 @@ namespace ModifierNameSpace
         
         public override void ApplyModifier()
         {
-            if(affectAAbility) GameManager.instance.abilitiesManager.aAbility.cooldown *= coolDownMultiplier;
+            //if(affectAAbility) GameManager.instance.abilitiesManager.aAbility.cooldown *= coolDownMultiplier;
             if(affectBAbility) GameManager.instance.abilitiesManager.bAbility.cooldown *= coolDownMultiplier;
             if(affectXAbility) GameManager.instance.abilitiesManager.xAbility.cooldown *= coolDownMultiplier;
             if(affectYAbility) GameManager.instance.abilitiesManager.yAbility.cooldown *= coolDownMultiplier;

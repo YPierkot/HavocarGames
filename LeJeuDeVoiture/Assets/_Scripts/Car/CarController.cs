@@ -36,28 +36,18 @@ namespace CarNameSpace
         [SerializeField] private float braking = 12f;
         [SerializeField] private float decceleration = 4f;
         [SerializeField] private AnimationCurve steeringBySpeedFactor;
+        [SerializeField] private AnimationCurve steeringByMaxSpeed;
         [SerializeField] private float steeringSpeed = 50f;
+        [SerializeField] private float bulletModeSteeringFactor = 0.3f;
         public bool wheelForcesApply = true;
+        public bool steeringInputEnabled = true;
+        public bool directionalDampeningEnabled = true;
+        
 
         public float speed => rb.velocity.magnitude;
 
         [Header("PHYSICVALUES")] [SerializeField]
         private Vector3 localCenterOfMass;
-
-        [Header("BRAKEDRIFT")] [SerializeField]
-        private float dampeningMultiplier = 0.25f;
-
-        [SerializeField] private float steeringMultiplier = 0.95f;
-        [SerializeField] private float accelMultiplier = 1.5f;
-        [SerializeField] private float angleMinToExitDrift = 0.1f;
-
-        private bool driftEngaged;
-        private float driftValue;
-        
-        [Header("NITROMODE")] [SerializeField]
-        private float nitroAcceleration = 2;
-        [SerializeField] private float nitroEnergyConsuption = 0.5f;
-        [SerializeField] private AnimationCurve nitroAccelerationByNitroTime;
 
         // INPUT VALUES
         private Vector2 stickValue;
@@ -101,25 +91,22 @@ namespace CarNameSpace
                     wheels[i].wheelVisual.localRotation = wheels[i].transform.localRotation = Quaternion.Lerp(
                         wheels[i].transform.localRotation,
                         Quaternion.Euler(0,
-                            rotationValue                                      // Valeur du Stick ( 0 - 1 )
-                            * wheels[i].steeringFactor                          // SteeringFactor de la roue ( 0 - 1 )
-                            * steeringBySpeedFactor.Evaluate(speedFactor)       // Courbe de steering par speedFactor ( 0 - 1 )
-                            * (baseMaxSpeed / maxSpeed)                         // Facteur de Vitesse Bonus ( 0 - 1 )
-                            * (driftBrake ? steeringMultiplier : 1), 0)       // DriftBrake Multiplier
+                            rotationValue                                                                                 // Valeur de rotation Stick ( -1 / 1 )
+                            * wheels[i].steeringFactor                                                                      // SteeringFactor de la roue ( value )
+                            * steeringBySpeedFactor.Evaluate(speedFactor)                                                   // Courbe de steering par speedFactor ( 0 / 1 )
+                            * (baseMaxSpeed / maxSpeed)                                                                     // Facteur de Vitesse Bonus ( 0 / 1 )
+                            * steeringByMaxSpeed.Evaluate(maxSpeed)                                                         // Courbe de steering par maxSpeed ( 1 / X )
+                            * (abilitiesManager.isInBulletMode ? bulletModeSteeringFactor : 1), 0)                        // Si en Bullet Mode driving factor reduit ( Value )
                         , Time.deltaTime * steeringSpeed);
                 }
             }
-
-            // EXECUTION DU NITRO MODE
-            if (nitroMode) ExecuteNitroMode();
-
-            // EXECUTION DU DRIFT BRAKE
-            if (driftBrake) ExecuteDrift();
 
             speedDisplay.text = ((int) speed) + "/" + ((int) maxSpeed);
 
             // SI PRISE D'UN MUR OU BRAKE AU DELA DE 20% DE VITESSE MAX, PERTE DU BONUS
             if (speedFactor < 0.2f) maxSpeed = baseMaxSpeed;
+            
+            if(speedFactor > 1) rb.velocity = Vector3.Lerp(rb.velocity,Vector3.ClampMagnitude(rb.velocity,maxSpeed),Time.deltaTime);
         }
 
         void FixedUpdate()
@@ -185,7 +172,7 @@ namespace CarNameSpace
             float tangentSpeed = Vector3.Dot(wheelWorldVelocity, wheel.transform.right);
             float counterAcceleration = (-tangentSpeed * wheel.directionalDampening) / Time.fixedDeltaTime;
 
-            force = wheelMass * counterAcceleration * (driftBrake ? dampeningMultiplier : 1);
+            force = wheelMass * counterAcceleration * (directionalDampeningEnabled ? 1 : 0f);
 
             return force;
         }
@@ -194,8 +181,7 @@ namespace CarNameSpace
         {
             float force = 0;
 
-            float accel = (1 - brakeForce) * acceleration * (speedFactor >= 1 ? 0 : 1) * accelerationBySpeedFactor.Evaluate(speedFactor) * wheel.drivingFactor *
-                          (driftBrake ? accelMultiplier : 1);
+            float accel = (1 - brakeForce) * acceleration * (speedFactor >= 1 ? 0 : 1) * accelerationBySpeedFactor.Evaluate(speedFactor) * wheel.drivingFactor;
 
             float brake = 0;
             if (Vector3.Dot(rb.velocity, transform.forward) > 0.1f)
@@ -216,25 +202,13 @@ namespace CarNameSpace
 
         #region Inputs
         
-        public void RShoulder(InputAction.CallbackContext context)
-        {
-            if (context.started)
-            {
-                StartNitroMode();
-            }
-
-            if (context.canceled)
-            {
-                EndNitroMode();
-            }
-        }
         public void LShoulder(InputAction.CallbackContext context)
         {
             if (context.performed)
             {
                 if ((stickValue.x > 0.6f || stickValue.x < -0.6f) && speedFactor > 0.5f)
                 {
-                    StartDrift();
+                    //StartDrift();
                 }
                 else
                 {
@@ -249,7 +223,7 @@ namespace CarNameSpace
 
         public void LStick(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (context.performed && steeringInputEnabled)
             {
                 stickValue = context.ReadValue<Vector2>();
             }
@@ -257,76 +231,6 @@ namespace CarNameSpace
             {
                 stickValue = Vector2.zero;
             }
-        }
-
-        #endregion
-
-        #region Drift
-
-        void StartDrift()
-        {
-            driftBrake = true;
-            bodyMat.color = Color.cyan;
-            for (int i = 0; i < wheels.Length; i++)
-            {
-                wheels[i].tireMarksGenerator.StartTireMark();
-            }
-        }
-
-        void ExecuteDrift()
-        {
-            driftValue = 1 - Mathf.Abs(Vector3.Dot(new Vector3(rb.velocity.normalized.x, 0, rb.velocity.normalized.z),
-                transform.forward));
-            
-            if (!driftEngaged && driftValue > angleMinToExitDrift + 0.1f)
-            {
-                driftEngaged = true;
-            }
-            else if (driftEngaged && driftValue < angleMinToExitDrift)
-            {
-                driftEngaged = false;
-                EndDrift();
-            }
-        }
-        
-        void EndDrift()
-        {
-            driftBrake = false;
-            bodyMat.color = new Color(1, 0.6f, 0);
-            for (int i = 0; i < wheels.Length; i++)
-            {
-                wheels[i].tireMarksGenerator.EndTireMark();
-            }
-        }
-
-        #endregion
-
-        #region Nitro Mode
-
-        void StartNitroMode()
-        {
-            nitroMode = true;
-            nitroModeEntryEnergy = abilitiesManager.energy;
-        }
-
-        void ExecuteNitroMode()
-        {
-            if (abilitiesManager.UseEnergy(Time.deltaTime * nitroEnergyConsuption))
-            {
-                maxSpeed += Time.deltaTime * nitroAcceleration *
-                            nitroAccelerationByNitroTime.Evaluate((nitroModeEntryEnergy - abilitiesManager.energy) /
-                                                                  abilitiesManager.energySegments);
-            }
-            else
-            {
-                EndNitroMode();
-            }
-        }
-        
-        void EndNitroMode()
-        {
-            if (!nitroMode) return;
-            nitroMode = false;
         }
 
         #endregion

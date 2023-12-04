@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "RBButton",
+                    "type": "Button",
+                    "id": "453ab825-eb35-402a-a174-e01cfa9d24a3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "BButton",
                     "type": "Button",
                     "id": "6cea8f1b-09a1-42db-be10-5f02056fedad",
@@ -184,6 +193,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "RStick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d5379094-639a-4841-ac33-ebd7fba7614a",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RBButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

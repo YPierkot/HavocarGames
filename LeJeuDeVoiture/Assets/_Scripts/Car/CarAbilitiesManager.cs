@@ -7,13 +7,14 @@ using UnityEngine.UI;
 using AbilityNameSpace;
 using ManagerNameSpace;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace CarNameSpace
 {
     public class CarAbilitiesManager : MonoBehaviour
     {
         [Header("KIT")] 
-        public Ability xAbility, bAbility, yAbility, aAbility;
+        public Ability xAbility, bAbility, yAbility;
 
         [Header("ENERGY")] 
         public int energySegments;
@@ -23,9 +24,30 @@ namespace CarNameSpace
         private float timerBeforeRegen;
         [SerializeField] private float regenSpeed;
 
+        [Header("BULLET MODE")]
+        [SerializeField] private float speedAmountToBullet;
+        [SerializeField] private float rageModeCooldown;
+        private float rageModeCooldownTimer;
+        
+        [SerializeField] private float rageModeTime;
+        private float rageModeTimer;
+        
+        [SerializeField] private bool bulletMode,rageMode;
+
+        public bool isInBulletMode => bulletMode || rageMode;
+        
+        [SerializeField] private GameObject particles;
+
+        [SerializeField] private CarController carController;
+        
+        
+        
+        
         // DELEGATES
         public delegate void AbilityUsed(AbilitySocket socket);
         public AbilityUsed AbilityActivated;
+
+        #region Energy
 
         public bool UseEnergy(float energyAmount)
         {
@@ -62,8 +84,88 @@ namespace CarNameSpace
         {
             return Mathf.Clamp01(energy - segment);
         }
+
+        #endregion
         
         
+        
+        // BULLET MODES
+
+        #region BulletMode
+
+        public void RShoulder(InputAction.CallbackContext context)
+        {
+            if (context.performed && rageModeCooldownTimer <= 0)
+            {
+                //GameManager.instance.uiManager.SetRageJauge(0);
+                rageModeCooldownTimer = rageModeCooldown;
+                rageModeTimer = rageModeTime;
+                EnterBulletMode(true);
+                
+            }
+        }
+
+        private void UpdateBulletMode()
+        {
+            if (!rageMode)
+            {
+                if (rageModeCooldownTimer > 0)
+                {
+                    rageModeCooldownTimer -= Time.deltaTime;
+                    GameManager.instance.uiManager.SetRageJauge(1 - rageModeCooldownTimer / rageModeCooldown,true);
+                }
+                else
+                {
+                    GameManager.instance.uiManager.SetRageJauge(1,false);
+                }
+            }
+            else
+            {
+                if (rageModeTimer > 0)
+                {
+                    rageModeTimer -= Time.deltaTime;
+                    GameManager.instance.uiManager.SetRageJauge(rageModeTimer / rageModeTime,false);
+                }
+                else
+                {
+                    QuitBulletMode(true);
+                }
+            }
+
+            if (carController.maxSpeed > speedAmountToBullet && !bulletMode)
+            {
+                EnterBulletMode();
+            }
+            if (carController.maxSpeed < speedAmountToBullet && bulletMode)
+            {
+                QuitBulletMode();
+            }
+        }
+        
+        private void EnterBulletMode(bool fromRage = false)
+        {
+            if (fromRage) rageMode = true;
+            else bulletMode = true;
+
+            particles.SetActive(true);
+        }
+        
+        private void QuitBulletMode(bool fromRage = false)
+        {
+            if (fromRage) rageMode = false;
+            else bulletMode = false;
+            
+            if (!bulletMode && !rageMode)
+            {
+                particles.SetActive(false);
+            }
+        }
+
+        #endregion
+        
+
+        #region Abilities
+
         public void ActivateXAbility()
         {
             if (!xAbility.activable) return;
@@ -84,25 +186,22 @@ namespace CarNameSpace
             yAbility.StartAbility();
             AbilityActivated(AbilitySocket.ABILITY_Y);
         }
+        
 
-        public void ActivateAAbility()
-        {
-            if (!aAbility.activable) return;
-            aAbility.StartAbility();
-            AbilityActivated(AbilitySocket.ABILITY_A);
-        }
+        #endregion
 
         public void Setup()
         {
-           
+            bAbility.SetupAbility(AbilitySocket.ABILITY_B);
+            xAbility.SetupAbility(AbilitySocket.ABILITY_X);
+            yAbility.SetupAbility(AbilitySocket.ABILITY_Y);
         }
 
         private void Update()
         {
-            aAbility.UpdateAbility();
-            //bAbility.UpdateAbility();
-            //xAbility.UpdateAbility();
-            //yAbility.UpdateAbility();
+            bAbility.UpdateAbility();
+            xAbility.UpdateAbility();
+            yAbility.UpdateAbility();
 
             if (timerBeforeRegen > 0)
             {
@@ -112,6 +211,10 @@ namespace CarNameSpace
             {
                 AddEnergy(Time.deltaTime * regenSpeed);
             }
+
+            UpdateBulletMode();
         }
     }
 }
+
+
