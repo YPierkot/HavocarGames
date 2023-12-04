@@ -8,7 +8,9 @@ public class BulletBill : MonoBehaviour
     [SerializeField] private float bulletSpeed;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private CarController player;
-
+    [SerializeField] private float speed = 0.5f;
+    private Vector3 currentPosLook = Vector3.zero;
+    
     public void Setup(CarController player)
     {
         this.player = player;
@@ -16,9 +18,9 @@ public class BulletBill : MonoBehaviour
 
     private void Update()
     {
-        transform.LookAt(player.transform.position);
         var dir = (player.transform.position - transform.position).normalized;
-        rb.velocity = dir * (bulletSpeed * Time.deltaTime);
+        rb.velocity = Vector3.Lerp(rb.velocity, dir * bulletSpeed, speed * Time.deltaTime);
+        transform.LookAt(rb.velocity);
     }
 
     private async void OnCollisionEnter(Collision other)
