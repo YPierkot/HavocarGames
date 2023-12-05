@@ -65,8 +65,8 @@ Rigidbody:
   m_GameObject: {fileID: 3048132865379694985}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 1
+  m_AngularDrag: 0.1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -95,7 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89ad3d43ab939f0418daf0e84ed2dfc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 4000
+  bulletSpeed: 3000
+  rotateSpeed: 400
   rb: {fileID: 638088876727417786}
   player: {fileID: 0}
 --- !u!1001 &3551916582477241966
