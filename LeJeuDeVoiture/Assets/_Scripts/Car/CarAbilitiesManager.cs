@@ -23,11 +23,15 @@ namespace CarNameSpace
         [SerializeField] private float delayBeforeRegen;
         private float timerBeforeRegen;
         [SerializeField] private float regenSpeed;
+        [SerializeField] private AnimationCurve regenMultbySpeed;
 
         [Header("BULLET MODE")]
         [SerializeField] private float speedAmountToBullet;
         [SerializeField] private float rageModeCooldown;
         private float rageModeCooldownTimer;
+        [SerializeField] private float rageModeBonusSpeed;
+        [SerializeField] private bool bonusSpeedKeptAfterRage;
+        
         
         [SerializeField] private float rageModeTime;
         private float rageModeTimer;
@@ -107,7 +111,6 @@ namespace CarNameSpace
                 rageModeCooldownTimer = rageModeCooldown;
                 rageModeTimer = rageModeTime;
                 EnterBulletMode(BulletModeSources.Rage);
-                
             }
         }
 
@@ -150,15 +153,28 @@ namespace CarNameSpace
         
         public void EnterBulletMode(BulletModeSources source)
         {
-            if(!bulletModeSources.Contains(source)) bulletModeSources.Add(source);
+            if(bulletModeSources.Contains(source)) return;
+            bulletModeSources.Add(source);
 
+            if (source == BulletModeSources.Rage)
+            {
+                carController.maxSpeed += rageModeBonusSpeed;
+            }
+            
             particles.SetActive(true);
         }
         
         public void QuitBulletMode(BulletModeSources source)
         {
-            Debug.Log("Quitt " + source);
+            if(!bulletModeSources.Contains(source)) return;
+            
             bulletModeSources.Remove(source);
+            
+            if (source == BulletModeSources.Rage && !bonusSpeedKeptAfterRage)
+            {
+                Debug.Log("Test");
+                carController.maxSpeed = Mathf.Clamp(carController.maxSpeed - rageModeBonusSpeed,carController.baseMaxSpeed,10000);
+            }
             
             if (!isInBulletMode)
             {
@@ -214,7 +230,7 @@ namespace CarNameSpace
             }
             else
             {
-                AddEnergy(Time.deltaTime * regenSpeed);
+                AddEnergy(Time.deltaTime * regenSpeed * regenMultbySpeed.Evaluate(carController.maxSpeed));
             }
 
             UpdateBulletMode();
