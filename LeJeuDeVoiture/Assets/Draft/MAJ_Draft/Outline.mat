@@ -67,7 +67,7 @@ Material:
     - _QueueOffset: 0
     - _SrcBlend: 5
     - _Surface: 1
-    - _Thickness: 0
+    - _Thickness: 3.73
     - _VariationSpeed: 0
     - _ZTest: 4
     - _ZWrite: 0

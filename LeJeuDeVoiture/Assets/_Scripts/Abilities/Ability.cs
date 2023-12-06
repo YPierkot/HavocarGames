@@ -6,6 +6,7 @@ namespace AbilityNameSpace
     public abstract class Ability : MonoBehaviour
     {
         [Header("MAIN PARAMETERS")] public float cooldown = 10;
+        [Header("MAIN PARAMETERS")] public float abilityDuration = 2;
         public string abilityName;
         [TextArea] public string description;
         public AbilitySocket socket;
@@ -45,6 +46,7 @@ namespace AbilityNameSpace
             {
                 cooldownTimer -= Time.deltaTime;
                 GameManager.instance.uiManager.SetAbilityCooldown(socket, 1 - cooldownTimer / cooldown);
+                GameManager.instance.uiManager.SetAbilityDuration(socket, (cooldownTimer - (cooldown - abilityDuration))/abilityDuration);
             }
             else
             {
