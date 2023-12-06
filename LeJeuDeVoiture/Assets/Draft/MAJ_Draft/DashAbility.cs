@@ -22,6 +22,8 @@ public class DashAbility : MonoBehaviour
     public bool dashThroughWall;
     public float dashThroughWallTimer;
     public float dashAngleSwitch = 0.5f;
+    public float cooldown;
+    private float timer;
     
     public int boostedDashs;
 
@@ -42,6 +44,8 @@ public class DashAbility : MonoBehaviour
         {
             dashThroughWall = false;
         }
+
+        if (timer > 0) timer -= Time.deltaTime;
     }
 
     public void LStick(InputAction.CallbackContext context)
@@ -64,6 +68,9 @@ public class DashAbility : MonoBehaviour
     
     public async void ReleaseDash()
     {
+        if (timer > 0) return;
+        timer = cooldown;
+        
         Collider[] results;
         results = Physics.OverlapSphere(transform.position, 2, LayerMask.NameToLayer("Projectile"));
         if (results.Length > 0)
