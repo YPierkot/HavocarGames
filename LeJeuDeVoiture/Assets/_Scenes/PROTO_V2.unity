@@ -7125,12 +7125,12 @@ PrefabInstance:
     - target: {fileID: 5620132737468495727, guid: c2199272b0c3d91469c0c831564d6040,
         type: 3}
       propertyPath: energy
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5620132737468495727, guid: c2199272b0c3d91469c0c831564d6040,
         type: 3}
       propertyPath: regenSpeed
-      value: 0.01
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5620132737468495727, guid: c2199272b0c3d91469c0c831564d6040,
         type: 3}
@@ -7157,6 +7157,11 @@ PrefabInstance:
       propertyPath: prowessMultiplierText
       value: 
       objectReference: {fileID: 8613497942422349548}
+    - target: {fileID: 7896358455825768559, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: cooldown
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7896358455825768559, guid: c2199272b0c3d91469c0c831564d6040,
         type: 3}
       propertyPath: dashDuration
