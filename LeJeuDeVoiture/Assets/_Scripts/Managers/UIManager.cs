@@ -9,6 +9,7 @@ namespace ManagerNameSpace
 {
     public class UIManager : MonoBehaviour
     {
+        [SerializeField] private Image xAbilityDuration, yAbilityDuration, aAbilityDuration, bAbilityDuration;
         [SerializeField] private Image xAbilityFill, yAbilityFill, aAbilityFill, bAbilityFill;
         [SerializeField] private TMP_Text xAbilityName, yAbilityName, aAbilityName, bAbilityName;
         [SerializeField] private Image rageJaugeFill;
@@ -33,6 +34,29 @@ namespace ManagerNameSpace
                     break;
                 case AbilitySocket.ABILITY_Y:
                     yAbilityFill.fillAmount = value;
+                    break;
+            }
+        } 
+        
+        
+        /// <summary>
+        /// Set the Fill Amount on the Ability Duration Socket
+        /// </summary>
+        public void SetAbilityDuration(AbilitySocket socket, float value)
+        {
+            switch (socket)
+            {
+                case AbilitySocket.ABILITY_A:
+                    aAbilityDuration.fillAmount = value;
+                    break;
+                case AbilitySocket.ABILITY_B:
+                    bAbilityDuration.fillAmount = value;
+                    break;
+                case AbilitySocket.ABILITY_X:
+                    xAbilityDuration.fillAmount = value;
+                    break;
+                case AbilitySocket.ABILITY_Y:
+                    yAbilityDuration.fillAmount = value;
                     break;
             }
         }
