@@ -3,15 +3,12 @@ using CarNameSpace;
 using ManagerNameSpace;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 namespace EnemyNamespace
 {
     public abstract class Enemy : MonoBehaviour
     {
         // Variables
-        [SerializeField] protected string name;
-        
         [SerializeField] protected int currentHealthPoints;
         [SerializeField] protected int maxHealthPoints;
         
@@ -25,7 +22,8 @@ namespace EnemyNamespace
         protected CarController car;
         public Transform playerPos => car.transform;
 
-        [Space(8)] [Header("Sentinels")] protected List<Sentinels> sentinelsList = new();
+        [Space(8)] [Header("SENTINEL SECTION")] 
+        protected List<Sentinels> sentinelsList = new();
         public int sentinelCount;
         public float spawningRadius = 0;
         public GameObject sentinelsPrefab;

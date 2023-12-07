@@ -1,6 +1,5 @@
 using System;
 using EnemyNamespace;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,11 +7,8 @@ public class EnemyBulldozer : Enemy
 {
     [Space(3)] [Header("Bulldozer")] 
     [SerializeField] private BulldozerState currentState;
-    
-    
-    
-    [Space(2)] [Header("Rolling State")] 
-    [SerializeField] private bool isRolling;
+
+
     [SerializeField] private bool isAccelerating;
     [SerializeField] private float accelerateSpeed;
     [SerializeField] private float rollingStartTime;
@@ -21,9 +17,7 @@ public class EnemyBulldozer : Enemy
     
     [SerializeField] private float unitCurrentSpeed;
     [SerializeField] private float unitMaxSpeed = 40f;
-    
-    [Space(2)] [Header("Dizzy State")] 
-    [SerializeField] private bool isDizzy;
+
     [SerializeField] private bool isImmobilize;
     [SerializeField] private Vector3 normalPos;
     [SerializeField] private float dizzyTime;
@@ -73,10 +67,8 @@ public class EnemyBulldozer : Enemy
     #region Dizzy
     private void ToDizzy()
     {
-        isRolling = false;
         isAccelerating = false;
         agent.speed = unitBaseSpeed;
-        isDizzy = true;
         isImmobilize = false;
         dizzyTime = 0f;
         immobilizeDurationFeedback.fillAmount = 0;
@@ -112,8 +104,6 @@ public class EnemyBulldozer : Enemy
 
     private void ToRolling()
     {
-        isRolling = true;
-        isDizzy = false;
         isImmobilize = false;
         isAccelerating = false;
         immobilizeDurationFeedback.fillAmount = 0;
