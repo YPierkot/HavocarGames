@@ -7122,36 +7122,6 @@ PrefabInstance:
       propertyPath: steeringByMaxSpeed.m_Curve.Array.data[1].tangentMode
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5620132737468495727, guid: c2199272b0c3d91469c0c831564d6040,
-        type: 3}
-      propertyPath: energy
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5620132737468495727, guid: c2199272b0c3d91469c0c831564d6040,
-        type: 3}
-      propertyPath: regenSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5620132737468495727, guid: c2199272b0c3d91469c0c831564d6040,
-        type: 3}
-      propertyPath: rageModeTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5620132737468495727, guid: c2199272b0c3d91469c0c831564d6040,
-        type: 3}
-      propertyPath: delayBeforeRegen
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5620132737468495727, guid: c2199272b0c3d91469c0c831564d6040,
-        type: 3}
-      propertyPath: rageModeCooldown
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5620132737468495727, guid: c2199272b0c3d91469c0c831564d6040,
-        type: 3}
-      propertyPath: speedAmountToBullet
-      value: 60
-      objectReference: {fileID: 0}
     - target: {fileID: 6644548871987067360, guid: c2199272b0c3d91469c0c831564d6040,
         type: 3}
       propertyPath: prowessMultiplierText
