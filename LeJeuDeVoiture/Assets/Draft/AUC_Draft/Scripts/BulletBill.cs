@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class BulletBill : MonoBehaviour
 {
     [SerializeField] private float bulletSpeed;
+    [SerializeField] private float rotateSpeed;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private CarController player;
 
@@ -16,9 +17,12 @@ public class BulletBill : MonoBehaviour
 
     private void Update()
     {
-        transform.LookAt(player.transform.position);
-        var dir = (player.transform.position - transform.position).normalized;
-        rb.velocity = dir * (bulletSpeed * Time.deltaTime);
+        //transform.LookAt(player.transform.position);
+        //var dir = (player.transform.position - transform.position).normalized;
+        //rb.velocity = dir * (bulletSpeed * Time.deltaTime);
+        
+        transform.LookAt(Vector3.Lerp(transform.forward, player.transform.position, rotateSpeed * 5 * Time.deltaTime));
+        rb.AddForce(transform.forward * (Time.deltaTime * bulletSpeed));
     }
 
     private async void OnCollisionEnter(Collision other)
