@@ -539,7 +539,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30158da8d6c1dfd4686c9d9c75d52ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: TurretBill
   currentHealthPoints: 100
   maxHealthPoints: 100
   unitBaseSpeed: 0
@@ -554,18 +553,17 @@ MonoBehaviour:
   isAiming: 0
   detectionDst: 70
   timeBeforeShootInSeconds: 5
-  shootDelayInMilliseconds: 140
   turretProjectilePrefab: {fileID: 3048132865379694985, guid: 2112a68b487bbbd45a40eb465afd2442,
     type: 3}
   projectileLaunchPos: {fileID: 7293475293179559941}
-  bulletSpeed: 20
   turretShotCooldown: 10
   isInCooldown: 0
-  MeshRenderer: {fileID: 8895982663266297656}
+  meshRenderer: {fileID: 0}
   mats:
   - {fileID: 2100000, guid: 9000b4349a476d74caa1d566a70e1f85, type: 2}
   - {fileID: 2100000, guid: 3ffb32eb4c6bf984cb7f3f6e82fc2523, type: 2}
   lifeText: {fileID: 3554602224200218394}
+  lr: {fileID: 2678380820146613730}
 --- !u!114 &2960408622480974160
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -101,7 +101,7 @@ namespace EnemyNamespace
 
         protected virtual void TurretSleep()
         {
-            ModifyMeshFormPlayerSpeed(car.speed);
+            //ModifyMeshFormPlayerSpeed(car.speed);
             
             if (isInCooldown)
             {

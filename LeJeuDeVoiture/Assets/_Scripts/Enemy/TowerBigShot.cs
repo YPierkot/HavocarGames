@@ -20,7 +20,7 @@ namespace EnemyNamespace
             lr.startWidth = (1 - (timer / timeBeforeShootInSeconds)) * 0.55f;
             lr.endWidth = (1 - (timer / timeBeforeShootInSeconds)) * 0.4f;
 
-            ModifyMeshFormPlayerSpeed(car.speed);
+            //ModifyMeshFormPlayerSpeed(car.speed);
 
             if (isAiming)
             {
