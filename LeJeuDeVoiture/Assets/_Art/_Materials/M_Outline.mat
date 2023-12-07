@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7722488415154359069
+--- !u!114 &-1534817507680796210
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,19 +20,23 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ForceField
-  m_Shader: {fileID: -6465566751694194690, guid: 2c672890485d7b3448950cbc74ef4250,
+  m_Name: M_Outline
+  m_Shader: {fileID: -6465566751694194690, guid: 277343ce95e474f439904fec23d6ddd3,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _ALPHATEST_ON
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  stringTagMap:
+    RenderType: Transparent
+  disabledShaderPasses:
+  - DepthOnly
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -51,8 +55,24 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlphaClip: 1
+    - _AlphaToMask: 0
+    - _Blend: 0
+    - _CastShadows: 1
+    - _Cull: 2
+    - _DepthSensi: 0.15
+    - _DstBlend: 10
+    - _NormalSensi: 1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _offset: 0.6
-    m_Colors: []
+    - _SrcBlend: 5
+    - _Surface: 1
+    - _Thickness: 3.73
+    - _VariationSpeed: 0
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _ZWriteControl: 0
+    - _noisiness: 0
+    m_Colors:
+    - _OutlineColor: {r: 0.075160176, g: 0.011347455, b: 0.14150941, a: 0}
   m_BuildTextureStacks: []

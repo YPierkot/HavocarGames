@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6786120327256281941}
   - component: {fileID: 1132138538939345507}
   - component: {fileID: 953513682273801453}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 19d4bbe3e357a7e419c0392337b0f2f4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 2796889224967402277}
   - component: {fileID: 6841295123672334828}
   - component: {fileID: 3474377281239854850}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 19d4bbe3e357a7e419c0392337b0f2f4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -175,7 +175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5838428870989298062}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 8166487749461969210}
   - component: {fileID: 698000342954352263}
   - component: {fileID: 5107727965415014714}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 64b48ed5269976748b90b5a87e59fce5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 7322800487140277670}
   - component: {fileID: 571767156965510786}
   - component: {fileID: 3940426718420356807}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: P_Enviro_PadBooster_Debug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 6.0912, y: 1, z: 6.0912}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5838428870989298062}
