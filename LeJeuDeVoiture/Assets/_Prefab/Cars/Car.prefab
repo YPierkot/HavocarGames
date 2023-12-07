@@ -9705,6 +9705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 10
+  abilityDuration: 2
   abilityName: TestAbilityY
   description: "Effectue un Debug Log du string souhait\xE9"
   socket: 0
@@ -39347,11 +39348,37 @@ MonoBehaviour:
   yAbility: {fileID: 6747936423849531366}
   energySegments: 3
   energy: 3
-  delayBeforeRegen: 5
-  regenSpeed: 0.5
-  speedAmountToBullet: 40
-  rageModeCooldown: 5
-  rageModeTime: 3
+  delayBeforeRegen: 2
+  regenSpeed: 1
+  regenMultbySpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 25
+      value: 1
+      inSlope: 0.16
+      outSlope: 0.16
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 50
+      value: 5
+      inSlope: 0.16
+      outSlope: 0.16
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  speedAmountToBullet: 60
+  rageModeCooldown: 3
+  rageModeBonusSpeed: 7
+  bonusSpeedKeptAfterRage: 0
+  rageModeTime: 1
   bulletMode: 0
   bulletModeSources: 
   particles: {fileID: 7144205470457046460}
@@ -39532,6 +39559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 10
+  abilityDuration: 2
   abilityName: TestAbilityY
   description: "Effectue un Debug Log du string souhait\xE9"
   socket: 0
@@ -40183,6 +40211,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   collisionCheckRadius: 0.5
+  dashExpansion: 0
   wallMask:
     serializedVersion: 2
     m_Bits: 513
@@ -40191,6 +40220,8 @@ MonoBehaviour:
     m_Bits: 1
   dashThroughWall: 0
   dashThroughWallTimer: 0
+  dashAngleSwitch: 0.5
+  cooldown: 0
   boostedDashs: 0
 --- !u!1 &6977078122876387689
 GameObject:
@@ -50123,6 +50154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 10
+  abilityDuration: 2
   abilityName: Boost Dash
   description: 'permet au joueur de faire en sorte que son dash soit 2 fois plus
     long et en mode Bullet '

@@ -17,9 +17,13 @@ public class DashAbility : MonoBehaviour
     public GameObject particleObj;
     public AnimationCurve speedCurve,particleSizeCurve;
     public float collisionCheckRadius;
+    public float dashExpansion;
     public LayerMask wallMask,dashThroughMask;
     public bool dashThroughWall;
     public float dashThroughWallTimer;
+    public float dashAngleSwitch = 0.5f;
+    public float cooldown;
+    private float timer;
     
     public int boostedDashs;
 
@@ -40,6 +44,8 @@ public class DashAbility : MonoBehaviour
         {
             dashThroughWall = false;
         }
+
+        if (timer > 0) timer -= Time.deltaTime;
     }
 
     public void LStick(InputAction.CallbackContext context)
@@ -62,6 +68,9 @@ public class DashAbility : MonoBehaviour
     
     public async void ReleaseDash()
     {
+        if (timer > 0) return;
+        timer = cooldown;
+        
         Collider[] results;
         results = Physics.OverlapSphere(transform.position, 2, LayerMask.NameToLayer("Projectile"));
         if (results.Length > 0)
@@ -79,19 +88,21 @@ public class DashAbility : MonoBehaviour
 
         float angleDiff = Vector2.Dot(stickValue.normalized,carForwardCamera.normalized);
 
-        float sign = Vector2.SignedAngle(stickValue, carForwardCamera);
+        float sign = Vector2.SignedAngle(stickValue.normalized, carForwardCamera.normalized);
 
+        Debug.Log(angleDiff + "  " + sign);
+        
         bool dashThrough = dashThroughWall;
         if (dashThrough) GameManager.instance.controller.gameObject.layer = 11;
 
         bool dashBoosted = boostedDashs > 0;
         
             
-        if (angleDiff > 0.5)
+        if (angleDiff > dashAngleSwitch)
         {
             directionIndex = 0;
         }
-        else if (angleDiff > -0.5f)
+        else if (angleDiff > -dashAngleSwitch)
         {
             directionIndex = sign > 0 ? 2 : 1;
         }
@@ -125,7 +136,7 @@ public class DashAbility : MonoBehaviour
         }
         
         float i = 0;
-        float duration = dashDuration * (dashBoosted ? 2 : 1);
+        float duration = dashDuration * (dashBoosted ? dashExpansion : 1);
         
         while (i < duration)
         {
