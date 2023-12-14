@@ -1652,6 +1652,37 @@ MonoBehaviour:
   - {fileID: 7557046787246918209}
   rageJaugeMainColor: {r: 0.99607843, g: 0.30588236, b: 0.3372549, a: 1}
   rageJaugeUsedColor: {r: 0.6132076, g: 0.2227216, b: 0.24047095, a: 1}
+--- !u!1 &4333798347617358710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5687237627287298563}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5687237627287298563
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4333798347617358710}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 34.999077, y: 184.07715, z: -25.514973}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3914110715063573994}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4422017973882615998
 GameObject:
   m_ObjectHideFlags: 0
@@ -2484,6 +2515,7 @@ Transform:
   m_Children:
   - {fileID: 7287170819015474806}
   - {fileID: 6689873337611825995}
+  - {fileID: 5687237627287298563}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3221255676911542784
