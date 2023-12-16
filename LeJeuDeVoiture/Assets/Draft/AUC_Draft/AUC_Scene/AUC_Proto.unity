@@ -1121,11 +1121,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7906908112464614291, guid: 6aba903071103154e80ef3a24f0c1f2d,
         type: 3}
-      propertyPath: lr
-      value: 
-      objectReference: {fileID: 1469785217}
-    - target: {fileID: 7906908112464614291, guid: 6aba903071103154e80ef3a24f0c1f2d,
-        type: 3}
       propertyPath: aimImage
       value: 
       objectReference: {fileID: 1618997328}
@@ -1141,32 +1136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7906908112464614291, guid: 6aba903071103154e80ef3a24f0c1f2d,
         type: 3}
-      propertyPath: detectionDst
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 7906908112464614291, guid: 6aba903071103154e80ef3a24f0c1f2d,
-        type: 3}
       propertyPath: maxHealthPoints
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7906908112464614291, guid: 6aba903071103154e80ef3a24f0c1f2d,
-        type: 3}
-      propertyPath: bulletScattering
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7906908112464614291, guid: 6aba903071103154e80ef3a24f0c1f2d,
-        type: 3}
-      propertyPath: speedLooseByPlayer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7906908112464614291, guid: 6aba903071103154e80ef3a24f0c1f2d,
-        type: 3}
-      propertyPath: turretShotCooldown
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7906908112464614291, guid: 6aba903071103154e80ef3a24f0c1f2d,
-        type: 3}
-      propertyPath: bulletInRumbleCount
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7906908112464614291, guid: 6aba903071103154e80ef3a24f0c1f2d,
@@ -3287,7 +3257,10 @@ MonoBehaviour:
   lifeText: {fileID: 1055219244}
   limitPercentageToSwitchDestructMode: 10
   weaknessDuration: 20
-  weakTimer: 0
+  weaknessDamageMultiplyer: 2
+  regenerationTowersCount: 0
+  regenerationTimer: 0
+  hpRegenPerSeconds: 0
 --- !u!1 &715358623
 GameObject:
   m_ObjectHideFlags: 0
@@ -4609,7 +4582,10 @@ MonoBehaviour:
   lifeText: {fileID: 1161646451}
   limitPercentageToSwitchDestructMode: 10
   weaknessDuration: 20
-  weakTimer: 0
+  weaknessDamageMultiplyer: 2
+  regenerationTowersCount: 0
+  regenerationTimer: 0
+  hpRegenPerSeconds: 0
 --- !u!1001 &1141686581
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5560,12 +5536,6 @@ Transform:
 --- !u!4 &1469785215 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2396182323134116519, guid: 6aba903071103154e80ef3a24f0c1f2d,
-    type: 3}
-  m_PrefabInstance: {fileID: 186375570}
-  m_PrefabAsset: {fileID: 0}
---- !u!120 &1469785217 stripped
-LineRenderer:
-  m_CorrespondingSourceObject: {fileID: 4030756772394299184, guid: 6aba903071103154e80ef3a24f0c1f2d,
     type: 3}
   m_PrefabInstance: {fileID: 186375570}
   m_PrefabAsset: {fileID: 0}
