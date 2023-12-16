@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace EnemyNamespace
 {
@@ -11,6 +10,7 @@ namespace EnemyNamespace
         [Space(3)]
         [Header("Turret Section")]
         [SerializeField] private TurretState currentState = TurretState.Sleep;
+        public EnemyAttribute attribute = EnemyAttribute.None;
         
         [SerializeField] protected bool isAiming;
         [Tooltip("Distance à laquelle la tourelle détecte le joueur")] 
@@ -29,6 +29,8 @@ namespace EnemyNamespace
         
         [SerializeField] protected TextMeshProUGUI lifeText;
         [SerializeField] protected LineRenderer lr;
+
+        [SerializeField] private int damageTakenByDoorOnDeath = 90;
         
         // Start is called before the first frame update
         void Start()
@@ -54,7 +56,7 @@ namespace EnemyNamespace
                     break;
             }
             
-            UpdateRegen();
+            //UpdateRegen();
         }
         
         protected void SwitchState(TurretState turretState)
@@ -130,27 +132,32 @@ namespace EnemyNamespace
 
         public override void Death() // Perso
         {
-            isDead = true;
-            SwitchState(TurretState.None);
+            //LevelManager.Instance.OnTowerDie(this, damageTakenByDoorOnDeath);
+            //isDead = true;
+            //SwitchState(TurretState.None);
         }
         #endregion
         
         public override void CollideWithPlayer()
         {
             if(!car.abilitiesManager.isInBulletMode) return;
-            currentHealthPoints -= Mathf.FloorToInt(car.speed);
-            UpdateCanvas();
-            
-            if (currentHealthPoints < 1) Destroy(gameObject); // TODO -> Passer en state mort quand on aura des assets & gamefeel pour différencier les deux states
+            TakeDamage(Mathf.FloorToInt(car.speed));
         }
-        
+
+        protected override void OnDie()
+        {
+            base.OnDie();
+            LevelManager.Instance.OnTowerDie(this, damageTakenByDoorOnDeath);
+            Destroy(gameObject); // TODO -> Passer en state mort quand on aura des assets & gamefeel pour différencier les deux states
+        }
+
         protected override void UpdateRegen()
         {
             base.UpdateRegen();
             UpdateCanvas();
         }
         
-        private void UpdateCanvas()
+        protected override void UpdateCanvas()
         {
             lifeText.text = $"{currentHealthPoints}/{maxHealthPoints}";
         }
@@ -190,7 +197,12 @@ namespace EnemyNamespace
             Dead,
             None
         }
+        
+        public enum EnemyAttribute
+        {
+            None,
+            Fragile,
+            Regeneration
+        }
     }
-
-    
 }

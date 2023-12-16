@@ -83,12 +83,32 @@ namespace EnemyNamespace
             } 
         }
 
+        protected virtual void UpdateCanvas()
+        {
+        }
+
+        protected virtual void TakeDamage(int damages)
+        {
+            currentHealthPoints -= damages;
+            
+            if (currentHealthPoints < 1)
+            {
+                OnDie();
+            }
+            
+            UpdateCanvas();
+        }
+        
+        protected virtual void OnDie()
+        {
+        }
+        
         protected internal void OnSentinelDie(int sentinelHealth)
         {
-            maxHealthPoints -= sentinelHealth; 
+            TakeDamage(maxHealthPoints -= sentinelHealth);
             sentinelCount--;
-            if (currentHealthPoints > maxHealthPoints) currentHealthPoints = maxHealthPoints;
-            if (sentinelCount == 0) isAutoRegen = false;
+            //if (currentHealthPoints > maxHealthPoints) currentHealthPoints = maxHealthPoints;
+            //if (sentinelCount == 0) isAutoRegen = false;
         }   
 
         private double regenTimer;

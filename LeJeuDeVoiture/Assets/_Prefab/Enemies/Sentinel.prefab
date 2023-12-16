@@ -49,18 +49,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f654248998827c4ea0ee39f75fdc472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Sentinel
-  currentHealthPoints: 15
-  maxHealthPoints: 15
+  currentHealthPoints: 1
+  maxHealthPoints: 1
   unitBaseSpeed: 0
   updatePath: 0.35
   sentinelCount: 0
   spawningRadius: 0
   sentinelsPrefab: {fileID: 0}
   isAutoRegen: 0
-  hpRegenPerSeconds: 2
+  hpRegenPerSeconds: 0
   parentEnemy: {fileID: 0}
   lifeText: {fileID: 7293199803397957496}
+  damageToDoOnDieToParentEnemy: 20
 --- !u!114 &196066946528250424
 MonoBehaviour:
   m_ObjectHideFlags: 0

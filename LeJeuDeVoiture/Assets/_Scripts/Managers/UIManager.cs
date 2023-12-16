@@ -16,6 +16,10 @@ namespace ManagerNameSpace
         [SerializeField] private Image[] energySegments;
         [SerializeField] private Color rageJaugeMainColor, rageJaugeUsedColor;
         
+        [SerializeField] private Image doorLifeJaugeFill;
+        [SerializeField] private TextMeshProUGUI nameText, lifeText;
+        
+        
         /// <summary>
         /// Set the Fill Amount on an Ability Socket
         /// </summary>
@@ -103,6 +107,28 @@ namespace ManagerNameSpace
             rageJaugeFill.fillAmount = Mathf.Lerp(rageJaugeFill.fillAmount,Mathf.Clamp01(value),Time.deltaTime*5);
             if(used) rageJaugeFill.color = Color.Lerp(rageJaugeFill.color,rageJaugeUsedColor,Time.deltaTime*5);
             else rageJaugeFill.color = Color.Lerp(rageJaugeFill.color,rageJaugeMainColor,Time.deltaTime*5);
+        }
+        
+        
+        /// <summary>
+        /// Set the Fill Amount of the Level Door Health Jauge in the UI 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="maxValue"></param>
+        public void SetDoorLife(float value, float maxValue, bool isDestructable)
+        {
+            doorLifeJaugeFill.fillAmount = value / maxValue;
+            lifeText.text = $"{value}/{maxValue}";
+            if (isDestructable) doorLifeJaugeFill.color = Color.cyan;
+        }
+        
+        /// <summary>
+        /// Set the name of the durrent door level name on the UI
+        /// </summary>
+        /// <param name="nameToDisplay"></param>
+        public void SetCurrentLevelDoorName(string nameToDisplay)
+        {
+            nameText.text = nameToDisplay;
         }
     }
 }

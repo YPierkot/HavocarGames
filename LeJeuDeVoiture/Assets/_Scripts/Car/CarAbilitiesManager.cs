@@ -172,7 +172,7 @@ namespace CarNameSpace
             
             if (source == BulletModeSources.Rage && !bonusSpeedKeptAfterRage)
             {
-                Debug.Log("Test");
+                //Debug.Log("Test");
                 carController.maxSpeed = Mathf.Clamp(carController.maxSpeed - rageModeBonusSpeed,carController.baseMaxSpeed,10000);
             }
             
