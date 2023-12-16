@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ public class GenericInteraction_WIP : EnvironmentInteraction
 {
     public InteractionsType interactionType = InteractionsType.None;
     public InteractiveSettings_WIP interactiveSettings;
+    public List<GameObject> visualPadRenderer;
     
     //Private
     private bool canBePickedUp = true;
@@ -18,6 +20,11 @@ public class GenericInteraction_WIP : EnvironmentInteraction
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
+    }
+
+    private void Awake()
+    {
+        DisplayPadRenderer();
     }
 
     public override void Interact(CarController player)
@@ -97,6 +104,41 @@ public class GenericInteraction_WIP : EnvironmentInteraction
         {
             //player.maxSpeed = player.baseMaxSpeed;
             isBoosting = false;
+        }
+    }
+
+    private void DisplayPadRenderer()
+    {
+        DisableAllVisualPad();
+        SelectPrefabToDisplay(interactionType, visualPadRenderer);
+    }
+    
+    private void DisableAllVisualPad()
+    {
+        foreach (GameObject pad in visualPadRenderer)
+        {
+            pad.SetActive(false);
+        }
+    }
+
+    private static void SelectPrefabToDisplay(InteractionsType type, List<GameObject> visualPad)
+    {
+        switch (type)
+        {
+            case InteractionsType.None:
+                break;
+            case InteractionsType.EnergyItem:
+                visualPad[0].SetActive(true);
+                break;
+            case InteractionsType.ShieldItem:
+                visualPad[1].SetActive(true);
+                break;
+            case InteractionsType.BoosterPad:
+                visualPad[2].SetActive(true);
+                break;
+            case InteractionsType.JumpPad:
+                visualPad[3].SetActive(true);
+                break;
         }
     }
 }
