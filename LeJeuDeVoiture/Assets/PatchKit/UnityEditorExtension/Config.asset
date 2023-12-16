@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Config
   m_EditorClassIdentifier: 
   _linkedWindows32AppSecret: 3e6aea9d6b3c3d90550ae4121130604e
-  _linkedWindows64AppSecret: 9e63e2815497f42fc5d37bddc810adf3
+  _linkedWindows64AppSecret: 3e6aea9d6b3c3d90550ae4121130604e
   _linkedLinux32AppSecret: 
   _linkedLinux64AppSecret: 
   _linkedMac64AppSecret: 

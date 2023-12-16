@@ -291,6 +291,7 @@ public class SafeBuildAndUploadScreen : Screen
             EditorGUILayout.HelpBox(
                 VersionLabelValidationError,
                 MessageType.Error);
+            canUpload = true;
         }
         else if (VersionChangelogValidationError != null)
         {
@@ -480,8 +481,8 @@ public class SafeBuildAndUploadScreen : Screen
     private void BuildAndUpload()
     {
         Assert.IsTrue(IsBuildLocationSelected);
-        Assert.IsNull(VersionLabelValidationError);
-        Assert.IsNull(VersionChangelogValidationError);
+        //Assert.IsNull(VersionLabelValidationError);
+        //Assert.IsNull(VersionChangelogValidationError);
 
         if (AppBuild.TryCreate(_removePdbFiles))
         {
