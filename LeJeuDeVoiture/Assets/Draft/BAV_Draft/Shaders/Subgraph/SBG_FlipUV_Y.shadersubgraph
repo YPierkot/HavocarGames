@@ -80,7 +80,7 @@
     },
     "m_Path": "UV",
     "m_GraphPrecision": 1,
-    "m_PreviewMode": 2,
+    "m_PreviewMode": 1,
     "m_OutputNode": {
         "m_Id": "4e9e318085ad431e8bc3366d150b6d5b"
     },
@@ -222,10 +222,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 0.0,
+            "x": -1.0,
             "y": 0.0,
-            "width": 0.0,
-            "height": 0.0
+            "width": 121.0,
+            "height": 77.0
         }
     },
     "m_Slots": [

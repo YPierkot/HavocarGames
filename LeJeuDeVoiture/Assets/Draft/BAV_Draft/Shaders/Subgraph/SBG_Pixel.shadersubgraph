@@ -148,7 +148,7 @@
     },
     "m_Path": "UV",
     "m_GraphPrecision": 1,
-    "m_PreviewMode": 2,
+    "m_PreviewMode": 1,
     "m_OutputNode": {
         "m_Id": "ae13b71aeed1494f929730292f113e49"
     },

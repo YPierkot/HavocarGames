@@ -261,7 +261,7 @@
     },
     "m_Path": "Shape",
     "m_GraphPrecision": 1,
-    "m_PreviewMode": 2,
+    "m_PreviewMode": 1,
     "m_OutputNode": {
         "m_Id": "37520a92b2a643d395c662177c632534"
     },
@@ -422,7 +422,7 @@
         "take away"
     ],
     "m_Precision": 0,
-    "m_PreviewExpanded": false,
+    "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
@@ -442,10 +442,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -127.00000762939453,
-            "y": 325.9999694824219,
-            "width": 89.00003051757813,
-            "height": 77.0
+            "x": 353.9999694824219,
+            "y": 326.00006103515627,
+            "width": 89.00009155273438,
+            "height": 76.99993896484375
         }
     },
     "m_Slots": [
@@ -712,7 +712,7 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_ClampType": 0
+    "m_ClampType": 1
 }
 
 {
@@ -1117,7 +1117,7 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_ClampType": 0
+    "m_ClampType": 1
 }
 
 {
