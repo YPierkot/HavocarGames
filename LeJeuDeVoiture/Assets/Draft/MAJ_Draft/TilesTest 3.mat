@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GroundTest
+  m_Name: TilesTest 3
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 2100000, guid: 7625e29f595a4dd4395bfd905087544f, type: 2}
   m_ModifiedSerializedProperties: 0
@@ -40,6 +40,6 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _BaseColor: {r: 0.20278569, g: 0.23370539, b: 0.2924528, a: 1}
-    - _Color: {r: 0.20278564, g: 0.23370534, b: 0.29245278, a: 1}
+    - _BaseColor: {r: 0.56403524, g: 0.6765936, b: 0.7075472, a: 1}
+    - _Color: {r: 0.5640352, g: 0.6765936, b: 0.7075471, a: 1}
   m_BuildTextureStacks: []

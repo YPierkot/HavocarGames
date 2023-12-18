@@ -71,11 +71,6 @@ namespace AbilityNameSpace
             timer = cooldown;
 
             Collider[] results;
-            results = Physics.OverlapSphere(transform.position, 2, LayerMask.NameToLayer("Projectile"));
-            if (results.Length > 0)
-            {
-                GameManager.instance.prowessManager.TriggerProwessEvent(0.1f, "Escaped a Bullet !", 5);
-            }
 
 
             GameManager.instance.controller.steeringInputEnabled = true;
