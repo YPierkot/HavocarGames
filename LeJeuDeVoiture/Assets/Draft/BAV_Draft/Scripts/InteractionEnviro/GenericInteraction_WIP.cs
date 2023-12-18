@@ -5,35 +5,36 @@ using System.Threading.Tasks;
 using CarNameSpace;
 using ManagerNameSpace;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GenericInteraction_WIP : EnvironmentInteraction
 {
-    public InteractionsType interactionType = InteractionsType.None;
+    public InteractionsType interactionType = InteractionsType.EnergyItem;
     public InteractiveSettings_WIP interactiveSettings;
-    public List<GameObject> visualPadRenderer;
+    public List<GameObject> padVisualRenderer; 
+    public List<ParticleSystem> padPSRenderer = new List<ParticleSystem>();
+    public List<Material> padVisualMat = new List<Material>();
     
     //Private
     private bool canBePickedUp = true;
     private bool isBoosting = false;
     private bool isRotating = false;
+    public Color[] padColors; //Store the color
+    private string padColorName = "_BaseColor"; //Name of the color in the shader 
     
-    protected override void OnTriggerEnter(Collider other)
-    {
-        base.OnTriggerEnter(other);
-    }
 
     private void Awake()
     {
         DisplayPadRenderer();
+        PopulateColorArray();
     }
+    
 
     public override void Interact(CarController player)
     {
         base.Interact(player);
         switch (interactionType)
         {
-            case InteractionsType.None:
-                break;
             //Implement Energy Item
             case InteractionsType.EnergyItem:
                 GameManager.instance.abilitiesManager.AddEnergy(interactiveSettings.energyAmount);
@@ -41,14 +42,17 @@ public class GenericInteraction_WIP : EnvironmentInteraction
             //Implement Shield Item
             case InteractionsType.ShieldItem:
                 _ = ActivateShieldAsync(player);
+                EnableParticleSystems((int)interactionType); 
                 break;
             //Implement Jump Pad
             case InteractionsType.JumpPad:
                 _ = ActivateJumpAsync(player, interactiveSettings.jumpPadForce);
+                EnableParticleSystems((int)interactionType); 
                 break;
             //Implement Booster Pad
             case InteractionsType.BoosterPad:
                 _ = StartBoosterAsync(player);
+                EnableParticleSystems((int)interactionType); 
                 break;
         }
     }
@@ -110,35 +114,73 @@ public class GenericInteraction_WIP : EnvironmentInteraction
     private void DisplayPadRenderer()
     {
         DisableAllVisualPad();
-        SelectPrefabToDisplay(interactionType, visualPadRenderer);
+        DisableAllParticulesSystemPad();
+        SelectPrefabToDisplay(interactionType, padVisualRenderer);
     }
     
     private void DisableAllVisualPad()
     {
-        foreach (GameObject pad in visualPadRenderer)
+        foreach (GameObject pad in padVisualRenderer)
         {
             pad.SetActive(false);
         }
     }
 
-    private static void SelectPrefabToDisplay(InteractionsType type, List<GameObject> visualPad)
+   
+    private void SelectPrefabToDisplay(InteractionsType type, List<GameObject> visualPad)
     {
         switch (type)
         {
-            case InteractionsType.None:
-                break;
             case InteractionsType.EnergyItem:
                 visualPad[0].SetActive(true);
+                padVisualMat[0].SetColor(padColorName, padColors[0]); //TODO : Refactor this part and make a function
                 break;
             case InteractionsType.ShieldItem:
                 visualPad[1].SetActive(true);
+                padVisualMat[1].SetColor(padColorName, padColors[1]);
                 break;
             case InteractionsType.BoosterPad:
                 visualPad[2].SetActive(true);
+                padVisualMat[2].SetColor(padColorName, padColors[2]);
                 break;
             case InteractionsType.JumpPad:
                 visualPad[3].SetActive(true);
+                padVisualMat[3].SetColor(padColorName, padColors[3]);
                 break;
         }
+    }
+    
+    private void EnableParticleSystems(int type)
+    {
+        foreach (var ps in padPSRenderer)
+        {
+            ps.Stop(); 
+            ps.gameObject.SetActive(false);
+            if (padPSRenderer.IndexOf(ps) == (int)type - 1)
+            {
+                ps.gameObject.SetActive(true);
+                ps.Play(); 
+            }
+        }
+    }
+    
+    private void DisableAllParticulesSystemPad()
+    {
+        foreach (ParticleSystem pad in padPSRenderer)
+        {
+            pad.Stop();
+            pad.gameObject.SetActive(false);
+        }
+    }
+
+    [ContextMenu("Populate Color Array")]
+    //TODO : Redo this function
+    private void PopulateColorArray()
+    {
+        padColors = new Color[Enum.GetValues(typeof(InteractionsType)).Length];
+        padColors[0] = interactiveSettings.energyPadColor;
+        padColors[1] = interactiveSettings.shieldPadColor;
+        padColors[2] = interactiveSettings.boostPadColor;
+        padColors[3] = interactiveSettings.jumpPadColor;
     }
 }

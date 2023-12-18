@@ -4555,28 +4555,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 258327757076716040, guid: 1618ab297abb43644b75197b97fbee44,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 258327757076716040, guid: 1618ab297abb43644b75197b97fbee44,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 258327757076716040, guid: 1618ab297abb43644b75197b97fbee44,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: 49.54
       objectReference: {fileID: 0}
     - target: {fileID: 258327757076716040, guid: 1618ab297abb43644b75197b97fbee44,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0003156662
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 258327757076716040, guid: 1618ab297abb43644b75197b97fbee44,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 74.80852
+      value: 140.4
       objectReference: {fileID: 0}
     - target: {fileID: 258327757076716040, guid: 1618ab297abb43644b75197b97fbee44,
         type: 3}
@@ -4617,46 +4607,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: P_Enviro_PadBooster_Debug
-      objectReference: {fileID: 0}
-    - target: {fileID: 5360616311751331875, guid: 1618ab297abb43644b75197b97fbee44,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ae99ccf6c4f73584281a8ad75d454e1c, type: 2}
-    - target: {fileID: 5585215557535198581, guid: 1618ab297abb43644b75197b97fbee44,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: b8cfabb1596c797469247cddfe559484, type: 2}
-    - target: {fileID: 5672858278438785544, guid: 1618ab297abb43644b75197b97fbee44,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6498572210381630284, guid: 1618ab297abb43644b75197b97fbee44,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6498572210381630284, guid: 1618ab297abb43644b75197b97fbee44,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 8465170074349818443, guid: 1618ab297abb43644b75197b97fbee44,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8465170074349818443, guid: 1618ab297abb43644b75197b97fbee44,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8465170074349818443, guid: 1618ab297abb43644b75197b97fbee44,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
