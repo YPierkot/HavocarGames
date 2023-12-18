@@ -10,6 +10,7 @@ namespace AbilityNameSpace
     {
         public Vector3 movement;
         public TrailRenderer trail;
+        public int damages;
         void FixedUpdate()
         {
             transform.position += movement * Time.fixedDeltaTime;
@@ -18,9 +19,12 @@ namespace AbilityNameSpace
         private void OnTriggerEnter(Collider other)
         {
             Debug.Log("HIT SOMETHING");
-            if (other.gameObject)
+            IDamageable damageable = other.GetComponent<IDamageable>();
+            if (damageable != null)
             {
-                
+                damageable.TakeDamage(damages);
+                // DESTROY PROJECTILE
+                gameObject.SetActive(false);
             }
         }
     }   

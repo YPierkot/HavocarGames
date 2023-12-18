@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 5435273543235827400}
   m_Layer: 13
   m_Name: Enemy_Guardian
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -361,10 +361,9 @@ MonoBehaviour:
   lr: {fileID: 4030756772394299184}
   damageTakenByDoorOnDeath: 90
   bulletInRumbleCount: 11
-  timeBewteenShotsInMilliseconds: 100
+  timeBewteenShotsInMilliseconds: 150
   speedLooseByPlayer: 1.5
   bulletScattering: 3
-  shootDelayInMilliseconds: 50
   playerMask:
     serializedVersion: 2
     m_Bits: 256

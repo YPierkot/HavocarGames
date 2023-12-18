@@ -97,11 +97,15 @@ namespace AbilityNameSpace
             projectileObject.transform.rotation = transform.rotation;
 
             projectileObject.movement = dir * projectileSpeed;
+            projectileObject.damages = (int) GameManager.instance.controller.maxSpeed;
             projectileObject.trail.Clear();
 
             await Task.Delay(Mathf.RoundToInt(1000 * projectileDuration));
             
-            projectileObject.gameObject.SetActive(false);
+            if (projectileObject.gameObject.activeSelf)
+            {
+                projectileObject.gameObject.SetActive(false);   
+            }
         }
     }
 }

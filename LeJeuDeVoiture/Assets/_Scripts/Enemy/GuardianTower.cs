@@ -48,12 +48,12 @@ namespace EnemyNamespace
         {
             for (int i = 0; i < bulletInRumbleCount; i++)
             {
-                await DoShoot();
+                DoShoot();
                 await Task.Delay(timeBewteenShotsInMilliseconds);
             }
         }
 
-        private async Task DoShoot()
+        private void DoShoot()
         {
             var shootPos = playerPos.position; // Get la pos du player
             shootPos += new Vector3(Random.Range(-bulletScattering, bulletScattering), 0, Random.Range(-bulletScattering, bulletScattering));
@@ -122,13 +122,6 @@ namespace EnemyNamespace
 
         #endregion
         
-#if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            if (!Application.isPlaying) return;
-            Handles.color = Color.yellow;
-            Handles.DrawWireDisc(car.transform.position, Vector3.up, bulletScattering * 2, 5f);
-        }
-#endif
+
     }
 }
