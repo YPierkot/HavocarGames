@@ -14,6 +14,7 @@ using UnityEditor;
 public enum FrameRateOption
 {
     Default,
+    FPS12,
     FPS30,
     FPS60,
     FPS120
@@ -84,6 +85,7 @@ class FrameRateToggle : EditorToolbarDropdownToggle, IAccessContainerWindow
     {
         var menu = new GenericMenu();
         AddMenuItem(menu, FrameRateOption.Default, "Default");
+        AddMenuItem(menu, FrameRateOption.FPS12, "12 FPS");
         AddMenuItem(menu, FrameRateOption.FPS30, "30 FPS");
         AddMenuItem(menu, FrameRateOption.FPS60, "60 FPS");
         AddMenuItem(menu, FrameRateOption.FPS120, "120 FPS");
@@ -106,6 +108,9 @@ class FrameRateToggle : EditorToolbarDropdownToggle, IAccessContainerWindow
             case FrameRateOption.Default:
                 Application.targetFrameRate = -1;
                 break;
+            case FrameRateOption.FPS12:
+                Application.targetFrameRate = 12;
+                break;            
             case FrameRateOption.FPS30:
                 Application.targetFrameRate = 30;
                 break;
