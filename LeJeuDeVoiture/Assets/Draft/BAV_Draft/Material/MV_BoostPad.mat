@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MV_BoostPad
-  m_Shader: {fileID: -6465566751694194690, guid: 0738181735438a44f90f72aa67c78a17,
+  m_Shader: {fileID: -6465566751694194690, guid: d6361eac771341e4bbfeb2779f608678,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -38,11 +38,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _ArrowTexture:
-        m_Texture: {fileID: 2800000, guid: 8fd01e210c1d63145b7f97241b506e85, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0b48cf37a33ea2344ab284b862b9d910, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_3b38752194454e11829c680984bde077_Texture_1_Texture2D:
         m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SquareTexture:
+        m_Texture: {fileID: 2800000, guid: 96ea482a8dd734344a2de0fa91b6c6ba, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
