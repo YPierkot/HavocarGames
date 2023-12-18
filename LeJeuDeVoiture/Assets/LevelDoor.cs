@@ -1,4 +1,3 @@
-using System;
 using ManagerNameSpace;
 using TMPro;
 using UnityEngine;
@@ -22,13 +21,15 @@ public class LevelDoor : MonoBehaviour, IDamageable
     [Header("Regeneration Attribute Section")] 
     [SerializeField] private int regenerationTowersCount;
     [SerializeField] private float regenerationTimer;
-    [SerializeField] private int hpRegenPerSeconds;
+    [SerializeField] private int hpRegenPerTick;
+    [SerializeField] private float regenerationCooldown = 7;
     
     
     private void Start()
     {
         if (isDestructionReady) GetComponent<Collider>().isTrigger = true;
         currentLifePoints = maxLifePoints;
+        regenerationTimer = regenerationCooldown;
         UpdateCanvas();
     }
 
@@ -43,12 +44,13 @@ public class LevelDoor : MonoBehaviour, IDamageable
             }
         }
 
+        if (currentLifePoints == maxLifePoints) return;
         if (regenerationTowersCount > 0)
         {
-            
+            RegenerationAttribute();
         }
     }
-
+    
     public void SetWeakness()
     {
         Debug.Log("Set Weakness");
@@ -72,6 +74,18 @@ public class LevelDoor : MonoBehaviour, IDamageable
     {
         regenerationTowersCount--;
     }
+    
+    private void RegenerationAttribute()
+    {
+        regenerationTimer -= Time.deltaTime;
+        if (regenerationTimer < 0)
+        {
+            currentLifePoints += (hpRegenPerTick * regenerationTowersCount);
+            if (currentLifePoints > maxLifePoints) currentLifePoints = maxLifePoints;
+            UpdateCanvas();
+            regenerationTimer = regenerationCooldown;
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -86,7 +100,8 @@ public class LevelDoor : MonoBehaviour, IDamageable
     {
         if (isWeak) currentLifePoints -= Mathf.FloorToInt(damages * weaknessDamageMultiplyer);
         else currentLifePoints -= damages;
-        
+
+        if (currentLifePoints < 0) currentLifePoints = 0;
         UpdateCanvas();
 
         Debug.Log((float)currentLifePoints / maxLifePoints);
@@ -104,7 +119,7 @@ public class LevelDoor : MonoBehaviour, IDamageable
         GetComponent<Collider>().isTrigger = true;
     }
 
-    private void UpdateCanvas()
+    public void UpdateCanvas()
     {
         lifeText.text = $"{currentLifePoints}/{maxLifePoints}";
         GameManager.instance.uiManager.SetDoorLife(currentLifePoints, maxLifePoints, isDestructionReady);

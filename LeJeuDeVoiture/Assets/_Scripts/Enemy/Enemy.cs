@@ -24,8 +24,9 @@ namespace EnemyNamespace
 
         [Space(8)] [Header("SENTINEL SECTION")] 
         protected List<Sentinels> sentinelsList = new();
-        public int sentinelCount;
-        public float spawningRadius = 0;
+        [SerializeField] private Vector2Int sentinelRandomRange;
+        [SerializeField] protected int currentSentinelCount;
+        public float spawningRadius = 14;
         public GameObject sentinelsPrefab;
         [SerializeField] private bool isAutoRegen = false;
 
@@ -50,7 +51,7 @@ namespace EnemyNamespace
             currentHealthPoints = maxHealthPoints;
             isDead = false;
 
-            if (sentinelCount > 0) SetupSentinel();
+            if (sentinelRandomRange.y > 0) SetupSentinel();
         }
 
         /// <summary>
@@ -60,21 +61,21 @@ namespace EnemyNamespace
 
         private void SetupSentinel()
         {
-            isAutoRegen = true;
-            
-            var positions = new Vector3[sentinelCount];
+            //isAutoRegen = true;
+            currentSentinelCount = (int)Random.Range(sentinelRandomRange.x, sentinelRandomRange.y + 1);
+            var positions = new Vector3[currentSentinelCount];
             var currentPos = transform.position;
 
-            for (int i = 0; i < sentinelCount; i++)
+            for (int i = 0; i < currentSentinelCount; i++)
             {
-                float angle = i * (2 * Mathf.PI / sentinelCount);
+                float angle = i * (2 * Mathf.PI / currentSentinelCount);
                 float x = Mathf.Cos(angle) * spawningRadius;
                 float z = Mathf.Sin(angle) * spawningRadius;
 
                 positions[i] = new Vector3(currentPos.x + x, 0, currentPos.z + z);
             }
 
-            for (int i = 0; i < sentinelCount; i++)
+            for (int i = 0; i < currentSentinelCount; i++)
             {
                 Sentinels tempS = Instantiate(sentinelsPrefab, positions[i], Quaternion.identity, transform)
                     .GetComponent<Sentinels>();
@@ -87,7 +88,7 @@ namespace EnemyNamespace
         {
         }
 
-        protected virtual void TakeDamage(int damages)
+        protected virtual void EnemyTakeDamage(int damages)
         {
             currentHealthPoints -= damages;
             
@@ -99,31 +100,31 @@ namespace EnemyNamespace
             UpdateCanvas();
         }
         
-        protected virtual void OnDie()
+        protected virtual async void OnDie()
         {
         }
         
         protected internal void OnSentinelDie(int sentinelHealth)
         {
-            TakeDamage(maxHealthPoints -= sentinelHealth);
-            sentinelCount--;
+            EnemyTakeDamage(sentinelHealth);
+            currentSentinelCount--;
             //if (currentHealthPoints > maxHealthPoints) currentHealthPoints = maxHealthPoints;
             //if (sentinelCount == 0) isAutoRegen = false;
         }   
 
-        private double regenTimer;
-        public int hpRegenPerSeconds = 2;
-        protected virtual void UpdateRegen()
-        {
-            if (!isAutoRegen) return;
-            if (currentHealthPoints >= maxHealthPoints) return;
-            
-            regenTimer += Time.deltaTime;
-            if (regenTimer > 1f)
-            {
-                currentHealthPoints += hpRegenPerSeconds;
-                regenTimer = 0f;
-            }
-        }
+        // private double regenTimer;
+        // public int hpRegenPerSeconds = 2;
+        // protected virtual void UpdateRegen()
+        // {
+        //     if (!isAutoRegen) return;
+        //     if (currentHealthPoints >= maxHealthPoints) return;
+        //     
+        //     regenTimer += Time.deltaTime;
+        //     if (regenTimer > 1f)
+        //     {
+        //         currentHealthPoints += hpRegenPerSeconds;
+        //         regenTimer = 0f;
+        //     }
+        // }
     }
 }

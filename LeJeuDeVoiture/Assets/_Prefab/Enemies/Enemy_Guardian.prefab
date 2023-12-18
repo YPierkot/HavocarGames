@@ -279,7 +279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2396182323134116519}
   - component: {fileID: 1570906284302391474}
-  - component: {fileID: 7906908112464614291}
+  - component: {fileID: 1719380308204762606}
   - component: {fileID: 5905061834332253367}
   - component: {fileID: 1067330640178276046}
   - component: {fileID: 4030756772394299184}
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed78adf02553f94d919b80a3850e330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7906908112464614291
+--- !u!114 &1719380308204762606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -334,38 +334,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea05ec38f2bd8c14cb185a7439c5987b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealthPoints: 100
-  maxHealthPoints: 100
+  currentHealthPoints: 150
+  maxHealthPoints: 150
   unitBaseSpeed: 0
   updatePath: 0.35
-  sentinelCount: 4
+  sentinelRandomRange: {x: 2, y: 4}
+  currentSentinelCount: 0
   spawningRadius: 14
   sentinelsPrefab: {fileID: 4625916277476175915, guid: dfa16819e20da2c46ab1708d67ca9b11,
     type: 3}
   isAutoRegen: 0
-  hpRegenPerSeconds: 2
   currentState: 1
-  attribute: 0
+  attribute: 1
   isAiming: 0
   detectionDst: 80
-  timeBeforeShootInSeconds: 4
-  turretProjectilePrefab: {fileID: 8550481038089121249, guid: be6e8e84bf562574bb9b1b05d02838f9,
-    type: 3}
+  timeBeforeShootInSeconds: 5
+  turretProjectilePrefab: {fileID: 0}
   projectileLaunchPos: {fileID: 5411852750489440918}
-  turretShotCooldown: 7
+  turretShotCooldown: 5
   isInCooldown: 0
-  meshRenderer: {fileID: 0}
+  meshRenderer: {fileID: 8596583394653064366}
   mats:
-  - {fileID: 2100000, guid: 9000b4349a476d74caa1d566a70e1f85, type: 2}
   - {fileID: 2100000, guid: 3ffb32eb4c6bf984cb7f3f6e82fc2523, type: 2}
+  - {fileID: 2100000, guid: 9000b4349a476d74caa1d566a70e1f85, type: 2}
   lifeText: {fileID: 7842913738772953013}
   lr: {fileID: 4030756772394299184}
   damageTakenByDoorOnDeath: 90
-  bulletInRumbleCount: 10
+  bulletInRumbleCount: 11
   timeBewteenShotsInMilliseconds: 100
-  speedLooseByPlayer: 2
-  bulletScattering: 1.5
-  shootDelayInMilliseconds: 35
+  speedLooseByPlayer: 1.5
+  bulletScattering: 3
+  shootDelayInMilliseconds: 50
   playerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -380,7 +379,6 @@ MonoBehaviour:
   hitPointParticeSystem: {fileID: 8705775842771027331}
   explosionFeedback: {fileID: 7715945382269984751, guid: 1d5cf99084e607347b15787bdf9ff8e4,
     type: 3}
-  aimImage: {fileID: 0}
 --- !u!136 &5905061834332253367
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -400,7 +398,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.75
   m_Height: 8
   m_Direction: 1
   m_Center: {x: 0, y: 4, z: 0}
@@ -429,7 +427,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!120 &4030756772394299184
 LineRenderer:
@@ -566,7 +564,7 @@ GameObject:
   - component: {fileID: 1356437494785074893}
   - component: {fileID: 7842913738772953013}
   m_Layer: 13
-  m_Name: Text (TMP)
+  m_Name: LifeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

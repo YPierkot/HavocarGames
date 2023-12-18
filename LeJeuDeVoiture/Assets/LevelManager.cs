@@ -60,11 +60,18 @@ public class LevelManager : MonoBehaviour
     private void StartLevel()
     {
         for (int i = 0; i < levels[currentLevelIndex].levelEnemies.Count; i++)
-        {
             levels[currentLevelIndex].levelEnemies[i].enabled = true;
+
+        for (int i = 0; i < levels[currentLevelIndex].levelEnemies.Count; i++)
+        {
+            if (levels[currentLevelIndex].levelEnemies[i].GetComponent<Tower>().attribute == Tower.EnemyAttribute.Regeneration)
+            {
+                levels[currentLevelIndex].levelDoor.AddRegenerationTower();
+            }
         }
         
         GameManager.instance.uiManager.SetCurrentLevelDoorName(levels[currentLevelIndex].levelDoor.name);
+        levels[currentLevelIndex].levelDoor.UpdateCanvas();
     }
 
     public void ReviveTowers()
@@ -80,29 +87,40 @@ public class LevelManager : MonoBehaviour
         }
     }
     
-    public void OnTowerDie(Tower tower, int damages)
+    public Task OnTowerDie(Tower tower, int damages)
     {
         for (int i = 0; i < levels[currentLevelIndex].isEnemyAtPosAlive.Count; i++)
         {
+            if (tower == null || !tower.enabled)
+            {
+                Debug.Log("No more towers in level");
+                for (int j = 0; j < levels[currentLevelIndex].isEnemyAtPosAlive.Count; j++) levels[currentLevelIndex].isEnemyAtPosAlive[j] = false;
+            }
+            
             if (levels[currentLevelIndex].levelEnemies[i] == tower)
             {
                 levels[currentLevelIndex].levelDoor.TakeDamage(damages);
                 levels[currentLevelIndex].isEnemyAtPosAlive[i] = false;
                 levels[currentLevelIndex].levelEnemies.RemoveAt(i);
+                
+                Debug.Log(tower.attribute);
+                switch (tower.attribute)
+                {
+                    case Tower.EnemyAttribute.None: break;
+                    case Tower.EnemyAttribute.Fragile: levels[currentLevelIndex].levelDoor.SetWeakness(); break;
+                    case Tower.EnemyAttribute.Regeneration: levels[currentLevelIndex].levelDoor.RemoveRegenerationTower(); break;
+                    default: throw new ArgumentOutOfRangeException();
+                }
             }
         }
-        
-        Debug.Log(tower.attribute);
-        if (tower.attribute == Tower.EnemyAttribute.Fragile)
-        {
-            levels[currentLevelIndex].levelDoor.SetWeakness();
-        }
+
+        return Task.CompletedTask;
     }
 
     public void GoNextLevel()
     {
         currentLevelIndex++;
-        GameManager.instance.controller.maxSpeed += 30;
+        GameManager.instance.controller.maxSpeed += 25;
         StartLevel();
     }
 }

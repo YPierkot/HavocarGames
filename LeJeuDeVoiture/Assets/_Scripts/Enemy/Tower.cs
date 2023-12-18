@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace EnemyNamespace
 {
-    public class Tower : Enemy
+    public class Tower : Enemy, IDamageable
     {
         [Space(3)]
         [Header("Turret Section")]
@@ -103,8 +103,6 @@ namespace EnemyNamespace
 
         protected virtual void TurretSleep()
         {
-            //ModifyMeshFormPlayerSpeed(car.speed);
-            
             if (isInCooldown)
             {
                 timer += Time.deltaTime;
@@ -137,33 +135,15 @@ namespace EnemyNamespace
             //SwitchState(TurretState.None);
         }
         #endregion
-        
-        public override void CollideWithPlayer()
-        {
-            if(!car.abilitiesManager.isInBulletMode) return;
-            TakeDamage(Mathf.FloorToInt(car.speed));
-        }
 
-        protected override void OnDie()
-        {
-            base.OnDie();
-            LevelManager.Instance.OnTowerDie(this, damageTakenByDoorOnDeath);
-            Destroy(gameObject); // TODO -> Passer en state mort quand on aura des assets & gamefeel pour différencier les deux states
-        }
-
-        protected override void UpdateRegen()
-        {
-            base.UpdateRegen();
-            UpdateCanvas();
-        }
+        // protected override void UpdateRegen()
+        // {
+        //     base.UpdateRegen();
+        //     UpdateCanvas();
+        // }
         
-        protected override void UpdateCanvas()
-        {
-            lifeText.text = $"{currentHealthPoints}/{maxHealthPoints}";
-        }
-        
+        protected override void UpdateCanvas() => lifeText.text = $"{currentHealthPoints}/{maxHealthPoints}";
         protected void ModifyMeshFormPlayerSpeed(float playerSpeed) => meshRenderer.material = playerSpeed < currentHealthPoints ? mats[0] : mats[1];
-
         
 #if UNITY_EDITOR
         private void OnDrawGizmos()
@@ -174,12 +154,12 @@ namespace EnemyNamespace
             Handles.color = Color.blue;
             Handles.DrawWireDisc(transform.position, Vector3.up, spawningRadius, 4f);
             
-            var positions = new Vector3[sentinelCount];
+            var positions = new Vector3[currentSentinelCount];
             var currentPos = transform.position;
             
-            for (int i = 0; i < sentinelCount; i++)
+            for (int i = 0; i < currentSentinelCount; i++)
             {
-                float angle = i * (2 * Mathf.PI / sentinelCount);
+                float angle = i * (2 * Mathf.PI / currentSentinelCount);
                 float x = Mathf.Cos(angle) * spawningRadius;
                 float z = Mathf.Sin(angle) * spawningRadius;
 
@@ -204,5 +184,27 @@ namespace EnemyNamespace
             Fragile,
             Regeneration
         }
+
+        #region IDamageable Implementation
+
+        public override void CollideWithPlayer()
+        {
+            if(!car.abilitiesManager.isInBulletMode) return;
+            EnemyTakeDamage(Mathf.FloorToInt(car.speed));
+        }
+        
+        protected override async void OnDie()
+        {
+            base.OnDie();
+            await LevelManager.Instance.OnTowerDie(this, damageTakenByDoorOnDeath);
+            await Task.Yield();
+            Destroy(gameObject); // TODO -> Passer en state mort quand on aura des assets & gamefeel pour différencier les deux states
+        }
+
+        // TODO -> Connecter avec le nv system de collision directement sur la voiture
+        public void TakeDamage(int damages) => EnemyTakeDamage(Mathf.FloorToInt(car.speed));
+        public void Kill() => OnDie();
+
+        #endregion
     }
 }

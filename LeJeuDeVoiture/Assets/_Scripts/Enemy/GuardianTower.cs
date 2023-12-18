@@ -1,6 +1,6 @@
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
+using System.Threading.Tasks;
+using UnityEditor;
 
 namespace EnemyNamespace
 {
@@ -11,7 +11,6 @@ namespace EnemyNamespace
         [SerializeField] private float speedLooseByPlayer = 1.5f;
         [SerializeField] private float bulletScattering = 1;
         
-        public int shootDelayInMilliseconds = 50;
         public LayerMask playerMask;
         public LayerMask groundMask;
         public LayerMask wallMask;
@@ -32,16 +31,13 @@ namespace EnemyNamespace
             lr.SetPositions(positions);
             lr.startWidth = (1 - (timer / timeBeforeShootInSeconds)) * 0.55f;
             lr.endWidth = (1 - (timer / timeBeforeShootInSeconds)) * 0.4f;
-
-            //ModifyMeshFormPlayerSpeed(car.speed);
-
+            
             if (isAiming)
             {
                 timer += Time.deltaTime;
                 if (timer > timeBeforeShootInSeconds)
                 {
                     isAiming = false;
-                    // Shoot sur le joueur
                     await TurretShoot();
                     SwitchState(TurretState.Sleep);
                 }
@@ -60,8 +56,6 @@ namespace EnemyNamespace
         private async Task DoShoot()
         {
             var shootPos = playerPos.position; // Get la pos du player
-            await Task.Delay(shootDelayInMilliseconds); // Attendre le delay
-
             shootPos += new Vector3(Random.Range(-bulletScattering, bulletScattering), 0, Random.Range(-bulletScattering, bulletScattering));
             
             // Lancer le tir 
@@ -103,7 +97,6 @@ namespace EnemyNamespace
         [SerializeField] private ParticleSystem muzzleParticuleSystem;
         [SerializeField] private ParticleSystem hitPointParticeSystem;
         [SerializeField] private GameObject explosionFeedback;
-        [SerializeField] private Image aimImage;
 
         private void ActivateBeam(Vector3 hitPoint, Vector3 normalPoint)
         {
@@ -128,5 +121,14 @@ namespace EnemyNamespace
         }
 
         #endregion
+        
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            if (!Application.isPlaying) return;
+            Handles.color = Color.yellow;
+            Handles.DrawWireDisc(car.transform.position, Vector3.up, bulletScattering * 2, 5f);
+        }
+#endif
     }
 }
