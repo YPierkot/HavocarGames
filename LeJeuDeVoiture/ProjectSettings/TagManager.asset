@@ -21,7 +21,7 @@ TagManager:
   - PassThroughWalls
   - Projectile
   - Ennemy
-  - 
+  - CollisionWithWalls
   - 
   - 
   - 
