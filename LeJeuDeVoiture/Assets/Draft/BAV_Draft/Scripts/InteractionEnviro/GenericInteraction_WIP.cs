@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using CarNameSpace;
 using ManagerNameSpace;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class GenericInteraction_WIP : EnvironmentInteraction
 {
@@ -28,8 +27,14 @@ public class GenericInteraction_WIP : EnvironmentInteraction
         DisplayPadRenderer();
         PopulateColorArray();
     }
-    
 
+#if UNITY_EDITOR    
+    private void OnValidate() {
+        DisplayPadRenderer();
+        PopulateColorArray();
+    }
+#endif
+    
     public override void Interact(CarController player)
     {
         base.Interact(player);

@@ -39327,7 +39327,7 @@ MonoBehaviour:
   directionalDampeningEnabled: 1
   losingSpeedSpeed: 0.1
   losingSpeedGoldMode: 0.2
-  localCenterOfMass: {x: 0, y: -0.5, z: 0}
+  localCenterOfMass: {x: 0, y: -0.1, z: 0}
   speedDisplay: {fileID: 0}
   whiteCircle: {fileID: 0}
   whiteIndicator: {fileID: 0}
@@ -39481,8 +39481,6 @@ MonoBehaviour:
   maxShakeForce: 2
   stretchDuration: 0.5
   sizeVariation: 1.5
-  increaseProwessMultiplier: 0.1
-  enableDebugLog: 1
 --- !u!1 &3675665750976638010
 GameObject:
   m_ObjectHideFlags: 0
@@ -40219,7 +40217,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   dashThroughWall: 0
-  dashThroughWallTimer: 0
   dashAngleSwitch: 0.5
   cooldown: 0
   boostedDashs: 0
