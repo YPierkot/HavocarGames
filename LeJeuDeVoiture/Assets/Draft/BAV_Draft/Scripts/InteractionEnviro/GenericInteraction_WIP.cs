@@ -10,6 +10,7 @@ using UnityEngine.Serialization;
 public class GenericInteraction_WIP : EnvironmentInteraction
 {
     public InteractionsType interactionType = InteractionsType.EnergyItem;
+    public PadBoostValue padBoostValue = PadBoostValue.None;
     public InteractiveSettings_WIP interactiveSettings;
     public List<GameObject> padVisualRenderer; 
     public List<ParticleSystem> padPSRenderer = new List<ParticleSystem>();
@@ -26,6 +27,7 @@ public class GenericInteraction_WIP : EnvironmentInteraction
     //Private
     private bool canBePickedUp = true;
     private bool isBoosting = false;
+    private bool isAddingEnergy = false;
     private bool isRotating = false;
     private Color[] padColors; //Store the color
     private string padColorName = "_BaseColor"; //Name of the color in the shader 
@@ -38,7 +40,8 @@ public class GenericInteraction_WIP : EnvironmentInteraction
         //DisplayPadRenderer();
         //PopulateColorArray();
     }
-    
+
+
 
     public override void Interact(CarController player)
     {
@@ -47,7 +50,7 @@ public class GenericInteraction_WIP : EnvironmentInteraction
         {
             //Implement Energy Item
             case InteractionsType.EnergyItem:
-                GameManager.instance.abilitiesManager.AddEnergy(interactiveSettings.energyAmount);
+                _ = StartEnergyPadAsync(player);
                 break;
             //Implement Shield Item
             case InteractionsType.ShieldItem:
@@ -180,6 +183,67 @@ public class GenericInteraction_WIP : EnvironmentInteraction
             isBoosting = false;
         }
     }
+    
+
+    private async Task StartEnergyPadAsync(CarController player)
+    {
+        if (!isAddingEnergy)
+        {
+            EnergyValueToAdd(padBoostValue);
+            isAddingEnergy = true;
+            gameObject.SetActive(false);
+            float delayDuration = CalculateDelayDuration(padBoostValue);
+            await Task.Delay((int)(delayDuration * 1000));
+
+            await StopEnergyPadAsync(player);
+        }
+    }
+    
+    private async Task StopEnergyPadAsync(CarController player)
+    {
+        if (isAddingEnergy)
+        {
+            gameObject.SetActive(true);
+            isAddingEnergy = false;
+        }
+    }
+    
+    public void EnergyValueToAdd(PadBoostValue padBoostValue)
+    {
+        switch (padBoostValue)
+        {
+            case PadBoostValue.None:
+                GameManager.instance.abilitiesManager.AddEnergy(0);
+                break;
+            case PadBoostValue.Small:
+                GameManager.instance.abilitiesManager.AddEnergy(interactiveSettings.smallEnergy.x);
+                break;
+            case PadBoostValue.Medium:
+                GameManager.instance.abilitiesManager.AddEnergy(interactiveSettings.mediumEnergy.x);
+                break;
+            case PadBoostValue.Large:
+                GameManager.instance.abilitiesManager.AddEnergy(interactiveSettings.largeEnergy.x);
+                break;
+        }
+    }
+    
+    private float CalculateDelayDuration(PadBoostValue padBoostValue)
+    {
+        switch (padBoostValue)
+        {
+            case PadBoostValue.None:
+                return 0;
+            case PadBoostValue.Small:
+                return interactiveSettings.smallEnergy.y;
+            case PadBoostValue.Medium:
+                return interactiveSettings.mediumEnergy.y;
+            case PadBoostValue.Large:
+                return interactiveSettings.largeEnergy.y;
+            default:
+                return 0f;
+        }
+    }
+
 
     [ContextMenu("Update Collider and Display")]
     private void UpdateDisplayAndCollider()
