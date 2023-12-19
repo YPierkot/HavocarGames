@@ -50538,6 +50538,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4030756772394299184, guid: 6aba903071103154e80ef3a24f0c1f2d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4550381487084244893, guid: 6aba903071103154e80ef3a24f0c1f2d,
         type: 3}
       propertyPath: m_Name
@@ -80898,6 +80903,11 @@ PrefabInstance:
       propertyPath: prowessMultiplierText
       value: 
       objectReference: {fileID: 8613497942422349548}
+    - target: {fileID: 7938592832149290605, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9100204322241268650, guid: c2199272b0c3d91469c0c831564d6040,
         type: 3}
       propertyPath: m_LocalPosition.x

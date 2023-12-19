@@ -100,11 +100,10 @@ namespace EnemyNamespace
             UpdateCanvas();
         }
 
-        [SerializeField] private float speedBonusAfterKillingEnemy = 4.5f;
-        [SerializeField] private float prowessMultiplyerBonusAfterKillingEnemy = 0.1f;
+        [SerializeField] private float energyBonusAfterKillingEnemy = 4.5f;
         protected virtual async void OnDie()
         {
-            GameManager.instance.prowessManager.TriggerProwessEvent(0.1f,"Sentinel Destroyed !",5); // Speed bonus to player
+            GameManager.instance.abilitiesManager.AddEnergy(energyBonusAfterKillingEnemy);
         }
         
         protected internal void OnSentinelDie(int sentinelHealth)

@@ -1117,6 +1117,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8ade822eeccb664a82f08a7b4a5e9d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealthPoints: 0
+  maxHealthPoints: 0
+  unitBaseSpeed: 0
+  updatePath: 0.35
+  sentinelRandomRange: {x: 0, y: 0}
+  currentSentinelCount: 0
+  spawningRadius: 14
+  sentinelsPrefab: {fileID: 4625916277476175915, guid: dfa16819e20da2c46ab1708d67ca9b11,
+    type: 3}
+  speedBonusAfterKillingEnemy: 4.5
+  prowessMultiplyerBonusAfterKillingEnemy: 0.1
+  currentState: 1
+  attribute: 0
+  isAiming: 0
+  detectionDst: 0
+  shootLoadingDuration: 5
+  turretProjectilePrefab: {fileID: 8797665552710297995, guid: 6e70bd44d3214094396dfa71071de664,
+    type: 3}
+  projectileLaunchPos: {fileID: 5411852750489440918}
+  turretShotCooldown: 2.5
+  isInCooldown: 0
+  meshRenderer: {fileID: 0}
+  mats: []
+  lifeText: {fileID: 7842913738772953013}
+  lr: {fileID: 0}
+  damageTakenByDoorOnDeath: 90
+  aimAngle: 100
+  angleOffset: 4.75
+  bulletInRumbleCount: 20
+  timeBewteenShotsInMilliseconds: 0
 --- !u!1 &4774191787485169375
 GameObject:
   m_ObjectHideFlags: 0
