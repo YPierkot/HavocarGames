@@ -22,6 +22,7 @@ public class InteractiveSettings_WIP : ScriptableObject
     
     [Header("Jump Pad Settings")] 
     public float jumpPadForce = 10;
+    public float jumpPadDuration = 0.5f;
     public Color jumpPadColor = Color.magenta;
     //TODO : Add a Boolean to check if the player is in the air or not
 }
