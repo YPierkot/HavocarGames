@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpeed: 50
-  damages: 1
+  damages: 4
   muzzlePS: {fileID: 9143209726893710045}
   explosionPS: {fileID: 7715945382269984751, guid: 1d5cf99084e607347b15787bdf9ff8e4,
     type: 3}
