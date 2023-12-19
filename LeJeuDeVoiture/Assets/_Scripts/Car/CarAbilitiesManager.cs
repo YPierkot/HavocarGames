@@ -235,6 +235,13 @@ namespace CarNameSpace
 
             UpdateBulletMode();
         }
+        
+        private void OnTriggerEnter(Collider other)
+        {
+            Debug.Log("HIT SOMETHING");
+            IDamageable damageable = other.GetComponent<IDamageable>();
+            damageable?.TakeDamage((int)carController.maxSpeed / 2);
+        }
     }
 }
 

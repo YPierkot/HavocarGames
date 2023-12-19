@@ -59,14 +59,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Pixelate: 16
+    - _Pixelate: 8
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReloadLerp: 0
     - _Speed: 0
     - _YOffset: 0
     m_Colors:
-    - _BackgroundColor: {r: 0.2422812, g: 0.2462014, b: 0.2422812, a: 0}
+    - _BackgroundColor: {r: 0.41568628, g: 0.17051823, b: 0, a: 0}
+    - _BaseColor: {r: 2, g: 0.65960467, b: 0, a: 0}
     - _ChosePattern: {r: 1, g: 0, b: 0, a: 0}
     - _Color: {r: 2, g: 1.943285, b: 0, a: 0}
     - _MainColor: {r: 1.876995, g: 2, b: 0, a: 0}
