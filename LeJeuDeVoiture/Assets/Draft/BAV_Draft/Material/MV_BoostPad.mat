@@ -38,7 +38,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _ArrowTexture:
-        m_Texture: {fileID: 2800000, guid: 0b48cf37a33ea2344ab284b862b9d910, type: 3}
+        m_Texture: {fileID: 2800000, guid: c8fa84e34f77595498bbc6ae330fad0e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_3b38752194454e11829c680984bde077_Texture_1_Texture2D:
@@ -63,10 +63,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _FlipMaskX: 1
+    - _OffsetPixel: 1
     - _Pixelate: 16
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReloadLerp: 1
+    - _Rotation: 90
     - _Speed: 0
     - _YOffset: 0
     m_Colors:
@@ -79,4 +82,5 @@ Material:
     - _ReloadSpeed: {r: 2, g: 0, b: 0, a: 0}
     - _SpeedArrowXY: {r: 0, g: -1, b: 0, a: 0}
     - _SpeedCircleXY: {r: 1, g: 1, b: 0, a: 0}
+    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

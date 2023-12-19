@@ -15,12 +15,18 @@ public class GenericInteraction_WIP : EnvironmentInteraction
     public List<ParticleSystem> padPSRenderer = new List<ParticleSystem>();
     public List<Material> padVisualMat = new List<Material>();
     
+    [Header("--- Collider Size ---")]
+    [Tooltip("If the collider size is not correct, use the context menu 'Update Collide' to update it")]
+    public GameObject scalingRenderer; //Attach the Scaling Renderer
+    
     //Private
     private bool canBePickedUp = true;
     private bool isBoosting = false;
     private bool isRotating = false;
-    public Color[] padColors; //Store the color
+    private Color[] padColors; //Store the color
     private string padColorName = "_BaseColor"; //Name of the color in the shader 
+    private BoxCollider padBoxCollider; // Get the Box Collider
+
     
 
     private void Awake()
@@ -111,6 +117,13 @@ public class GenericInteraction_WIP : EnvironmentInteraction
         }
     }
 
+    [ContextMenu("Update Collider and Display")]
+    private void UpdateDisplayAndCollider()
+    {
+        UpdateCollider();
+        DisplayPadRenderer();
+    }
+    
     private void DisplayPadRenderer()
     {
         DisableAllVisualPad();
@@ -182,5 +195,13 @@ public class GenericInteraction_WIP : EnvironmentInteraction
         padColors[1] = interactiveSettings.shieldPadColor;
         padColors[2] = interactiveSettings.boostPadColor;
         padColors[3] = interactiveSettings.jumpPadColor;
+    }
+    
+    private void UpdateCollider()
+    {
+        padBoxCollider = GetComponent<BoxCollider>();
+        padBoxCollider.isTrigger = true;
+        Vector3 localScale = scalingRenderer.transform.localScale;
+        padBoxCollider.size = new Vector3(localScale.x, 2, localScale.z);
     }
 }
