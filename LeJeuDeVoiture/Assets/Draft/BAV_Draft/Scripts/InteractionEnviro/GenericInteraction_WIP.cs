@@ -19,6 +19,10 @@ public class GenericInteraction_WIP : EnvironmentInteraction
     [Tooltip("If the collider size is not correct, use the context menu 'Update Collide' to update it")]
     public GameObject scalingRenderer; //Attach the Scaling Renderer
     
+    [Header("Curve Jump Pad")]
+    public Transform controlTransform;
+    public Transform endTransform;
+    
     //Private
     private bool canBePickedUp = true;
     private bool isBoosting = false;
@@ -52,7 +56,7 @@ public class GenericInteraction_WIP : EnvironmentInteraction
                 break;
             //Implement Jump Pad
             case InteractionsType.JumpPad:
-                _ = ActivateJumpAsync(player, interactiveSettings.jumpPadForce);
+                _ = _ = ActivateJumpQuadraticBAsync(player, controlTransform, endTransform, 1);
                 EnableParticleSystems((int)interactionType); 
                 break;
             //Implement Booster Pad
@@ -95,6 +99,75 @@ public class GenericInteraction_WIP : EnvironmentInteraction
         }
     }
     
+    private async Task ActivateJumpLinerBAsync(CarController player, Transform endTransform, float curveDuration)
+    {
+        Vector3 startPos = player.transform.position;
+        Vector3 endPos = endTransform.position;
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < curveDuration)
+        {
+            float t = elapsedTime / curveDuration;
+
+            // Bezier curve calculation
+            Vector3 jumpPoint = CalculateBezierPoint(startPos, startPos + Vector3.up * interactiveSettings.jumpPadForce, endPos, t);
+
+            // Update the position directly
+            player.transform.position = jumpPoint;
+
+            elapsedTime += Time.deltaTime;
+            await Task.Yield(); // Yield to the main thread
+
+            if (!gameObject.activeSelf) return; // If the object is deactivated, stop the coroutine
+        }
+
+        // Ensure the object ends up at the destination
+        player.transform.position = endPos;
+    }
+    
+    
+    private async Task ActivateJumpQuadraticBAsync(CarController player, Transform controlTransform, Transform endTransform, float curveDuration)
+    {
+        Rigidbody rb = player.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            Vector3 startPos = player.transform.position;
+            Vector3 controlPos = controlTransform.position;
+            Vector3 endPos = endTransform.position;
+
+            float elapsedTime = 0f;
+
+            // Disable rotation at the beginning of the jump
+            rb.freezeRotation = true;
+
+            while (elapsedTime < curveDuration)
+            {
+                float t = elapsedTime / curveDuration;
+
+                // Quadratic Bezier curve calculation
+                Vector3 jumpPoint = CalculateQuadraticBezierPoint(startPos, controlPos, endPos, t);
+
+                // Update the position directly
+                player.transform.position = jumpPoint;
+
+                elapsedTime += Time.deltaTime;
+                await Task.Yield(); // Yield to the main thread
+
+                if (!gameObject.activeSelf) return; // If the object is deactivated, stop the coroutine
+            }
+
+            // Ensure the object ends up at the destination
+            player.transform.position = endPos;
+
+            // Re-enable rotation at the end of the jump
+            rb.freezeRotation = false;
+        }
+    }
+
+
+
+    
     private async Task StartBoosterAsync(CarController player)
     {
         if (!isBoosting)
@@ -107,6 +180,7 @@ public class GenericInteraction_WIP : EnvironmentInteraction
             await StopBoosterAsync(player);
         }
     }
+    
 
     private async Task StopBoosterAsync(CarController player)
     {
@@ -203,5 +277,53 @@ public class GenericInteraction_WIP : EnvironmentInteraction
         padBoxCollider.isTrigger = true;
         Vector3 localScale = scalingRenderer.transform.localScale;
         padBoxCollider.size = new Vector3(localScale.x, 2, localScale.z);
+    }
+    
+    private Vector3 CalculateQuadraticBezierPoint(Vector3 p0, Vector3 p1, Vector3 p2, float t)
+    {
+        float u = 1 - t;
+        float tt = t * t;
+        float uu = u * u;
+
+        Vector3 p = uu * p0; // (1-t)^2 * P0
+        p += 2 * u * t * p1; // 2 * (1-t) * t * P1
+        p += tt * p2; // t^2 * P2
+
+        return p;
+    }
+    
+    private Vector3 CalculateBezierPoint(Vector3 p0, Vector3 p1, Vector3 p2, float t)
+    {
+        float u = 1 - t;
+        float tt = t * t;
+        float uu = u * u;
+        float uuu = uu * u;
+        float ttt = tt * t;
+
+        Vector3 p = uuu * p0; // (1-t)^3 * P0
+        p += 3 * uu * t * p1; // 3 * (1-t)^2 * t * P1
+        p += 3 * u * tt * p2; // 3 * (1-t) * t^2 * P2
+        p += ttt * endTransform.position; // t^3 * P3
+
+        return p;
+    }
+    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+
+        if (endTransform != null)
+        {
+            Vector3 startPos = transform.position;
+            Vector3 controlPos = controlTransform.position;
+            Vector3 endPos = endTransform.position;
+
+            for (float t = 0; t <= 1; t += 0.1f)
+            {
+                //Vector3 point = CalculateBezierPoint(startPos, startPos + Vector3.up * interactiveSettings.jumpPadForce, endPos, t);
+                Vector3 point = CalculateQuadraticBezierPoint(startPos, controlPos, endPos, t);
+                Gizmos.DrawSphere(point, 0.1f);
+            }
+        }
     }
 }

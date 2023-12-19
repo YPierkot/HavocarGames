@@ -39,11 +39,11 @@ Material:
     m_Ints: []
     m_Floats:
     - _CrackAmount: 0.63
-    - _CracksWidth: 0.2
+    - _CracksWidth: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _CracksColor: {r: 0.6886792, g: 0, b: 0.49422863, a: 1}
+    - _CracksColor: {r: 0.6886792, g: 0, b: 0.49422854, a: 1}
     - _GlassColor: {r: 0.41960785, g: 0.6313726, b: 0.6784314, a: 0.46666667}
     - _Tiling: {r: 3, g: 1.5, b: 0, a: 0}
   m_BuildTextureStacks: []
