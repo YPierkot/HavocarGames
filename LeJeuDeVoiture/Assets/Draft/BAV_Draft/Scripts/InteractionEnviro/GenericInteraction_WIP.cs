@@ -35,8 +35,8 @@ public class GenericInteraction_WIP : EnvironmentInteraction
 
     private void Awake()
     {
-        DisplayPadRenderer();
-        PopulateColorArray();
+        //DisplayPadRenderer();
+        //PopulateColorArray();
     }
     
 
@@ -56,7 +56,7 @@ public class GenericInteraction_WIP : EnvironmentInteraction
                 break;
             //Implement Jump Pad
             case InteractionsType.JumpPad:
-                _ = _ = ActivateJumpQuadraticBAsync(player, controlTransform, endTransform, 1);
+                _ = ActivateJumpQuadraticBAsync(player, controlTransform, endTransform, interactiveSettings.jumpPadDuration);
                 EnableParticleSystems((int)interactionType); 
                 break;
             //Implement Booster Pad
@@ -109,20 +109,16 @@ public class GenericInteraction_WIP : EnvironmentInteraction
         while (elapsedTime < curveDuration)
         {
             float t = elapsedTime / curveDuration;
-
-            // Bezier curve calculation
+            
             Vector3 jumpPoint = CalculateBezierPoint(startPos, startPos + Vector3.up * interactiveSettings.jumpPadForce, endPos, t);
-
-            // Update the position directly
             player.transform.position = jumpPoint;
 
             elapsedTime += Time.deltaTime;
-            await Task.Yield(); // Yield to the main thread
+            await Task.Yield(); 
 
-            if (!gameObject.activeSelf) return; // If the object is deactivated, stop the coroutine
+            if (!gameObject.activeSelf) return; 
         }
 
-        // Ensure the object ends up at the destination
         player.transform.position = endPos;
     }
     
@@ -132,35 +128,27 @@ public class GenericInteraction_WIP : EnvironmentInteraction
         Rigidbody rb = player.GetComponent<Rigidbody>();
         if (rb != null)
         {
+            rb.freezeRotation = true;
+            
             Vector3 startPos = player.transform.position;
             Vector3 controlPos = controlTransform.position;
             Vector3 endPos = endTransform.position;
 
             float elapsedTime = 0f;
-
-            // Disable rotation at the beginning of the jump
-            rb.freezeRotation = true;
-
+            
             while (elapsedTime < curveDuration)
             {
                 float t = elapsedTime / curveDuration;
 
-                // Quadratic Bezier curve calculation
                 Vector3 jumpPoint = CalculateQuadraticBezierPoint(startPos, controlPos, endPos, t);
-
-                // Update the position directly
                 player.transform.position = jumpPoint;
 
                 elapsedTime += Time.deltaTime;
-                await Task.Yield(); // Yield to the main thread
+                await Task.Yield(); 
 
-                if (!gameObject.activeSelf) return; // If the object is deactivated, stop the coroutine
+                if (!gameObject.activeSelf) return; 
             }
-
-            // Ensure the object ends up at the destination
             player.transform.position = endPos;
-
-            // Re-enable rotation at the end of the jump
             rb.freezeRotation = false;
         }
     }
@@ -324,6 +312,8 @@ public class GenericInteraction_WIP : EnvironmentInteraction
                 Vector3 point = CalculateQuadraticBezierPoint(startPos, controlPos, endPos, t);
                 Gizmos.DrawSphere(point, 0.1f);
             }
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(endPos, 0.2f);
         }
     }
 }

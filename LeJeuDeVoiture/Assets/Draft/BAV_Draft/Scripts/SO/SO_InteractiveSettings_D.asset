@@ -21,4 +21,5 @@ MonoBehaviour:
   increaseSpeedMax: 10
   boostPadColor: {r: 0, g: 1, b: 0, a: 1}
   jumpPadForce: 10
+  jumpPadDuration: 0.5
   jumpPadColor: {r: 1, g: 0, b: 1, a: 1}
