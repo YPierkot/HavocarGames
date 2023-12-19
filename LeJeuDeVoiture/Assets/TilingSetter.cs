@@ -8,6 +8,9 @@ public class TilingSetter : MonoBehaviour
     public float maxAngle;
     public int maxQuarter;
     public GameObject[] possibleTiles;
+    public Vector2 tilingSize;
+    public List<GameObject> tiles;
+    public RectTransform rectTransform;
     
     [ContextMenu("SetRandomAngle")]
     public void SetRandomAngles()
@@ -18,5 +21,18 @@ public class TilingSetter : MonoBehaviour
         }
     }
     
-    
+    [ContextMenu("SetTiling")]
+    public void SetTiling()
+    {
+        /*int tileXAmount = Mathf.RoundToInt(rectTransform.rect.width / tilingSize.x);
+        int tileYAmount = Mathf.RoundToInt(rectTransform.rect.height / tilingSize.y);
+
+        for (int x = 0; x < tileXAmount; x++)
+        {
+            for (int y = 0; y < tileYAmount; y++)
+            {
+                Vector3 pos = new Vector3(-rectTransform.rect.width / 2 + (x * tilingSize.x),0,);
+            }
+        }*/
+    }
 }
