@@ -23,8 +23,6 @@ namespace AbilityNameSpace
             if (damageable != null)
             {
                 damageable.TakeDamage(damages);
-                // DESTROY PROJECTILE
-                gameObject.SetActive(false);
             }
         }
     }   

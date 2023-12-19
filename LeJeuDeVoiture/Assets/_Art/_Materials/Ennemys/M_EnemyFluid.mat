@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CarProjectile
+  m_Name: M_EnemyFluid
   m_Shader: {fileID: -6465566751694194690, guid: 9e98a49179be26348bdfa1e23aab9a8f,
     type: 3}
   m_Parent: {fileID: 0}
@@ -55,7 +55,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Emissive: {r: 0, g: 0.924762, b: 1.9622642, a: 0}
-    - _MainColor: {r: 0, g: 0.32416898, b: 0.5176471, a: 0}
-    - _TopColor: {r: 0.4349858, g: 0.74019545, b: 0.8018868, a: 0}
+    - _Emissive: {r: 1.9622642, g: 0, b: 0.5140142, a: 0}
+    - _MainColor: {r: 0.5943396, g: 0, b: 0.4912123, a: 0}
+    - _TopColor: {r: 1, g: 0.33490568, b: 0.65605855, a: 0}
   m_BuildTextureStacks: []

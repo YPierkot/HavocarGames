@@ -39421,8 +39421,8 @@ MonoBehaviour:
   minAngleToBounce: 0.3
   fxBounce: {fileID: 7327552505560720248, guid: 18acc6bd1f606f14f98ebe020f39c498,
     type: 3}
-  nitroSpeedGainedPerSecond: 0
-  nitroEnergyUsedPerSecond: 0
+  nitroSpeedGainedPerSecond: 7
+  nitroEnergyUsedPerSecond: 1
   localCenterOfMass: {x: 0, y: -0.5, z: 0}
   speedDisplay: {fileID: 0}
   whiteCircle: {fileID: 0}
