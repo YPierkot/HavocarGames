@@ -39044,8 +39044,8 @@ MonoBehaviour:
     m_ActionName: Inputs/LTrigger
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5620132737468495727}
-        m_TargetAssemblyTypeName: CarNameSpace.CarAbilitiesManager, Assembly-CSharp
+      - m_Target: {fileID: 3952043192983453746}
+        m_TargetAssemblyTypeName: CarNameSpace.CarController, Assembly-CSharp
         m_MethodName: RShoulder
         m_Mode: 0
         m_Arguments:
@@ -39325,11 +39325,14 @@ MonoBehaviour:
   wheelForcesApply: 1
   steeringInputEnabled: 1
   directionalDampeningEnabled: 1
+  maxRotation: 0
   speedRetained: 0.7
   maxSpeedRetained: 0.95
   minAngleToBounce: 0.3
   fxBounce: {fileID: 7327552505560720248, guid: 18acc6bd1f606f14f98ebe020f39c498,
     type: 3}
+  nitroSpeedGainedPerSecond: 0
+  nitroEnergyUsedPerSecond: 0
   localCenterOfMass: {x: 0, y: -0.5, z: 0}
   speedDisplay: {fileID: 0}
   whiteCircle: {fileID: 0}

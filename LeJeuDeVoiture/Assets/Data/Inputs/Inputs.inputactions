@@ -16,9 +16,9 @@
                 },
                 {
                     "name": "RTrigger",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "468ad5df-3029-4cfe-a197-ea7d54bd17d5",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true

@@ -52,6 +52,10 @@ namespace CarNameSpace
         [SerializeField] private float minAngleToBounce = 0.3f;
         [SerializeField] private GameObject fxBounce;
 
+        [Header("NITRO")] 
+        [SerializeField] private float nitroSpeedGainedPerSecond;
+        [SerializeField] private float nitroEnergyUsedPerSecond;
+        private bool nitroMode;
         public float speed => rb.velocity.magnitude;
 
         [Header("PHYSICVALUES")] [SerializeField]
@@ -60,7 +64,7 @@ namespace CarNameSpace
         // INPUT VALUES
         private Vector2 stickValue;
         private float brakeForce;
-        private bool driftBrake,nitroMode,onGround;
+        private bool onGround;
         private float nitroModeEntryEnergy;
         private float speedFactor => speed / maxSpeed;
         
@@ -77,6 +81,7 @@ namespace CarNameSpace
         private void Start()
         {
             rb.centerOfMass = localCenterOfMass;
+            maxSpeed = baseMaxSpeed;
         }
 
         private void Update()
@@ -116,7 +121,13 @@ namespace CarNameSpace
             
             if(onGround) transform.rotation = Quaternion.Euler(Mathf.Clamp(transform.eulerAngles.x,-maxRotation,maxRotation),transform.eulerAngles.y,Mathf.Clamp(transform.eulerAngles.z,-maxRotation,maxRotation));
 
-            
+            if (nitroMode)
+            {
+                if (abilitiesManager.UseEnergy(Time.deltaTime * nitroEnergyUsedPerSecond))
+                {
+                    maxSpeed += Time.deltaTime * nitroSpeedGainedPerSecond;
+                }
+            }
         }
 
         void FixedUpdate()
@@ -206,7 +217,7 @@ namespace CarNameSpace
             float brake = 0;
             if (Vector3.Dot(rb.velocity, transform.forward) > 0.1f)
             {
-                brake = brakeForce * -braking * wheel.drivingFactor * (driftBrake ? 0 : 1);
+                brake = brakeForce * -braking * wheel.drivingFactor;
             }
             else
             {
@@ -238,6 +249,22 @@ namespace CarNameSpace
             else
             {
                 brakeForce = 0;
+            }
+        }
+        
+        public void RShoulder(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+
+                nitroMode = true;
+                
+            }
+            else if (context.canceled)
+            {
+
+                nitroMode = false;
+                
             }
         }
 
