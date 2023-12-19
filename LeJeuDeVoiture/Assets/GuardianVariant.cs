@@ -21,7 +21,7 @@ namespace EnemyNamespace
             {
                 //   2 * Math.PI -> ça q'il faut modifier
                 float angle = angleOffset / 2 + i * (aimAngle * Mathf.Deg2Rad / bulletInRumbleCount);
-                Debug.Log(angle);
+                //Debug.Log(angle);
                 float x = Mathf.Cos(angle) * aimRadius;
                 float z = Mathf.Sin(angle) * aimRadius;
 

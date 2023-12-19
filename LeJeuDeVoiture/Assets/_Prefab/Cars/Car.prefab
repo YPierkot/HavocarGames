@@ -39588,7 +39588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionIndex: 0
-  projectileDuration: 1
+  projectileDuration: 2
   projectileSpeed: 50
   projectileObject: {fileID: 0}
   stickValue: {x: 0, y: 1}

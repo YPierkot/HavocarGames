@@ -953,8 +953,7 @@ MonoBehaviour:
   spawningRadius: 14
   sentinelsPrefab: {fileID: 4625916277476175915, guid: dfa16819e20da2c46ab1708d67ca9b11,
     type: 3}
-  speedBonusAfterKillingEnemy: 4.5
-  prowessMultiplyerBonusAfterKillingEnemy: 0.1
+  energyBonusAfterKillingEnemy: 0.5
   currentState: 1
   attribute: 1
   isAiming: 0
@@ -988,8 +987,6 @@ MonoBehaviour:
   beamLr: {fileID: 7089063729226068909}
   muzzleParticuleSystem: {fileID: 4190615594562738419}
   hitPointParticeSystem: {fileID: 8705775842771027331}
-  explosionFeedback: {fileID: 7715945382269984751, guid: 1d5cf99084e607347b15787bdf9ff8e4,
-    type: 3}
 --- !u!136 &5905061834332253367
 CapsuleCollider:
   m_ObjectHideFlags: 0

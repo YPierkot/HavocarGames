@@ -922,7 +922,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5411852750489440918}
@@ -1117,21 +1117,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8ade822eeccb664a82f08a7b4a5e9d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealthPoints: 0
-  maxHealthPoints: 0
+  currentHealthPoints: 150
+  maxHealthPoints: 150
   unitBaseSpeed: 0
   updatePath: 0.35
-  sentinelRandomRange: {x: 0, y: 0}
+  sentinelRandomRange: {x: 2, y: 3}
   currentSentinelCount: 0
-  spawningRadius: 14
+  spawningRadius: 18.5
   sentinelsPrefab: {fileID: 4625916277476175915, guid: dfa16819e20da2c46ab1708d67ca9b11,
     type: 3}
-  speedBonusAfterKillingEnemy: 4.5
-  prowessMultiplyerBonusAfterKillingEnemy: 0.1
+  energyBonusAfterKillingEnemy: 4.5
   currentState: 1
   attribute: 0
   isAiming: 0
-  detectionDst: 0
+  detectionDst: 120
   shootLoadingDuration: 5
   turretProjectilePrefab: {fileID: 8797665552710297995, guid: 6e70bd44d3214094396dfa71071de664,
     type: 3}
@@ -1145,8 +1144,9 @@ MonoBehaviour:
   damageTakenByDoorOnDeath: 90
   aimAngle: 100
   angleOffset: 4.75
+  aimRadius: 20.3
   bulletInRumbleCount: 20
-  timeBewteenShotsInMilliseconds: 0
+  timeBewteenShotsInMilliseconds: 10
 --- !u!1 &4774191787485169375
 GameObject:
   m_ObjectHideFlags: 0
@@ -1306,7 +1306,7 @@ Transform:
   m_GameObject: {fileID: 4919566408260601755}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: -0, y: 1.5, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2051,7 +2051,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8806886906870563864}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.28482825, y: 0.647204, z: 0.6472038, w: -0.28482828}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 5.7, z: 0}
   m_LocalScale: {x: 300.00012, y: 300.0001, z: 300}
   m_ConstrainProportionsScale: 0
@@ -2062,7 +2062,7 @@ Transform:
   - {fileID: 8584181508906148342}
   - {fileID: 1185373831284230848}
   m_Father: {fileID: 2396182323134116519}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 227.508}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 90}
 --- !u!33 &3855478259769381984
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2212,17 +2212,17 @@ PrefabInstance:
     - target: {fileID: 5961046354385460996, guid: 5da738622caa3874881e8ca6127f530d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.000005955808
       objectReference: {fileID: 0}
     - target: {fileID: 5961046354385460996, guid: 5da738622caa3874881e8ca6127f530d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.17000008
       objectReference: {fileID: 0}
     - target: {fileID: 5961046354385460996, guid: 5da738622caa3874881e8ca6127f530d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.83
       objectReference: {fileID: 0}
     - target: {fileID: 5961046354385460996, guid: 5da738622caa3874881e8ca6127f530d,
         type: 3}
@@ -2291,12 +2291,12 @@ PrefabInstance:
     - target: {fileID: 8671579210220521062, guid: 835849c79b6f8044b94e187f24cf9402,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.17
       objectReference: {fileID: 0}
     - target: {fileID: 8671579210220521062, guid: 835849c79b6f8044b94e187f24cf9402,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.83
       objectReference: {fileID: 0}
     - target: {fileID: 8671579210220521062, guid: 835849c79b6f8044b94e187f24cf9402,
         type: 3}
