@@ -2,7 +2,7 @@ using ManagerNameSpace;
 using TMPro;
 using UnityEngine;
 
-public class LevelDoor : MonoBehaviour, IDamageable
+public class LevelDoor : MonoBehaviour
 {
     [SerializeField] private bool isWeak;
     [SerializeField] private bool isDestructionReady;
@@ -91,9 +91,9 @@ public class LevelDoor : MonoBehaviour, IDamageable
     {
         if (!isDestructionReady) return;
         if (!other.CompareTag("Player")) return;
-        if (!GameManager.instance.controller.abilitiesManager.isInBulletMode) return;
+        if (!GameManager.instance.controller.abilitiesManager.dash.isDashing) return;
 
-        Kill();
+        DestroyTower();
     }
 
     public void TakeDamage(int damages)
@@ -125,7 +125,7 @@ public class LevelDoor : MonoBehaviour, IDamageable
         GameManager.instance.uiManager.SetDoorLife(currentLifePoints, maxLifePoints, isDestructionReady);
     }
 
-    public void Kill()
+    private void DestroyTower()
     {
         LevelManager.Instance.GoNextLevel();
         Destroy(gameObject);
