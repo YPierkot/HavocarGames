@@ -38,7 +38,7 @@ namespace EnemyNamespace
                 Vector3 dir = (playerPos.position - projectileLaunchPos.position).normalized;
                 if(Physics.Raycast(projectileLaunchPos.position, dir, out var hit, 1000))
                 {
-                    aimingTimer = hit.collider.CompareTag("Player") || hit.collider.CompareTag("Player")
+                    aimingTimer = hit.collider.CompareTag("Player") || hit.collider.CompareTag("Enemy")
                         ? aimingTimer += Time.deltaTime
                         : aimingTimer -= Time.deltaTime;
                 }

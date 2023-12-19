@@ -13,8 +13,14 @@ namespace EnemyNamespace
         [SerializeField] private int bulletInRumbleCount;
         [SerializeField] private int timeBewteenShotsInMilliseconds;
 
+        protected override void Spawn()
+        {
+            base.Spawn();
+            SetupAimingPos();
+        }
+
         private Vector3[] aimPositions = Array.Empty<Vector3>();
-        public void SetupBalayage()
+        private void SetupAimingPos()
         {
             aimPositions = new Vector3[bulletInRumbleCount];
             for (int i = 0; i < bulletInRumbleCount; i++)
@@ -32,7 +38,7 @@ namespace EnemyNamespace
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            SetupBalayage();
+            SetupAimingPos();
             if (aimPositions.Length != 0 || aimPositions != Array.Empty<Vector3>())
             {
                 for (int i = 0; i < aimPositions.Length; i++)
@@ -65,38 +71,10 @@ namespace EnemyNamespace
 #endif
         
         #region AimingModify
-        
         protected override async void TurretAiming()
         {
-            // Vector3[] positions = new Vector3[2];
-            // positions[0] = projectileLaunchPos.position;
-            // positions[1] = playerPos.position;
-            // lr.SetPositions(positions);
-            // lr.startWidth = (1 - (aimingTimer / shootLoadingDuration)) * 0.55f;
-            // lr.endWidth = (1 - (aimingTimer / shootLoadingDuration)) * 0.4f;
-            
             if (isAiming)
             {
-                // Vector3 dir = (playerPos.position - projectileLaunchPos.position).normalized;
-                // if(Physics.Raycast(projectileLaunchPos.position, dir, out var hit, 1000))
-                // {
-                //     aimingTimer = hit.collider.CompareTag("Player") || hit.collider.CompareTag("Player")
-                //         ? aimingTimer += Time.deltaTime
-                //         : aimingTimer -= Time.deltaTime;
-                // }
-                //
-                // if (aimingTimer > shootLoadingDuration)
-                // {
-                //     isAiming = false;
-                //     await TurretShoot();
-                //     SwitchState(TurretState.Sleep);
-                // }
-                // else if (aimingTimer < 0)
-                // {
-                //     isAiming = false;
-                //     SwitchState(TurretState.Sleep);
-                // }
-
                 aimingTimer += Time.deltaTime;
                 if (aimingTimer > shootLoadingDuration)
                 {
