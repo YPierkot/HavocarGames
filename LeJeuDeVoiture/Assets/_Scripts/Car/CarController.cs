@@ -107,18 +107,8 @@ namespace CarNameSpace
 
             speedDisplay.text = ((int) speed) + "/" + ((int) maxSpeed);
 
-            // SI PRISE D'UN MUR OU BRAKE AU DELA DE 20% DE VITESSE MAX, PERTE DU BONUS
-            if (speedFactor < 0.2f)
-            {
-                maxSpeed = baseMaxSpeed;
-                GameManager.instance.prowessManager.ResetProwess();
-            }
-            
             if(speedFactor > 1) rb.velocity = Vector3.Lerp(rb.velocity,Vector3.ClampMagnitude(rb.velocity,maxSpeed),Time.deltaTime);
-
-            if (maxSpeed > baseMaxSpeed)
-                maxSpeed -= (maxSpeed - baseMaxSpeed) *
-                            (abilitiesManager.isInGold ? losingSpeedGoldMode : losingSpeedSpeed) * Time.deltaTime;
+            
         }
 
         void FixedUpdate()
@@ -141,25 +131,23 @@ namespace CarNameSpace
         {
             Vector3 wheelForce = Vector3.zero;
 
+            float suspension = 0;
+            
             // SI ROUE AU SOL, ALORS FORCES
             if (Physics.Raycast(wheel.transform.position, -wheel.transform.up, out RaycastHit hit,
                 suspensionLenght + anchoring))
             {
-                // CALCUL DES FORCES
-                float suspension = GetWheelSuspensionForce(wheel, hit);
-                float directionalDamp = GetWheelDirectionalDampening(wheel);
-                float drivingForce = wheel.drivingFactor > 0 ? GetWheelAcceleration(wheel) : 0;
-                wheelForce = wheel.transform.up * suspension +
-                             wheel.transform.right * directionalDamp +
-                             wheel.transform.forward * drivingForce;
-
-                // DEBUG RAYS
-                Debug.DrawRay(wheel.transform.position, wheel.transform.up * suspension, Color.green);
-                Debug.DrawRay(wheel.transform.position, wheel.transform.right * directionalDamp, Color.red);
-                Debug.DrawRay(wheel.transform.position, wheel.transform.forward * drivingForce, Color.blue);
-                Debug.DrawRay(wheel.transform.position, wheelForce, Color.white);
+                // GET SUSPENSION
+                suspension = GetWheelSuspensionForce(wheel, hit);
             }
-
+            
+            // CALCUL DES FORCES
+            float directionalDamp = GetWheelDirectionalDampening(wheel);
+            float drivingForce = wheel.drivingFactor > 0 ? GetWheelAcceleration(wheel) : 0;
+            wheelForce = wheel.transform.up * suspension +
+                         wheel.transform.right * directionalDamp +
+                         wheel.transform.forward * drivingForce;
+            
             return wheelForce;
         }
 
