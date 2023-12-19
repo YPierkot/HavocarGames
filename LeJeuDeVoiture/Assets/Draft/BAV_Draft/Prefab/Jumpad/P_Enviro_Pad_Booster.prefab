@@ -69,7 +69,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0961199061f0d944b8e62694f476903a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionType: 2
+  interactionType: 0
+  padBoostValue: 1
   interactiveSettings: {fileID: 11400000, guid: d8838197e650f1d40b10a004e3ef9b25,
     type: 2}
   padVisualRenderer:

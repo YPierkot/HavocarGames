@@ -6,3 +6,12 @@ public enum InteractionsType
     BoosterPad,
     JumpPad
 }
+
+[System.Serializable]
+public enum PadBoostValue
+{
+    None,
+    Small,
+    Medium,
+    Large
+}
