@@ -18,11 +18,11 @@ namespace EnemyNamespace
         {
             if (isDead) return;
 
-            timer += Time.deltaTime;
-            if (timer > updatePath)
+            aimingTimer += Time.deltaTime;
+            if (aimingTimer > updatePath)
             {
                 agent.SetDestination(playerPos.position);
-                timer = 0;
+                aimingTimer = 0;
             }
         }
 

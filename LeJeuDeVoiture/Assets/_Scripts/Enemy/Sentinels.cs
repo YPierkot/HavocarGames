@@ -17,11 +17,16 @@ public class Sentinels : Enemy, IDamageable
         UpdateCanvas();
     }
 
+    protected override void OnDie()
+    {
+        base.OnDie();
+        Destroy(gameObject);
+    }
+
     public override void Death()
     {
         parentEnemy.OnSentinelDie(damageToDoOnDieToParentEnemy);
-        GameManager.instance.prowessManager.TriggerProwessEvent(0.1f,"Sentinel Destroyed !",5); // Speed bonus to player
-        Destroy(gameObject);
+        OnDie();
     }
 
     public override void CollideWithPlayer()

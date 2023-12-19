@@ -392,7 +392,7 @@ MonoBehaviour:
   currentSentinelCount: 0
   spawningRadius: 0
   sentinelsPrefab: {fileID: 0}
-  isAutoRegen: 0
+  energyBonusAfterKillingEnemy: 0.25
   parentEnemy: {fileID: 0}
   lifeText: {fileID: 7293199803397957496}
   damageToDoOnDieToParentEnemy: 20

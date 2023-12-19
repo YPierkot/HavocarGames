@@ -12,15 +12,15 @@ namespace EnemyNamespace
             positions[0] = projectileLaunchPos.position;
             positions[1] = playerPos.position;
             lr.SetPositions(positions);
-            lr.startWidth = (1 - (timer / timeBeforeShootInSeconds)) * 0.55f;
-            lr.endWidth = (1 - (timer / timeBeforeShootInSeconds)) * 0.4f;
+            lr.startWidth = (1 - (aimingTimer / shootLoadingDuration)) * 0.55f;
+            lr.endWidth = (1 - (aimingTimer / shootLoadingDuration)) * 0.4f;
 
             //ModifyMeshFormPlayerSpeed(car.speed);
 
             if (isAiming)
             {
-                timer += Time.deltaTime;
-                if (timer > timeBeforeShootInSeconds)
+                aimingTimer += Time.deltaTime;
+                if (aimingTimer > shootLoadingDuration)
                 {
                     isAiming = false;
                     // Shoot sur le joueur
