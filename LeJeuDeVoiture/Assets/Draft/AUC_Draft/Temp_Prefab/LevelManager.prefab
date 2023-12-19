@@ -46,18 +46,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLevelIndex: 0
   levels:
-  - levelCount: 0
-    levelDoor: {fileID: 0}
+  - levelDoor: {fileID: 0}
     levelEnemies:
     - {fileID: 0}
     enemiesPos: []
     isEnemyAtPosAlive: 
-  - levelCount: 1
-    levelDoor: {fileID: 0}
+    enemyTypes: 
+    enemyAttribute: 
+  - levelDoor: {fileID: 0}
     levelEnemies:
     - {fileID: 0}
     - {fileID: 0}
     enemiesPos: []
     isEnemyAtPosAlive: 
+    enemyTypes: 
+    enemyAttribute: 
   guardianTowerPrefab: {fileID: 4550381487084244893, guid: 6aba903071103154e80ef3a24f0c1f2d,
+    type: 3}
+  guardianTowerVariantPrefab: {fileID: 4550381487084244893, guid: 09a6e36649870ca4fbf5f23e4b1e9737,
     type: 3}

@@ -11,7 +11,7 @@ namespace EnemyNamespace
         [Space(3)]
         [Header("Turret Section")]
         [SerializeField] private TurretState currentState = TurretState.Sleep;
-        public EnemyAttribute attribute = EnemyAttribute.None;
+        public EnemyAttribute enemyAttribute = EnemyAttribute.None;
         
         [SerializeField] protected bool isAiming;
         [Tooltip("Distance à laquelle la tourelle détecte le joueur")] 
