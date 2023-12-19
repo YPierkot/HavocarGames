@@ -14,7 +14,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Scenes/PROTO_V2.unity
     guid: dd925b3340a37594cae31ef2bdb0909b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Draft/BAV_Draft/BAV_BoostPad.unity
     guid: 5048b032d484b2943a0b95a283427b81
+  - enabled: 1
+    path: Assets/Draft/YOP_Draft/LD_Test01.unity
+    guid: b3f4406d873c99e4599ec470db73cc49
+  - enabled: 1
+    path: Assets/_Scenes/PROTO_V3.unity
+    guid: 6b33f6ced8e592742bebe2d449930c7d
   m_configObjects: {}

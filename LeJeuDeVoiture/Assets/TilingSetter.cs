@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteAlways]
-public class TilingSetter : MonoBehaviour
-{
+public class TilingSetter : MonoBehaviour {
+    public bool setRandomRot = true;
     public float maxAngle;
     public int maxQuarter;
     public GameObject[] possibleTiles;
@@ -15,8 +15,8 @@ public class TilingSetter : MonoBehaviour
     public BoxCollider collider;
     
     [ContextMenu("SetRandomAngle")]
-    public void SetRandomAngles()
-    {
+    public void SetRandomAngles() {
+        if (!setRandomRot) return;
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).rotation = Quaternion.Euler(-90,Random.Range(0,maxQuarter)*90 + Random.Range(-maxAngle,maxAngle),0);

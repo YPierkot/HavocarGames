@@ -27,12 +27,15 @@ public class GenericInteraction_WIP : EnvironmentInteraction
     //Private
     private bool canBePickedUp = true;
     private bool isBoosting = false;
+    private bool isJumping = false;
     private bool isAddingEnergy = false;
     private bool isRotating = false;
     private Color[] padColors; //Store the color
     private string padColorName = "_BaseColor"; //Name of the color in the shader 
     private BoxCollider padBoxCollider; // Get the Box Collider
 
+    private CarController CarPlayer = null;
+    private Vector3 jumpPoint = Vector3.zero;
     
 
     private void Awake()
@@ -41,6 +44,11 @@ public class GenericInteraction_WIP : EnvironmentInteraction
         //PopulateColorArray();
     }
 
+    private void FixedUpdate() {
+        if (interactionType == InteractionsType.JumpPad && isJumping) {
+            CarPlayer.transform.position = Vector3.Lerp(CarPlayer.transform.position, jumpPoint, .5f);
+        }
+    }
 
 
     public override void Interact(CarController player)
@@ -129,8 +137,9 @@ public class GenericInteraction_WIP : EnvironmentInteraction
     private async Task ActivateJumpQuadraticBAsync(CarController player, Transform controlTransform, Transform endTransform)
     {
         Rigidbody rb = player.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
+        if (rb != null) {
+            isJumping = true;
+            CarPlayer = player;
             rb.freezeRotation = true;
 
             Vector3 startPos = player.transform.position;
@@ -139,7 +148,6 @@ public class GenericInteraction_WIP : EnvironmentInteraction
 
             float distance = Vector3.Distance(startPos, endPos);
             float curveDuration = distance / player.speed;
-            Debug.Log(curveDuration);
 
             float elapsedTime = 0f;
 
@@ -147,8 +155,7 @@ public class GenericInteraction_WIP : EnvironmentInteraction
             {
                 float t = elapsedTime / curveDuration;
 
-                Vector3 jumpPoint = CalculateQuadraticBezierPoint(startPos, controlPos, endPos, t);
-                player.transform.position = jumpPoint;
+                jumpPoint = CalculateQuadraticBezierPoint(startPos, controlPos, endPos, t);
 
                 elapsedTime += Time.deltaTime;
                 await Task.Yield();
@@ -158,6 +165,7 @@ public class GenericInteraction_WIP : EnvironmentInteraction
 
             player.transform.position = endPos;
             rb.freezeRotation = false;
+            isJumping = false;
         }
     }
     

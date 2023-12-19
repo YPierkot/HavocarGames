@@ -39034,7 +39034,6 @@ GameObject:
   - component: {fileID: 2460150980905917548}
   - component: {fileID: 6644548871987067360}
   - component: {fileID: 1058546705144233145}
-  - component: {fileID: 7938592832149290605}
   m_Layer: 8
   m_Name: Car
   m_TagString: Player
@@ -39315,9 +39314,9 @@ MonoBehaviour:
   suspensionDampening: 3
   anchoring: 0.2
   wheelMass: 0.1
-  baseMaxSpeed: 25
+  baseMaxSpeed: 30
   maxSpeed: 25
-  minSpeed: 18
+  minSpeed: 25
   accelerationBySpeedFactor:
     serializedVersion: 2
     m_Curve:
@@ -39360,8 +39359,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  acceleration: 12
-  braking: 12
+  acceleration: 15
+  braking: 15
   decceleration: 4
   steeringBySpeedFactor:
     serializedVersion: 2
@@ -39411,15 +39410,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  steeringSpeed: 60
+  steeringSpeed: 50
   bulletModeSteeringFactor: 0.8
   wheelForcesApply: 1
   steeringInputEnabled: 1
   directionalDampeningEnabled: 1
   maxRotation: 0
-  speedRetained: 0.7
+  speedRetained: 1
   maxSpeedRetained: 0.95
-  minAngleToBounce: 0.3
+  minAngleToBounce: 0.2
   fxBounce: {fileID: 7327552505560720248, guid: 18acc6bd1f606f14f98ebe020f39c498,
     type: 3}
   nitroSpeedGainedPerSecond: 7
@@ -39597,27 +39596,6 @@ MonoBehaviour:
   stickValue: {x: 0, y: 1}
   dashAngleSwitch: 0.5
   cooldown: 1
---- !u!65 &7938592832149290605
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3667153732990590383}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.7438934, y: 0.59912777, z: 0.6976874}
-  m_Center: {x: 0.00076106936, y: 0.5213064, z: 1.5499998}
 --- !u!1 &3675665750976638010
 GameObject:
   m_ObjectHideFlags: 0
