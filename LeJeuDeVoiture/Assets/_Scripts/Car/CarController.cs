@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ManagerNameSpace;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -43,6 +44,7 @@ namespace CarNameSpace
         public bool wheelForcesApply = true;
         public bool steeringInputEnabled = true;
         public bool directionalDampeningEnabled = true;
+        [SerializeField] private float maxRotation;
         
         [Header("WALLBOUNCE")]
         [SerializeField] private float speedRetained = 0.7f;
@@ -58,7 +60,7 @@ namespace CarNameSpace
         // INPUT VALUES
         private Vector2 stickValue;
         private float brakeForce;
-        private bool driftBrake,nitroMode;
+        private bool driftBrake,nitroMode,onGround;
         private float nitroModeEntryEnergy;
         private float speedFactor => speed / maxSpeed;
         
@@ -111,11 +113,24 @@ namespace CarNameSpace
 
             if(speedFactor > 1) rb.velocity = Vector3.Lerp(rb.velocity,Vector3.ClampMagnitude(rb.velocity,maxSpeed),Time.deltaTime);
             
+            
+            if(onGround) transform.rotation = Quaternion.Euler(Mathf.Clamp(transform.eulerAngles.x,-maxRotation,maxRotation),transform.eulerAngles.y,Mathf.Clamp(transform.eulerAngles.z,-maxRotation,maxRotation));
+
+            
         }
 
         void FixedUpdate()
         {
             if (!wheelForcesApply) return;
+            
+            if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit,1))
+            {
+                onGround = true;
+            }
+            else
+            {
+                onGround = false;
+            }
             
             for (int i = 0; i < wheels.Length; i++)
             {
@@ -142,14 +157,17 @@ namespace CarNameSpace
                 // GET SUSPENSION
                 suspension = GetWheelSuspensionForce(wheel, hit);
             }
-            
-            // CALCUL DES FORCES
-            float directionalDamp = GetWheelDirectionalDampening(wheel);
-            float drivingForce = wheel.drivingFactor > 0 ? GetWheelAcceleration(wheel) : 0;
-            wheelForce = wheel.transform.up * suspension +
-                         wheel.transform.right * directionalDamp +
-                         wheel.transform.forward * drivingForce;
-            
+
+            if (onGround)
+            {
+                // CALCUL DES FORCES
+                float directionalDamp = GetWheelDirectionalDampening(wheel);
+                float drivingForce = wheel.drivingFactor > 0 ? GetWheelAcceleration(wheel) : 0;
+                wheelForce = wheel.transform.up * suspension +
+                             wheel.transform.right * directionalDamp +
+                             wheel.transform.forward * drivingForce;   
+            }
+
             return wheelForce;
         }
 
@@ -243,14 +261,15 @@ namespace CarNameSpace
         {
             if (other.gameObject.CompareTag("Wall"))
             {
-                Debug.Log("COLLISION WALL");
+                Debug.Log(other.relativeVelocity.magnitude);
                 if (Vector3.Dot(other.contacts[0].normal, transform.forward) < -minAngleToBounce)
                 {
+                    
                     Vector2 reflect = Vector2.Reflect(new Vector2(transform.forward.x, transform.forward.z),
                         new Vector2(other.contacts[0].normal.x,other.contacts[0].normal.z));
                     transform.forward = new Vector3(reflect.x,0, reflect.y);
                     maxSpeed = Mathf.Clamp(maxSpeed * maxSpeedRetained,baseMaxSpeed,Mathf.Infinity);
-                    rb.velocity = transform.forward * maxSpeed * speedRetained;
+                    rb.velocity = transform.forward * other.relativeVelocity.magnitude * speedRetained;
                     rb.angularVelocity = Vector3.zero;
                     
                     for (int i = 0; i < wheels.Length; i++)
@@ -264,6 +283,8 @@ namespace CarNameSpace
 
                     Destroy(Instantiate(fxBounce, other.contacts[0].point, Quaternion.LookRotation(other.contacts[0].normal)),2);
                 }
+                
+                transform.rotation = Quaternion.Euler(Mathf.Clamp(transform.eulerAngles.x,-maxRotation,maxRotation),transform.eulerAngles.y,Mathf.Clamp(transform.eulerAngles.z,-maxRotation,maxRotation));
             }
         }
 

@@ -26,6 +26,10 @@ namespace AbilityNameSpace
         public bool isDashing;
 
         public int boostedDashs;
+        
+        Vector2 carForwardCamera => Quaternion.Euler(0, 0, -45) * new Vector2(
+            GameManager.instance.controller.transform.forward.x,
+            GameManager.instance.controller.transform.forward.z);
 
 
         public void SetDashThroughWallsTimer(float time)
@@ -53,6 +57,17 @@ namespace AbilityNameSpace
             if (context.performed)
             {
                 stickValue = context.ReadValue<Vector2>();
+                
+                float signedAngle = Vector2.SignedAngle(stickValue.normalized, carForwardCamera.normalized);
+
+                if (Mathf.Abs(signedAngle) < 45)
+                {
+                    directionIndex = 0;
+                }
+                else if (Mathf.Abs(signedAngle) < 135)
+                {
+                    directionIndex = signedAngle > 0 ? 2 : 1;
+                }
             }
         }
 
@@ -62,44 +77,16 @@ namespace AbilityNameSpace
 
             else if (context.canceled)
             {
+                GameManager.instance.controller.steeringInputEnabled = true;
                 ReleaseDash();
             }
         }
 
-        public async void ReleaseDash()
+        void ReleaseDash()
         {
             if (timer > 0) return;
             timer = cooldown;
-            isDashing = true;
-            Collider[] results;
-
-
-            GameManager.instance.controller.steeringInputEnabled = true;
-
-            Vector2 carForwardCamera = Quaternion.Euler(0, 0, -45) * new Vector2(
-                GameManager.instance.controller.transform.forward.x,
-                GameManager.instance.controller.transform.forward.z);
-
-
-            float angleDiff = Vector2.Dot(stickValue.normalized, carForwardCamera.normalized);
-
-            float sign = Vector2.SignedAngle(stickValue.normalized, carForwardCamera.normalized);
-
-            bool dashThrough = dashThroughWall;
-            if (dashThrough) GameManager.instance.controller.gameObject.layer = 11;
-
-            bool dashBoosted = boostedDashs > 0;
-
-
-            if (angleDiff > dashAngleSwitch)
-            {
-                directionIndex = 0;
-            }
-            else if (angleDiff > -dashAngleSwitch)
-            {
-                directionIndex = sign > 0 ? 2 : 1;
-            }
-
+            
             Vector3 direction = GameManager.instance.controller.transform.forward;
             switch (directionIndex)
             {
@@ -118,6 +105,19 @@ namespace AbilityNameSpace
             }
 
             direction = new Vector3(direction.x, 0, direction.z);
+            Dash(direction);
+        }
+
+        public async void Dash(Vector3 dir)
+        {
+            
+            isDashing = true;
+            Collider[] results;
+
+            bool dashThrough = dashThroughWall;
+            if (dashThrough) GameManager.instance.controller.gameObject.layer = 11;
+
+            bool dashBoosted = boostedDashs > 0;
 
             particleObj.SetActive(true);
             particleObj.transform.localScale = Vector3.zero;
@@ -145,7 +145,7 @@ namespace AbilityNameSpace
                 }
 
                 Vector3 newPos = GameManager.instance.controller.rb.position +
-                                 direction * Time.deltaTime * dashSpeed * speedCurve.Evaluate(i / duration);
+                                 dir * Time.deltaTime * dashSpeed * speedCurve.Evaluate(i / duration);
                 results = Physics.OverlapSphere(newPos, collisionCheckRadius, dashThrough ? dashThroughMask : wallMask);
                 if (results.Length == 0)
                 {

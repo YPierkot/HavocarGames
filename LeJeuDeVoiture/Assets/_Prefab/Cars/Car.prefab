@@ -40222,6 +40222,7 @@ MonoBehaviour:
   dashThroughWall: 0
   dashAngleSwitch: 0.5
   cooldown: 0
+  isDashing: 0
   boostedDashs: 0
 --- !u!1 &6977078122876387689
 GameObject:
