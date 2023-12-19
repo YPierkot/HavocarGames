@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e5dfb4c7d9ead4589b3eca1af2014b, type: 3}
   m_Name: SO_InteractiveSettings_D
   m_EditorClassIdentifier: 
-  energyAmount: 10
+  smallEnergyAmount: 0.1
+  mediumEnergyAmount: 2
+  largeEnergyAmount: 3
   energyPadColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   shieldDuration: 5
   shieldRespawnValue: 5
