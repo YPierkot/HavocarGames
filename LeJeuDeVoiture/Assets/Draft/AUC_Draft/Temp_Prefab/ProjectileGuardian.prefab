@@ -112,7 +112,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5299842547246022675}
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa93209ec42ac14491fcdac15ad7587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 275
+  projectileSpeed: 50
   damages: 1
   muzzlePS: {fileID: 9143209726893710045}
   explosionPS: {fileID: 7715945382269984751, guid: 1d5cf99084e607347b15787bdf9ff8e4,
