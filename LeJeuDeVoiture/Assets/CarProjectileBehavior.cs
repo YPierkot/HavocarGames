@@ -16,13 +16,15 @@ namespace AbilityNameSpace
             transform.position += movement * Time.fixedDeltaTime;
         }
 
-        private void OnTriggerEnter(Collider other) {
+        private void OnTriggerEnter(Collider other) 
+        {
             if (other.CompareTag("Player")) return;
-            
+
             IDamageable damageable = other.GetComponent<IDamageable>();
             if (damageable != null)
             {
                 damageable.TakeDamage(damages);
+                
             }
         }
     }   
