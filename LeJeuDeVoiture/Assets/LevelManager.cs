@@ -120,7 +120,7 @@ public class LevelManager : MonoBehaviour
     public void GoNextLevel()
     {
         currentLevelIndex++;
-        GameManager.instance.controller.maxSpeed += 25;
+        GameManager.instance.controller.AddMaxSpeed(25);
         StartLevel();
     }
 }

@@ -108,7 +108,7 @@ namespace ManagerNameSpace
             IncreaseProwessMultiplier(amount);
             DisplayProwessMultiplier(prowessTextToDisplay);
             this.prowessTextToDisplay = prowessTextToDisplay;
-            car.maxSpeed += speedBonus;
+            car.AddMaxSpeed(speedBonus);
 
         }
 
