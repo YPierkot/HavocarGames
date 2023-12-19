@@ -56,7 +56,7 @@ public class GenericInteraction_WIP : EnvironmentInteraction
                 break;
             //Implement Jump Pad
             case InteractionsType.JumpPad:
-                _ = ActivateJumpQuadraticBAsync(player, controlTransform, endTransform, interactiveSettings.jumpPadDuration);
+                _ = ActivateJumpQuadraticBAsync(player, controlTransform, endTransform);
                 EnableParticleSystems((int)interactionType); 
                 break;
             //Implement Booster Pad
@@ -123,19 +123,23 @@ public class GenericInteraction_WIP : EnvironmentInteraction
     }
     
     
-    private async Task ActivateJumpQuadraticBAsync(CarController player, Transform controlTransform, Transform endTransform, float curveDuration)
+    private async Task ActivateJumpQuadraticBAsync(CarController player, Transform controlTransform, Transform endTransform)
     {
         Rigidbody rb = player.GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.freezeRotation = true;
-            
+
             Vector3 startPos = player.transform.position;
             Vector3 controlPos = controlTransform.position;
             Vector3 endPos = endTransform.position;
 
+            float distance = Vector3.Distance(startPos, endPos);
+            float curveDuration = distance / player.speed;
+            Debug.Log(curveDuration);
+
             float elapsedTime = 0f;
-            
+
             while (elapsedTime < curveDuration)
             {
                 float t = elapsedTime / curveDuration;
@@ -144,14 +148,16 @@ public class GenericInteraction_WIP : EnvironmentInteraction
                 player.transform.position = jumpPoint;
 
                 elapsedTime += Time.deltaTime;
-                await Task.Yield(); 
+                await Task.Yield();
 
-                if (!gameObject.activeSelf) return; 
+                if (!gameObject.activeSelf) return;
             }
+
             player.transform.position = endPos;
             rb.freezeRotation = false;
         }
     }
+
 
 
 
@@ -233,8 +239,9 @@ public class GenericInteraction_WIP : EnvironmentInteraction
             ps.gameObject.SetActive(false);
             if (padPSRenderer.IndexOf(ps) == (int)type - 1)
             {
-                ps.gameObject.SetActive(true);
-                ps.Play(); 
+                //TODO : Reenable this part when we do the particules
+                //ps.gameObject.SetActive(true);
+                //ps.Play(); 
             }
         }
     }
@@ -300,7 +307,7 @@ public class GenericInteraction_WIP : EnvironmentInteraction
     {
         Gizmos.color = Color.yellow;
 
-        if (endTransform != null)
+        if (endTransform != null && interactionType == InteractionsType.JumpPad)
         {
             Vector3 startPos = transform.position;
             Vector3 controlPos = controlTransform.position;
