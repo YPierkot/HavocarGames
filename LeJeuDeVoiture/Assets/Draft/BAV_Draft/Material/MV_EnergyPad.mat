@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MV_EnergyPad
-  m_Shader: {fileID: -6465566751694194690, guid: 0738181735438a44f90f72aa67c78a17,
+  m_Shader: {fileID: -6465566751694194690, guid: d6361eac771341e4bbfeb2779f608678,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -38,11 +38,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _ArrowTexture:
-        m_Texture: {fileID: 2800000, guid: 8fd01e210c1d63145b7f97241b506e85, type: 3}
+        m_Texture: {fileID: 2800000, guid: c8fa84e34f77595498bbc6ae330fad0e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_3b38752194454e11829c680984bde077_Texture_1_Texture2D:
         m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SquareTexture:
+        m_Texture: {fileID: 2800000, guid: 96ea482a8dd734344a2de0fa91b6c6ba, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -59,10 +63,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _FlipMaskX: 0
+    - _OffsetPixel: 1
     - _Pixelate: 16
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReloadLerp: 0
+    - _Rotation: 0
     - _Speed: 0
     - _YOffset: 0
     m_Colors:
@@ -75,4 +82,5 @@ Material:
     - _ReloadSpeed: {r: 2, g: 0, b: 0, a: 0}
     - _SpeedArrowXY: {r: 0, g: -1, b: 0, a: 0}
     - _SpeedCircleXY: {r: 1, g: 1, b: 0, a: 0}
+    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
