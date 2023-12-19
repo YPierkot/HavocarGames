@@ -43,12 +43,14 @@ namespace CarNameSpace
         public bool wheelForcesApply = true;
         public bool steeringInputEnabled = true;
         public bool directionalDampeningEnabled = true;
-
+        
+        [Header("WALLBOUNCE")]
+        [SerializeField] private float speedRetained = 0.7f;
+        [SerializeField] private float maxSpeedRetained = 0.8f;
+        [SerializeField] private float minAngleToBounce = 0.3f;
+        [SerializeField] private GameObject fxBounce;
 
         public float speed => rb.velocity.magnitude;
-
-        public float losingSpeedSpeed;
-        public float losingSpeedGoldMode;
 
         [Header("PHYSICVALUES")] [SerializeField]
         private Vector3 localCenterOfMass;
@@ -100,7 +102,7 @@ namespace CarNameSpace
                             * steeringBySpeedFactor.Evaluate(speedFactor)                                                   // Courbe de steering par speedFactor ( 0 / 1 )
                             * (baseMaxSpeed / maxSpeed)                                                                     // Facteur de Vitesse Bonus ( 0 / 1 )
                             * steeringByMaxSpeed.Evaluate(maxSpeed)                                                         // Courbe de steering par maxSpeed ( 1 / X )
-                            * (abilitiesManager.isInRage ? bulletModeSteeringFactor : 1), 0)                        // Si en Bullet Mode driving factor reduit ( Value )
+                            * (abilitiesManager.isInRage ? bulletModeSteeringFactor : 1), 0)                            // Si en Bullet Mode driving factor reduit ( Value )
                         , Time.deltaTime * steeringSpeed);
                 }
             }
@@ -230,6 +232,38 @@ namespace CarNameSpace
             else
             {
                 stickValue = Vector2.zero;
+            }
+        }
+
+        #endregion
+
+        #region Collisions
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.CompareTag("Wall"))
+            {
+                Debug.Log("COLLISION WALL");
+                if (Vector3.Dot(other.contacts[0].normal, transform.forward) < -minAngleToBounce)
+                {
+                    Vector2 reflect = Vector2.Reflect(new Vector2(transform.forward.x, transform.forward.z),
+                        new Vector2(other.contacts[0].normal.x,other.contacts[0].normal.z));
+                    transform.forward = new Vector3(reflect.x,0, reflect.y);
+                    maxSpeed = Mathf.Clamp(maxSpeed * maxSpeedRetained,baseMaxSpeed,Mathf.Infinity);
+                    rb.velocity = transform.forward * maxSpeed * speedRetained;
+                    rb.angularVelocity = Vector3.zero;
+                    
+                    for (int i = 0; i < wheels.Length; i++)
+                    {
+                        if (wheels[i].steeringFactor > 0)
+                        {
+                            wheels[i].wheelVisual.localRotation =
+                                wheels[i].transform.localRotation = Quaternion.Euler(0, 0, 0);
+                        }
+                    }
+
+                    Destroy(Instantiate(fxBounce, other.contacts[0].point, Quaternion.LookRotation(other.contacts[0].normal)),2);
+                }
             }
         }
 

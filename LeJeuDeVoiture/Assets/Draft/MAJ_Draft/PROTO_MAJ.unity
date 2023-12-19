@@ -18312,11 +18312,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 30ba86abe6687e7438aaabcd037358c3, type: 2}
   - {fileID: 2100000, guid: 2d92e9addb8e0d047b1a280e7ba6f7df, type: 2}
   - {fileID: 2100000, guid: 2cafffb606bfb2646aa522190a322ba9, type: 2}
-  padColors:
-  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 1, g: 0, b: 1, a: 1}
+  scalingRenderer: {fileID: 0}
 --- !u!1 &549951134
 GameObject:
   m_ObjectHideFlags: 0
@@ -30601,11 +30597,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 30ba86abe6687e7438aaabcd037358c3, type: 2}
   - {fileID: 2100000, guid: 2d92e9addb8e0d047b1a280e7ba6f7df, type: 2}
   - {fileID: 2100000, guid: 2cafffb606bfb2646aa522190a322ba9, type: 2}
-  padColors:
-  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 1, g: 0, b: 1, a: 1}
+  scalingRenderer: {fileID: 0}
 --- !u!1 &878005835
 GameObject:
   m_ObjectHideFlags: 0
@@ -52335,11 +52327,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 30ba86abe6687e7438aaabcd037358c3, type: 2}
   - {fileID: 2100000, guid: 2d92e9addb8e0d047b1a280e7ba6f7df, type: 2}
   - {fileID: 2100000, guid: 2cafffb606bfb2646aa522190a322ba9, type: 2}
-  padColors:
-  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 1, g: 0, b: 1, a: 1}
+  scalingRenderer: {fileID: 0}
 --- !u!23 &1473252572
 MeshRenderer:
   m_ObjectHideFlags: 0

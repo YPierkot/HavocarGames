@@ -23,6 +23,7 @@ namespace AbilityNameSpace
         [SerializeField] private float dashAngleSwitch = 0.5f;
         [SerializeField] private float cooldown;
         private float timer;
+        public bool isDashing;
 
         public int boostedDashs;
 
@@ -69,7 +70,7 @@ namespace AbilityNameSpace
         {
             if (timer > 0) return;
             timer = cooldown;
-
+            isDashing = true;
             Collider[] results;
 
 
@@ -163,6 +164,7 @@ namespace AbilityNameSpace
                 GameManager.instance.controller.abilitiesManager.QuitBulletMode(BulletModeSources.DashCapacity);
             if (dashThrough) GameManager.instance.controller.gameObject.layer = 8;
             particleObj.SetActive(false);
+            isDashing = false;
         }
     }
 }
