@@ -10,6 +10,7 @@ namespace EnemyNamespace
         [SerializeField] private int timeBewteenShotsInMilliseconds = 100;
         [SerializeField] private float speedLooseByPlayer = 1.5f;
         [SerializeField] private float bulletScattering = 1;
+        //[SerializeField] private float shootLoadingDuration = 1.5f;
         
         public LayerMask playerMask;
         public LayerMask groundMask;
@@ -29,16 +30,28 @@ namespace EnemyNamespace
             positions[0] = projectileLaunchPos.position;
             positions[1] = playerPos.position;
             lr.SetPositions(positions);
-            lr.startWidth = (1 - (timer / timeBeforeShootInSeconds)) * 0.55f;
-            lr.endWidth = (1 - (timer / timeBeforeShootInSeconds)) * 0.4f;
+            lr.startWidth = (1 - (aimingTimer / shootLoadingDuration)) * 0.55f;
+            lr.endWidth = (1 - (aimingTimer / shootLoadingDuration)) * 0.4f;
             
             if (isAiming)
             {
-                timer += Time.deltaTime;
-                if (timer > timeBeforeShootInSeconds)
+                Vector3 dir = (playerPos.position - projectileLaunchPos.position).normalized;
+                if(Physics.Raycast(projectileLaunchPos.position, dir, out var hit, 1000))
+                {
+                    aimingTimer = hit.collider.CompareTag("Player") || hit.collider.CompareTag("Player")
+                        ? aimingTimer += Time.deltaTime
+                        : aimingTimer -= Time.deltaTime;
+                }
+                
+                if (aimingTimer > shootLoadingDuration)
                 {
                     isAiming = false;
                     await TurretShoot();
+                    SwitchState(TurretState.Sleep);
+                }
+                else if (aimingTimer < 0)
+                {
+                    isAiming = false;
                     SwitchState(TurretState.Sleep);
                 }
             }
@@ -58,35 +71,39 @@ namespace EnemyNamespace
             var shootPos = playerPos.position; // Get la pos du player
             shootPos += new Vector3(Random.Range(-bulletScattering, bulletScattering), 0, Random.Range(-bulletScattering, bulletScattering));
             
-            // Lancer le tir 
+            // Lancer le projectile
             Vector3 dir = (shootPos - projectileLaunchPos.position).normalized;
-            if (Physics.Raycast(projectileLaunchPos.position, dir, out var hitWall, Mathf.Infinity, wallMask))
-            {
-                ActivateBeam(hitWall.point, hitWall.normal);
-                Instantiate(explosionFeedback, hitWall.point, Quaternion.LookRotation(hitWall.normal));
-                return;
-            }
-
-            if (Physics.Raycast(projectileLaunchPos.position, dir, out var hitPlayer, Mathf.Infinity, playerMask))
-            {
-                ActivateBeam(hitPlayer.point, hitPlayer.normal);
-                Instantiate(explosionFeedback, hitPlayer.point, Quaternion.LookRotation(hitPlayer.normal));
-                if (car.abilitiesManager.isShielded) return;
-                if (car.enabled)
-                {
-                    // Appliquer les dégats
-                    car.maxSpeed -= speedLooseByPlayer;
-                }
-
-                return;
-            }
-
-            if (Physics.Raycast(projectileLaunchPos.position, dir, out var hitGround, Mathf.Infinity, groundMask))
-            {
-                ActivateBeam(hitGround.point, hitGround.normal);
-                Instantiate(explosionFeedback, hitGround.point, Quaternion.LookRotation(hitGround.normal));
-                return;
-            }
+            var tempProjectile = Instantiate(turretProjectilePrefab, projectileLaunchPos.position, Quaternion.LookRotation(dir));
+            
+            // Lancer le tir Raycast
+            // Vector3 dir = (shootPos - projectileLaunchPos.position).normalized;
+            // if (Physics.Raycast(projectileLaunchPos.position, dir, out var hitWall, Mathf.Infinity, wallMask))
+            // {
+            //     ActivateBeam(hitWall.point, hitWall.normal);
+            //     Instantiate(explosionFeedback, hitWall.point, Quaternion.LookRotation(hitWall.normal));
+            //     return;
+            // }
+            //
+            // if (Physics.Raycast(projectileLaunchPos.position, dir, out var hitPlayer, Mathf.Infinity, playerMask))
+            // {
+            //     ActivateBeam(hitPlayer.point, hitPlayer.normal);
+            //     Instantiate(explosionFeedback, hitPlayer.point, Quaternion.LookRotation(hitPlayer.normal));
+            //     if (car.abilitiesManager.isShielded) return;
+            //     if (car.enabled)
+            //     {
+            //         // Appliquer les dégats
+            //         car.maxSpeed -= speedLooseByPlayer;
+            //     }
+            //
+            //     return;
+            // }
+            //
+            // if (Physics.Raycast(projectileLaunchPos.position, dir, out var hitGround, Mathf.Infinity, groundMask))
+            // {
+            //     ActivateBeam(hitGround.point, hitGround.normal);
+            //     Instantiate(explosionFeedback, hitGround.point, Quaternion.LookRotation(hitGround.normal));
+            //     return;
+            // }
         }
 
         #endregion
@@ -96,9 +113,9 @@ namespace EnemyNamespace
         [SerializeField] private LineRenderer beamLr;
         [SerializeField] private ParticleSystem muzzleParticuleSystem;
         [SerializeField] private ParticleSystem hitPointParticeSystem;
-        [SerializeField] private GameObject explosionFeedback;
+        //[SerializeField] private GameObject explosionFeedback;
 
-        private void ActivateBeam(Vector3 hitPoint, Vector3 normalPoint)
+        private void ActivateBeam(Vector3 hitPoint)
         {
             beamLr.SetPosition(1, hitPoint);
             beamLr.enabled = true;

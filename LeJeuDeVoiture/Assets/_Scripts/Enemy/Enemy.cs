@@ -17,7 +17,7 @@ namespace EnemyNamespace
 
         protected NavMeshAgent agent;
         protected bool isDead;
-        protected float timer = 0;
+        protected float aimingTimer = 0;
         
         protected CarController car;
         public Transform playerPos => car.transform;
@@ -28,7 +28,7 @@ namespace EnemyNamespace
         [SerializeField] protected int currentSentinelCount;
         public float spawningRadius = 14;
         public GameObject sentinelsPrefab;
-        [SerializeField] private bool isAutoRegen = false;
+        //[SerializeField] private bool isAutoRegen = false;
 
         /// <summary>
         /// Method appelé à la mort de l'entitée
@@ -99,9 +99,12 @@ namespace EnemyNamespace
             
             UpdateCanvas();
         }
-        
+
+        [SerializeField] private float speedBonusAfterKillingEnemy = 4.5f;
+        [SerializeField] private float prowessMultiplyerBonusAfterKillingEnemy = 0.1f;
         protected virtual async void OnDie()
         {
+            GameManager.instance.prowessManager.TriggerProwessEvent(0.1f,"Sentinel Destroyed !",5); // Speed bonus to player
         }
         
         protected internal void OnSentinelDie(int sentinelHealth)

@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 namespace CarNameSpace
 {
-    public class CarController : MonoBehaviour
+    public class CarController : MonoBehaviour, IDamageable
     {
         #region Variables
 
@@ -289,6 +289,21 @@ namespace CarNameSpace
         }
 
         #endregion
+
+        public void TakeDamage(int damages)
+        {
+            for (int i = 0; i < damages; i++)
+            {
+                if (maxSpeed > 10)
+                {
+                    maxSpeed -= 1;
+                }
+            }
+        }
+
+        public void Kill()
+        {
+        }
     }
 
     [Serializable]

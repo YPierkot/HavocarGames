@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace EnemyNamespace
 {
@@ -15,8 +16,10 @@ namespace EnemyNamespace
         [SerializeField] protected bool isAiming;
         [Tooltip("Distance à laquelle la tourelle détecte le joueur")] 
         [SerializeField] protected float detectionDst;
+        
+        [FormerlySerializedAs("timeBeforeShootInSeconds")]
         [Tooltip("Délai de tir une fois la cible verrouillé")] 
-        [SerializeField] protected float timeBeforeShootInSeconds = 5f;
+        [SerializeField] protected float shootLoadingDuration = 5f;
         
         [SerializeField] protected GameObject turretProjectilePrefab;
         [SerializeField] protected Transform projectileLaunchPos;
@@ -78,7 +81,7 @@ namespace EnemyNamespace
         protected virtual void ToAiming()
         {
             isAiming = true;
-            timer = 0;
+            aimingTimer = 0;
             lr.enabled = true;
         }
 
@@ -96,7 +99,7 @@ namespace EnemyNamespace
         protected virtual void ToSleep()
         {
             isAiming = false;
-            timer = 0;
+            aimingTimer = 0;
             lr.enabled = false;
             isInCooldown = true;
         }
@@ -105,8 +108,8 @@ namespace EnemyNamespace
         {
             if (isInCooldown)
             {
-                timer += Time.deltaTime;
-                if (timer > turretShotCooldown)
+                aimingTimer += Time.deltaTime;
+                if (aimingTimer > turretShotCooldown)
                 {
                     isInCooldown = false;
                 }
