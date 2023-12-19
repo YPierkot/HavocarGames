@@ -157,10 +157,6 @@ public class GenericInteraction_WIP : EnvironmentInteraction
             rb.freezeRotation = false;
         }
     }
-
-
-
-
     
     private async Task StartBoosterAsync(CarController player)
     {
