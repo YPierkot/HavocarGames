@@ -39317,6 +39317,7 @@ MonoBehaviour:
   wheelMass: 0.1
   baseMaxSpeed: 25
   maxSpeed: 25
+  minSpeed: 18
   accelerationBySpeedFactor:
     serializedVersion: 2
     m_Curve:
