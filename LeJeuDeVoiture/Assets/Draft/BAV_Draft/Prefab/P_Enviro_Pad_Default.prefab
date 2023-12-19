@@ -304,6 +304,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PS_EnergyPad
       objectReference: {fileID: 0}
+    - target: {fileID: 7854635435842334520, guid: af96df47aab611f4a86104920c68a795,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -384,6 +389,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PS_JumpPad
       objectReference: {fileID: 0}
+    - target: {fileID: 7854635435842334520, guid: b86815679f90497499326fbc4a26dde4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -463,6 +473,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PS_BoostPad
+      objectReference: {fileID: 0}
+    - target: {fileID: 7854635435842334520, guid: a4e3919213eb50943bf68ce2eca46841,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -602,7 +617,7 @@ PrefabInstance:
     - target: {fileID: 1720456077326294385, guid: e0251bd70b177394996eeadf3e3d4ecf,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8633352415180310207, guid: e0251bd70b177394996eeadf3e3d4ecf,
         type: 3}

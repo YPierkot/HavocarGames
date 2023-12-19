@@ -346,7 +346,6 @@ GameObject:
   m_Component:
   - component: {fileID: 502693059235111299}
   - component: {fileID: 6657137761445651912}
-  - component: {fileID: 196066946528250424}
   - component: {fileID: 2131377103650547923}
   - component: {fileID: 4216802661050946568}
   m_Layer: 13
@@ -397,18 +396,6 @@ MonoBehaviour:
   parentEnemy: {fileID: 0}
   lifeText: {fileID: 7293199803397957496}
   damageToDoOnDieToParentEnemy: 20
---- !u!114 &196066946528250424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4625916277476175915}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ed78adf02553f94d919b80a3850e330, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &2131377103650547923
 Rigidbody:
   m_ObjectHideFlags: 0
