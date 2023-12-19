@@ -33,6 +33,7 @@ namespace CarNameSpace
         [Header("WHEEL")] [SerializeField] private float wheelMass = 0.1f;
         public float baseMaxSpeed = 25f;
         [HideInInspector] public float maxSpeed = 25f;
+        [SerializeField] private float minSpeed = 18f;
         [SerializeField] private AnimationCurve accelerationBySpeedFactor;
         [SerializeField] private float acceleration = 12f;
         [SerializeField] private float braking = 12f;
@@ -319,17 +320,30 @@ namespace CarNameSpace
 
         public void TakeDamage(int damages)
         {
-            for (int i = 0; i < damages; i++)
-            {
-                if (maxSpeed > 10)
-                {
-                    maxSpeed -= 1;
-                }
-            }
+            SubtractMaxSpeed(damages);
         }
 
         public void Kill()
         {
+        }
+
+        /// <summary>
+        /// Method to add speed to the Car from another script
+        /// </summary>
+        /// <param name="amount"></param>
+        public void AddMaxSpeed(float amount)
+        {
+            maxSpeed += amount;
+        }
+
+        /// <summary>
+        /// Method to subtract speed to the Car from another script
+        /// </summary>
+        /// <param name="amount"></param>
+        public void SubtractMaxSpeed(int amount)
+        {
+            var speedSub = maxSpeed - amount;
+            maxSpeed = speedSub < minSpeed ? minSpeed : speedSub;
         }
     }
 
