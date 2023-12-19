@@ -97,6 +97,7 @@ namespace AbilityNameSpace
             projectileObject.transform.rotation = transform.rotation;
 
             projectileObject.movement = dir * projectileSpeed;
+            projectileObject.transform.rotation = Quaternion.LookRotation(projectileObject.movement);
             projectileObject.damages = (int) GameManager.instance.controller.maxSpeed;
             projectileObject.trail.Clear();
 
