@@ -6,7 +6,7 @@ namespace EnemyNamespace
     public class TowerProjectileFollowPlayer : Tower
     {
         #region ModifyAiming
-        protected override void TurretAiming()
+        protected override async Task TurretAiming()
         {
             Vector3[] positions = new Vector3[2];
             positions[0] = projectileLaunchPos.position;
