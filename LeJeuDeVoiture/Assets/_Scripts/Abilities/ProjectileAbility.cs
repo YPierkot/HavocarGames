@@ -28,8 +28,10 @@ namespace AbilityNameSpace
         [SerializeField] private GameObject indicatorGD;
         private float timer;
         private int previousDirectionIndex;
+        private bool isIndicatorActive = false;
         private Vector3 targetDirection;
-
+        private Vector3 cameraOffset = Vector3.zero;
+        private float offsetValue = 20.0f;
 
         
         Vector2 carForwardCamera => Quaternion.Euler(0, 0, -45) * new Vector2(
@@ -60,9 +62,30 @@ namespace AbilityNameSpace
                 {
                     directionIndex = signedAngle > 0 ? 2 : 1;
                 }
-                RotateIndicator();
+
+                if (isIndicatorActive)
+                {
+                    RotateIndicator();
+                    switch (directionIndex)
+                    {
+                        case 0:
+                            cameraOffset = GameManager.instance.controller.transform.forward * offsetValue;
+                            break;
+                        case 1:
+                            cameraOffset = -GameManager.instance.controller.transform.right * offsetValue;
+                            break;
+                        case 2:
+                            cameraOffset = GameManager.instance.controller.transform.right * offsetValue;
+                            break;
+                    }
+
+                    // Apply the offset to the camera
+                    UpdateCameraPosition();
+                }
             }
         }
+
+
 
         public void PressProjectile(InputAction.CallbackContext context)
         {
@@ -70,15 +93,20 @@ namespace AbilityNameSpace
             {
                 GameManager.instance.controller.steeringInputEnabled = false;
                 SetIndicatorActive(true);
-            }
 
+            }
             else if (context.canceled)
             {
-                GameManager.instance.controller.steeringInputEnabled = true; 
+                GameManager.instance.controller.steeringInputEnabled = true;
                 SetIndicatorActive(false);
                 ReleaseProjectile();
+
+                // Reset camera offset
+                cameraOffset = Vector3.zero;
+                UpdateCameraPosition();
             }
         }
+
 
         public void ReleaseProjectile()
         {
@@ -181,6 +209,12 @@ namespace AbilityNameSpace
         private void SetIndicatorActive(bool isActive)
         {
             indicatorGD.SetActive(isActive);
+            isIndicatorActive = isActive;
+        }
+        
+        private void UpdateCameraPosition()
+        {
+            GameManager.instance.cameraManager.cameraOffset = cameraOffset;
         }
     }
 }
