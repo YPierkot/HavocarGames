@@ -101422,6 +101422,91 @@ PrefabInstance:
       propertyPath: whiteIndicator
       value: 
       objectReference: {fileID: 2129534362}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostPerSecond
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByMaxSpeed.m_Curve.Array.data[1].time
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByMaxSpeed.m_Curve.Array.data[1].value
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByMaxSpeed.m_Curve.Array.data[0].inSlope
+      value: 0.011111111
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByMaxSpeed.m_Curve.Array.data[1].inSlope
+      value: 0.011111111
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByMaxSpeed.m_Curve.Array.data[0].outSlope
+      value: 0.011111111
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByMaxSpeed.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByMaxSpeed.m_Curve.Array.data[1].outSlope
+      value: 0.011111111
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByMaxSpeed.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByTimeWithoutGain.m_Curve.Array.data[1].time
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByTimeWithoutGain.m_Curve.Array.data[1].value
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByTimeWithoutGain.m_Curve.Array.data[0].inSlope
+      value: 0.033333335
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByTimeWithoutGain.m_Curve.Array.data[1].inSlope
+      value: 0.033333335
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByTimeWithoutGain.m_Curve.Array.data[0].outSlope
+      value: 0.033333335
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByTimeWithoutGain.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByTimeWithoutGain.m_Curve.Array.data[1].outSlope
+      value: 0.033333335
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByTimeWithoutGain.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
     - target: {fileID: 6644548871987067360, guid: c2199272b0c3d91469c0c831564d6040,
         type: 3}
       propertyPath: prowessMultiplierText
