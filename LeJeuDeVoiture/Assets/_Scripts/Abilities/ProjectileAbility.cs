@@ -52,11 +52,11 @@ namespace AbilityNameSpace
                 
                 float signedAngle = Vector2.SignedAngle(stickValue.normalized, carForwardCamera.normalized);
 
-                if (Mathf.Abs(signedAngle) < 45)
+                if (Mathf.Abs(signedAngle) < 45.0f)
                 {
                     directionIndex = 0;
                 }
-                else if (Mathf.Abs(signedAngle) < 135)
+                else if (Mathf.Abs(signedAngle) < 135.0f)
                 {
                     directionIndex = signedAngle > 0 ? 2 : 1;
                 }
@@ -122,45 +122,62 @@ namespace AbilityNameSpace
             }
         }
         
+        private bool rotationInProgress = false;
+
         private async void RotateIndicatorAsync(Vector3 targetDirection)
         {
-            // Scale to default value
-            float elapsedScaleTime = 0f;
-            while (elapsedScaleTime < scaleTransitionTime)
+            if (rotationInProgress)
             {
-                float scaleValue = Mathf.Lerp(maxScaleZ, defaultScaleZ, elapsedScaleTime / scaleTransitionTime);
-                indicatorGD.transform.localScale = new Vector3(1f, 1f, scaleValue);
-                elapsedScaleTime += Time.deltaTime;
-                await Task.Yield();
+                return; 
             }
-            
-            indicatorGD.transform.localRotation = directionIndex switch
-            {
-                0 => Quaternion.Euler(0, 0.0f, 0),
-                1 => Quaternion.Euler(0, -90.0f, 0),
-                2 => Quaternion.Euler(0, 90.0f, 0),
-            };
 
-            // Rotate
-            float elapsedRotateTime = 0f;
-            while (elapsedRotateTime < scaleTransitionTime)
+            rotationInProgress = true;
+
+            try
             {
-                float scaleValue = Mathf.Lerp(defaultScaleZ, maxScaleZ, elapsedRotateTime / scaleTransitionTime);
-                indicatorGD.transform.localScale = new Vector3(1f, 1f, scaleValue);
-                elapsedRotateTime += Time.deltaTime;
-                await Task.Yield();
+                // Scale to default value
+                float elapsedScaleTime = 0f;
+                while (elapsedScaleTime < scaleTransitionTime)
+                {
+                    float scaleValue = Mathf.Lerp(maxScaleZ, defaultScaleZ, elapsedScaleTime / scaleTransitionTime);
+                    indicatorGD.transform.localScale = new Vector3(1f, 1f, scaleValue);
+                    elapsedScaleTime += Time.deltaTime;
+                    await Task.Yield();
+                }
+
+                indicatorGD.transform.localRotation = directionIndex switch
+                {
+                    0 => Quaternion.Euler(0, 0.0f, 0),
+                    1 => Quaternion.Euler(0, -90.0f, 0),
+                    2 => Quaternion.Euler(0, 90.0f, 0),
+                };
+
+                // Rotate
+                float elapsedRotateTime = 0f;
+                while (elapsedRotateTime < scaleTransitionTime)
+                {
+                    float scaleValue = Mathf.Lerp(defaultScaleZ, maxScaleZ, elapsedRotateTime / scaleTransitionTime);
+                    indicatorGD.transform.localScale = new Vector3(1f, 1f, scaleValue);
+                    elapsedRotateTime += Time.deltaTime;
+                    await Task.Yield();
+                }
+
+                previousDirectionIndex = directionIndex;
             }
-            previousDirectionIndex = directionIndex;
+            finally
+            {
+                rotationInProgress = false;
+            }
         }
-        
+
         private void RotateIndicator()
-        { 
+        {
             if (directionIndex != previousDirectionIndex)
             {
                 RotateIndicatorAsync(targetDirection);
             }
         }
-        
+
         private void SetIndicatorActive(bool isActive)
         {
             indicatorGD.SetActive(isActive);
