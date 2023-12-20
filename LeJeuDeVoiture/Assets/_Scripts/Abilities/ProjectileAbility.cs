@@ -28,6 +28,7 @@ namespace AbilityNameSpace
         [SerializeField] private GameObject indicatorGD;
         private float timer;
         private int previousDirectionIndex;
+        private Vector3 targetDirection;
 
 
         
@@ -54,13 +55,12 @@ namespace AbilityNameSpace
                 if (Mathf.Abs(signedAngle) < 45)
                 {
                     directionIndex = 0;
-                    RotateIndicator();
                 }
                 else if (Mathf.Abs(signedAngle) < 135)
                 {
                     directionIndex = signedAngle > 0 ? 2 : 1;
-                    RotateIndicator();
                 }
+                RotateIndicator();
             }
         }
 
@@ -72,14 +72,9 @@ namespace AbilityNameSpace
                 SetIndicatorActive(true);
             }
 
-            if (context.performed)
-            {
-                RotateIndicator();
-            }
-
             else if (context.canceled)
             {
-                GameManager.instance.controller.steeringInputEnabled = true;
+                GameManager.instance.controller.steeringInputEnabled = true; 
                 SetIndicatorActive(false);
                 ReleaseProjectile();
             }
@@ -105,7 +100,6 @@ namespace AbilityNameSpace
             }
 
             direction = new Vector3(direction.x, 0, direction.z);
-
             ShootProjectile(direction);
         }
         
@@ -127,8 +121,7 @@ namespace AbilityNameSpace
                 projectileObject.gameObject.SetActive(false);   
             }
         }
-
-
+        
         private async Task RotateIndicatorAsync(Vector3 targetDirection)
         {
             // Scale to default value
@@ -142,12 +135,10 @@ namespace AbilityNameSpace
             }
 
             // Rotate
-            indicatorGD.transform.rotation = Quaternion.LookRotation(targetDirection);
-
-            // Scale to max value
             float elapsedRotateTime = 0f;
             while (elapsedRotateTime < scaleTransitionTime)
             {
+                indicatorGD.transform.rotation = Quaternion.LookRotation(targetDirection);
                 float scaleValue = Mathf.Lerp(defaultScaleZ, maxScaleZ, elapsedRotateTime / scaleTransitionTime);
                 indicatorGD.transform.localScale = new Vector3(1f, 1f, scaleValue);
                 elapsedRotateTime += Time.deltaTime;
@@ -155,52 +146,36 @@ namespace AbilityNameSpace
             }
             previousDirectionIndex = directionIndex;
         }
-
+        
         private void RotateIndicator()
-        {
-            Vector3 targetDirection = transform.forward;
-
-            /*
-            switch (directionIndex)
-            {
-                case 0:
-                    targetDirection = GameManager.instance.controller.transform.forward;
-                    break;
-                case 1:
-                    targetDirection = -GameManager.instance.controller.transform.right;
-                    break;
-                case 2:
-                    targetDirection = GameManager.instance.controller.transform.right;
-                    break;
-            }
-            */
-            
-            switch (directionIndex)
-            {
-                case 0:
-                    targetDirection = transform.forward;
-                    break;
-                case 1:
-                    targetDirection = -transform.right;
-                    break;
-                case 2:
-                    targetDirection = transform.right;
-                    break;
-                default:
-                    targetDirection = transform.forward;
-                    break;
-            }
-            
+        { 
+            targetDirection = GetTargetDirection();
+    
             if (directionIndex != previousDirectionIndex)
             {
-               _ = RotateIndicatorAsync(targetDirection);
+                _ = RotateIndicatorAsync(targetDirection);
             }
         }
 
+        private Vector3 GetTargetDirection()
+        {
+            switch (directionIndex)
+            {
+                case 0:
+                    return GameManager.instance.controller.transform.forward;
+                case 1:
+                    return -GameManager.instance.controller.transform.right;
+                case 2:
+                    return GameManager.instance.controller.transform.right;
+                default:
+                    return Vector3.forward;
+            }
+        }
         
         private void SetIndicatorActive(bool isActive)
         {
             indicatorGD.SetActive(isActive);
+            indicatorGD.transform.rotation = Quaternion.LookRotation(targetDirection);
         }
     }
 }
