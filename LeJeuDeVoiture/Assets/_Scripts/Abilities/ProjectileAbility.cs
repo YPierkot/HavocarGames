@@ -26,10 +26,21 @@ namespace AbilityNameSpace
         [SerializeField] private float defaultScaleZ = 1.0f;
         [SerializeField] private float scaleTransitionTime = 0.3f;
         [SerializeField] private GameObject indicatorGD;
+        [SerializeField] private float offsetValue = 20.0f;
+        [SerializeField] private float smoothFactor = 2.0f;
+        
         private float timer;
         private int previousDirectionIndex;
+        private bool isIndicatorActive = false;
         private Vector3 targetDirection;
+        private Vector3 cameraOffset = Vector3.zero;
+        private Vector3 originalCameraOffset;
 
+
+        void Start()
+        {
+            originalCameraOffset = GameManager.instance.cameraManager.cameraOffset;
+        }
 
         
         Vector2 carForwardCamera => Quaternion.Euler(0, 0, -45) * new Vector2(
@@ -43,6 +54,7 @@ namespace AbilityNameSpace
             
             if (timer > 0) timer -= Time.deltaTime;
         }
+        
 
         public void LStick(InputAction.CallbackContext context)
         {
@@ -61,7 +73,12 @@ namespace AbilityNameSpace
                 {
                     directionIndex = signedAngle > 0 ? 2 : 1;
                 }
-                RotateIndicator();
+
+                if (isIndicatorActive)
+                {
+                    RotateIndicator();
+                    // Apply the offset to the camera
+                }
             }
             
             else if (context.canceled) {
@@ -69,13 +86,24 @@ namespace AbilityNameSpace
             }
         }
 
+
+
         public void PressProjectile(InputAction.CallbackContext context)
         {
             if (context.started)
             {
+                GameManager.instance.controller.steeringInputEnabled = false;
+                SetIndicatorActive(true);
+
+            }
+            else if (context.canceled)
+            {
+                GameManager.instance.controller.steeringInputEnabled = true;
+                SetIndicatorActive(false);
                 ReleaseProjectile();
             }
         }
+
 
         public void ReleaseProjectile()
         {
@@ -178,6 +206,48 @@ namespace AbilityNameSpace
         private void SetIndicatorActive(bool isActive)
         {
             indicatorGD.SetActive(isActive);
+            isIndicatorActive = isActive;
+
+            if (isIndicatorActive)
+            {
+                UpdateCameraPositionAsync();
+            }
         }
+        
+
+       
+       private async void UpdateCameraPositionAsync()
+       {
+           while (isIndicatorActive)
+           {
+               switch (directionIndex)
+               {
+                   case 0:
+                       cameraOffset = GameManager.instance.controller.transform.forward * offsetValue;
+                       break;
+                   case 1:
+                       cameraOffset = -GameManager.instance.controller.transform.right * offsetValue;
+                       break;
+                   case 2:
+                       cameraOffset = GameManager.instance.controller.transform.right * offsetValue;
+                       break;
+                   default:
+                       cameraOffset = Vector3.zero;
+                       break;
+               }
+
+               GameManager.instance.cameraManager.cameraOffset = Vector3.Lerp(GameManager.instance.cameraManager.cameraOffset, cameraOffset, Time.deltaTime * smoothFactor);
+
+               await Task.Yield();
+           }
+
+           cameraOffset = originalCameraOffset;
+
+           while (Vector3.Distance(GameManager.instance.cameraManager.cameraOffset, originalCameraOffset) > 0.01f)
+           {
+               GameManager.instance.cameraManager.cameraOffset = Vector3.Lerp(GameManager.instance.cameraManager.cameraOffset, cameraOffset, Time.deltaTime * smoothFactor);
+               await Task.Yield();
+           }
+       }
     }
 }
