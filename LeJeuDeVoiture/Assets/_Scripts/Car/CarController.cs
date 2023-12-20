@@ -24,37 +24,67 @@ namespace CarNameSpace
         [SerializeField] private Material bodyMat;
 
         [Header("SUSPENSION")] [SerializeField]
+        [Tooltip("La longueur des suspensions")]
         private float suspensionLenght = 0.5f;
-
+        [Tooltip("La force des suspensions")]
         [SerializeField] private float suspensionForce = 70f;
+        [Tooltip("La force de retention des suspensions ( petite valeur = suspension bouncy, grande valeur = suspension rigide )")]
         [SerializeField] private float suspensionDampening = 3f;
+        [Tooltip("La valeur d'attraction au sol, plus la valeur est grande, plus la voiture auras du mal a décoller du sol")]
         [SerializeField] private float anchoring = 0.2f;
 
-        [Header("WHEEL")] [SerializeField] private float wheelMass = 0.1f;
-        public float baseMaxSpeed = 25f;
-        [HideInInspector] public float maxSpeed = 25f;
-        [SerializeField] private float minSpeed = 18f;
-        [SerializeField] private AnimationCurve accelerationBySpeedFactor;
-        [SerializeField] private float acceleration = 12f;
-        [SerializeField] private float braking = 12f;
-        [SerializeField] private float decceleration = 4f;
+        [Header("WHEEL")] 
+        [Tooltip("La Masse des roues")]
+        [SerializeField] private float wheelMass = 0.1f;
+        [Tooltip("La courbe du multiplicateur de rotation des roues en fonction du ratio Vitesse / VitesseMax")]
         [SerializeField] private AnimationCurve steeringBySpeedFactor;
+        [Tooltip("La courbe du multiplicateur de rotation des roues en fonction de la vitesseMax")]
         [SerializeField] private AnimationCurve steeringByMaxSpeed;
+        [Tooltip("La rotation Max des roues")]
         [SerializeField] private float steeringSpeed = 50f;
+        [Tooltip("La rotation Max des roues en BulletMode")]
         [SerializeField] private float bulletModeSteeringFactor = 0.3f;
         public bool wheelForcesApply = true;
         public bool steeringInputEnabled = true;
         public bool directionalDampeningEnabled = true;
+        [Tooltip("La rotation Max de la voiture sur les axes X et Z")]
         [SerializeField] private float maxRotation;
         
+        [Header("SPEED")]
+        [Tooltip("La Vitesse Max de Base")]
+        public float baseMaxSpeed = 25f;
+        [HideInInspector] public float maxSpeed = 25f;
+        [Tooltip("La vitesse Max ne peut pas descendre en dessous de cette valeur")]
+        [SerializeField] private float minSpeed = 18f;
+        [Tooltip("La courbe du multiplicateur d'acceleration en fonction du ratio Vitesse / VitesseMax")]
+        [SerializeField] private AnimationCurve accelerationBySpeedFactor;
+        [Tooltip("Acceleration de base")]
+        [SerializeField] private float acceleration = 12f;
+        [Tooltip("Vitesse de freinage")]
+        [SerializeField] private float braking = 12f;
+        [Tooltip("Acceleration en marche arriere")]
+        [SerializeField] private float decceleration = 4f;
+        [Tooltip("La vitesse Max perdue chaque seconde")]
+        [SerializeField] private float maxSpeedLostPerSecond = 1;
+        [Tooltip("La courbe du multiplicateur de vitesse perdue en fonction de la vitesse Max")]
+        [SerializeField] private AnimationCurve maxSpeedLostByMaxSpeed;
+        [Tooltip("La courbe du multiplicateur de vitesse perdue en fonction du temps passé sans gagner de vitesse")]
+        [SerializeField] private AnimationCurve maxSpeedLostByTimeWithoutGain;
+        private float timeWithoutGain;
+
         [Header("WALLBOUNCE")]
+        [Tooltip("Le pourcentage de vitesse gardée lors d'un wallBounce")]
         [SerializeField] private float speedRetained = 0.7f;
+        [Tooltip("Le pourcentage de vitesse Max gardée lors d'un wallBounce")]
         [SerializeField] private float maxSpeedRetained = 0.8f;
+        [Tooltip("L'angle Minimum ( 1 = 90° ) pour WallBounce")]
         [SerializeField] private float minAngleToBounce = 0.3f;
         [SerializeField] private GameObject fxBounce;
 
         [Header("NITRO")] 
+        [Tooltip("La valeur de vitesse gagnée chaque seconde lorsque nitro utilisé")]
         [SerializeField] private float nitroSpeedGainedPerSecond;
+        [Tooltip("La valeur d'énergie utilisée chaque seconde lorsque nitro utilisé")]
         [SerializeField] private float nitroEnergyUsedPerSecond;
         private bool nitroMode;
         public float speed => rb.velocity.magnitude;
@@ -118,7 +148,8 @@ namespace CarNameSpace
             speedDisplay.text = ((int) speed) + "/" + ((int) maxSpeed);
 
             if(speedFactor > 1) rb.velocity = Vector3.Lerp(rb.velocity,Vector3.ClampMagnitude(rb.velocity,maxSpeed),Time.deltaTime);
-            
+
+            if (maxSpeed > baseMaxSpeed) maxSpeed -= Time.deltaTime * maxSpeedLostPerSecond * maxSpeedLostByMaxSpeed.Evaluate(maxSpeed) * maxSpeedLostByTimeWithoutGain.Evaluate(timeWithoutGain);
             
             if(onGround) transform.rotation = Quaternion.Euler(Mathf.Clamp(transform.eulerAngles.x,-maxRotation,maxRotation),transform.eulerAngles.y,Mathf.Clamp(transform.eulerAngles.z,-maxRotation,maxRotation));
 
@@ -129,6 +160,8 @@ namespace CarNameSpace
                     maxSpeed += Time.deltaTime * nitroSpeedGainedPerSecond;
                 }
             }
+
+            timeWithoutGain += Time.deltaTime;
         }
 
         void FixedUpdate()
@@ -334,6 +367,7 @@ namespace CarNameSpace
         public void AddMaxSpeed(float amount)
         {
             maxSpeed += amount;
+            timeWithoutGain = 0;
         }
 
         /// <summary>
@@ -354,6 +388,5 @@ namespace CarNameSpace
         public float directionalDampening;
         public float drivingFactor;
         public float steeringFactor;
-        public TireMarksGenerator tireMarksGenerator;
     }
 }
