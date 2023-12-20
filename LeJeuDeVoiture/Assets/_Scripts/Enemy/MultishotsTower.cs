@@ -69,11 +69,11 @@ public class MultishotsTower : Tower
         var bill = Instantiate(turretProjectilePrefab, transform.position, Quaternion.identity).GetComponent<BulletBill>();
         bomb.GetComponent<Enemy_Bomb>().Setup(bombCastingDuration, damageToApply, explosionSize, projectileLaunchPos.position, bill);
     }
-#if UNITY_EDITOR
-    public void OnDrawGizmos()
-    {
-        Handles.color = Color.blue;
-        Handles.DrawWireDisc(transform.position, Vector3.up, attackRadius, 4f);
-    }
-#endif
+// #if UNITY_EDITOR
+//     public void OnDrawGizmos()
+//     {
+//         Handles.color = Color.blue;
+//         Handles.DrawWireDisc(transform.position, Vector3.up, attackRadius, 4f);
+//     }
+// #endif
 }

@@ -12007,7 +12007,7 @@ MonoBehaviour:
     type: 3}
   energyBonusAfterKillingEnemy: 0.5
   currentState: 1
-  attribute: 1
+  enemyAttribute: 0
   isAiming: 0
   detectionDst: 80
   shootLoadingDuration: 2.5
@@ -12023,6 +12023,7 @@ MonoBehaviour:
   lifeText: {fileID: 709596738}
   lr: {fileID: 335439727}
   damageTakenByDoorOnDeath: 90
+  fluidSplashFx: {fileID: 0}
   bulletInRumbleCount: 11
   timeBewteenShotsInMilliseconds: 150
   speedLooseByPlayer: 1.5
@@ -16274,20 +16275,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLevelIndex: 0
   levels:
-  - levelCount: 0
-    levelDoor: {fileID: 62439141}
+  - levelDoor: {fileID: 62439141}
     levelEnemies:
     - {fileID: 134424903}
     - {fileID: 335439730}
     enemiesPos: []
     isEnemyAtPosAlive: 
-  - levelCount: 0
-    levelDoor: {fileID: 1141444673}
+    enemyTypes: 
+    enemyAttribute: 
+  - levelDoor: {fileID: 1141444673}
     levelEnemies:
     - {fileID: 134424903}
     enemiesPos: []
     isEnemyAtPosAlive: 
+    enemyTypes: 
+    enemyAttribute: 
   guardianTowerPrefab: {fileID: 4550381487084244893, guid: 6aba903071103154e80ef3a24f0c1f2d,
+    type: 3}
+  guardianTowerVariantPrefab: {fileID: 4550381487084244893, guid: 09a6e36649870ca4fbf5f23e4b1e9737,
     type: 3}
 --- !u!1 &450595071
 GameObject:

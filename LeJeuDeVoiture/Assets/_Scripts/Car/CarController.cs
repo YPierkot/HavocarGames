@@ -351,6 +351,7 @@ namespace CarNameSpace
 
         private void OnTriggerEnter(Collider other)
         {
+            if (other.GetComponent<Sentinels>()) other.GetComponent<IDamageable>()?.TakeDamage(Mathf.FloorToInt(speed)); // COLLISION DIRECT AVEC LES SENTINELS
             if (!abilitiesManager.dash.isDashing) return;
             if (other.CompareTag("Enemy")) other.GetComponent<IDamageable>()?.TakeDamage(Mathf.FloorToInt(speed));
         }
