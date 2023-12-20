@@ -1,5 +1,4 @@
-using System;
-using System.Numerics;
+
 using System.Threading.Tasks;
 using ManagerNameSpace;
 using UnityEngine;
@@ -58,6 +57,10 @@ namespace AbilityNameSpace
 
         public void LStick(InputAction.CallbackContext context)
         {
+            if (context.started)
+            {
+                Debug.Log(stickValue);
+            }
             if (context.performed)
             {
                 SetIndicatorActive(true);
@@ -65,11 +68,11 @@ namespace AbilityNameSpace
                 
                 float signedAngle = Vector2.SignedAngle(stickValue.normalized, carForwardCamera.normalized);
 
-                if (Mathf.Abs(signedAngle) < 45.0f)
+                if (Mathf.Abs(signedAngle) < 45)
                 {
                     directionIndex = 0;
                 }
-                else if (Mathf.Abs(signedAngle) < 135.0f)
+                else if (Mathf.Abs(signedAngle) < 135)
                 {
                     directionIndex = signedAngle > 0 ? 2 : 1;
                 }
@@ -77,11 +80,13 @@ namespace AbilityNameSpace
                 if (isIndicatorActive)
                 {
                     RotateIndicator();
+                    UpdateCameraPositionAsync();
                     // Apply the offset to the camera
                 }
             }
             
-            else if (context.canceled) {
+            else if (context.canceled) 
+            {
                 SetIndicatorActive(false);
             }
         }
@@ -207,11 +212,6 @@ namespace AbilityNameSpace
         {
             indicatorGD.SetActive(isActive);
             isIndicatorActive = isActive;
-
-            if (isIndicatorActive)
-            {
-                UpdateCameraPositionAsync();
-            }
         }
         
 
@@ -241,6 +241,7 @@ namespace AbilityNameSpace
                await Task.Yield();
            }
 
+           
            cameraOffset = originalCameraOffset;
 
            while (Vector3.Distance(GameManager.instance.cameraManager.cameraOffset, originalCameraOffset) > 0.01f)
