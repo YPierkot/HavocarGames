@@ -955,7 +955,7 @@ MonoBehaviour:
     type: 3}
   energyBonusAfterKillingEnemy: 4.5
   currentState: 1
-  attribute: 0
+  enemyAttribute: 0
   isAiming: 0
   detectionDst: 120
   shootLoadingDuration: 5
@@ -965,9 +965,11 @@ MonoBehaviour:
   turretShotCooldown: 2.5
   isInCooldown: 0
   meshRenderer: {fileID: 0}
-  mats: []
+  mats:
+  - {fileID: 2100000, guid: 3ffb32eb4c6bf984cb7f3f6e82fc2523, type: 2}
+  - {fileID: 2100000, guid: 9000b4349a476d74caa1d566a70e1f85, type: 2}
   lifeText: {fileID: 7842913738772953013}
-  lr: {fileID: 0}
+  lr: {fileID: 7089063729226068909}
   damageTakenByDoorOnDeath: 90
   fluidSplashFx: {fileID: 5392875274033442831, guid: f5fc0867f1f55314c94076585360229a,
     type: 3}

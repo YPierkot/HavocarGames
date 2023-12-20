@@ -108,7 +108,7 @@ public class LevelManager : MonoBehaviour
     
     public async Task OnTowerDie(Tower tower, int damages)
     {
-        for (int i = 0; i < levels[currentLevelIndex].isEnemyAtPosAlive.Count; i++)
+        for (int i = 0; i < levels[currentLevelIndex].levelEnemies.Count; i++)
         {
             if (tower == null || !tower.enabled)
             {
@@ -123,7 +123,6 @@ public class LevelManager : MonoBehaviour
                 levels[currentLevelIndex].isEnemyAtPosAlive[i] = false;
                 levels[currentLevelIndex].levelEnemies.RemoveAt(i);
                 
-                Debug.Log(tower.enemyAttribute);
                 switch (tower.enemyAttribute)
                 {
                     case Tower.EnemyAttribute.None: break;
@@ -131,11 +130,6 @@ public class LevelManager : MonoBehaviour
                     case Tower.EnemyAttribute.Regeneration: levels[currentLevelIndex].levelDoor.RemoveRegenerationTower(); break;
                     default: throw new ArgumentOutOfRangeException();
                 }
-                Debug.Log("Good soup");
-            }
-            else
-            {
-                Debug.Log("AAAAAAAAAAAAAA");
             }
         }
     }
