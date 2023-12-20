@@ -202,8 +202,9 @@ namespace EnemyNamespace
             EnemyTakeDamage(Mathf.FloorToInt(car.speed));
         }
         
-        protected override async void OnDie()
-        {
+        protected override async void OnDie() {
+            GetComponent<Collider>().enabled = false;
+            Debug.Log(this.gameObject);
             base.OnDie();
             await LevelManager.Instance.OnTowerDie(this, damageTakenByDoorOnDeath);
             Destroy(gameObject); // TODO -> Passer en state mort quand on aura des assets & gamefeel pour différencier les deux states

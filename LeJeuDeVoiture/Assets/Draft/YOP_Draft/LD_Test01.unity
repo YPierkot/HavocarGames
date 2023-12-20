@@ -3419,41 +3419,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 202372969369661568, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      propertyPath: fovMax
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 202372969369661568, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      propertyPath: fovMin
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 202372969369661568, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      propertyPath: zoomMax
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 202372969369661568, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      propertyPath: zoomMin
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 202372969369661568, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 202372969369661568, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      propertyPath: zoomByBonusSpeed
-      value: 0.005
-      objectReference: {fileID: 0}
-    - target: {fileID: 1157430604454565842, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3221255676911542784, guid: db2dd07600d57f8488c930f28e7e2b90,
         type: 3}
       propertyPath: controller
@@ -3469,46 +3434,6 @@ PrefabInstance:
       propertyPath: abilitiesManager
       value: 
       objectReference: {fileID: 1966265849}
-    - target: {fileID: 3354622327842172566, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354622327842172566, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 14.96
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354622327842172566, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -2.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354622327842172566, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.73296297
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354622327842172566, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.5624222
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354622327842172566, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.3036032
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354622327842172566, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.23296289
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354622327842172566, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 75
-      objectReference: {fileID: 0}
     - target: {fileID: 3914110715063573994, guid: db2dd07600d57f8488c930f28e7e2b90,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3559,54 +3484,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4241127172011610922, guid: db2dd07600d57f8488c930f28e7e2b90,
+    - target: {fileID: 6816498125004038013, guid: db2dd07600d57f8488c930f28e7e2b90,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6507672040067206783, guid: db2dd07600d57f8488c930f28e7e2b90,
+      propertyPath: levels.Array.data[0].levelDoor
+      value: 
+      objectReference: {fileID: 1611789983}
+    - target: {fileID: 6816498125004038013, guid: db2dd07600d57f8488c930f28e7e2b90,
         type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6507672040067206783, guid: db2dd07600d57f8488c930f28e7e2b90,
+      propertyPath: levels.Array.data[1].levelDoor
+      value: 
+      objectReference: {fileID: 104164886}
+    - target: {fileID: 6816498125004038013, guid: db2dd07600d57f8488c930f28e7e2b90,
         type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6507672040067206783, guid: db2dd07600d57f8488c930f28e7e2b90,
+      propertyPath: levels.Array.data[0].levelEnemies.Array.data[0]
+      value: 
+      objectReference: {fileID: 223232087}
+    - target: {fileID: 6816498125004038013, guid: db2dd07600d57f8488c930f28e7e2b90,
         type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -286
-      objectReference: {fileID: 0}
-    - target: {fileID: 7115610379938443882, guid: db2dd07600d57f8488c930f28e7e2b90,
+      propertyPath: levels.Array.data[0].levelEnemies.Array.data[1]
+      value: 
+      objectReference: {fileID: 1488087396}
+    - target: {fileID: 6816498125004038013, guid: db2dd07600d57f8488c930f28e7e2b90,
         type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -87.599976
-      objectReference: {fileID: 0}
+      propertyPath: levels.Array.data[0].levelEnemies.Array.data[2]
+      value: 
+      objectReference: {fileID: 157256773}
     - target: {fileID: 8333973297476718983, guid: db2dd07600d57f8488c930f28e7e2b90,
         type: 3}
       propertyPath: m_Name
       value: Game Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 8333973297476718983, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8652801590918828680, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      propertyPath: field of view
-      value: 50
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4333798347617358710, guid: db2dd07600d57f8488c930f28e7e2b90,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 603232206}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db2dd07600d57f8488c930f28e7e2b90, type: 3}
 --- !u!114 &603232203 stripped
 MonoBehaviour:
@@ -3620,12 +3531,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &603232204 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4333798347617358710, guid: db2dd07600d57f8488c930f28e7e2b90,
-    type: 3}
-  m_PrefabInstance: {fileID: 603232202}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &603232205 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1883323569210973004, guid: db2dd07600d57f8488c930f28e7e2b90,
@@ -3638,35 +3543,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &603232206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603232204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dddb6383ffb30d84686867fdbd635459, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentLevelIndex: 0
-  levels:
-  - levelCount: 0
-    levelDoor: {fileID: 1611789983}
-    levelEnemies:
-    - {fileID: 223232087}
-    - {fileID: 1488087396}
-    - {fileID: 157256773}
-    enemiesPos: []
-    isEnemyAtPosAlive: 
-  - levelCount: 1
-    levelDoor: {fileID: 104164886}
-    levelEnemies: []
-    enemiesPos: []
-    isEnemyAtPosAlive: 
-  guardianTowerPrefab: {fileID: 4550381487084244893, guid: 6aba903071103154e80ef3a24f0c1f2d,
-    type: 3}
 --- !u!1 &648621280
 GameObject:
   m_ObjectHideFlags: 0
