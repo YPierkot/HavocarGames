@@ -21,7 +21,15 @@ namespace AbilityNameSpace
         
         [SerializeField] private float dashAngleSwitch = 0.5f;
         [SerializeField] private float cooldown;
+        [Header("Indicator Direction Projectile")]
+        [SerializeField]private float maxScaleZ = 3.0f;
+        [SerializeField] private float defaultScaleZ = 1.0f;
+        [SerializeField] private float scaleTransitionTime = 0.3f;
+        [SerializeField] private GameObject indicatorGD;
         private float timer;
+        private int previousDirectionIndex;
+        private Vector3 targetDirection;
+
 
         
         Vector2 carForwardCamera => Quaternion.Euler(0, 0, -45) * new Vector2(
@@ -44,24 +52,30 @@ namespace AbilityNameSpace
                 
                 float signedAngle = Vector2.SignedAngle(stickValue.normalized, carForwardCamera.normalized);
 
-                if (Mathf.Abs(signedAngle) < 45)
+                if (Mathf.Abs(signedAngle) < 45.0f)
                 {
                     directionIndex = 0;
                 }
-                else if (Mathf.Abs(signedAngle) < 135)
+                else if (Mathf.Abs(signedAngle) < 135.0f)
                 {
                     directionIndex = signedAngle > 0 ? 2 : 1;
                 }
+                RotateIndicator();
             }
         }
 
         public void PressProjectile(InputAction.CallbackContext context)
         {
-            if (context.started) GameManager.instance.controller.steeringInputEnabled = false;
+            if (context.started)
+            {
+                GameManager.instance.controller.steeringInputEnabled = false;
+                SetIndicatorActive(true);
+            }
 
             else if (context.canceled)
             {
-                GameManager.instance.controller.steeringInputEnabled = true;
+                GameManager.instance.controller.steeringInputEnabled = true; 
+                SetIndicatorActive(false);
                 ReleaseProjectile();
             }
         }
@@ -86,7 +100,6 @@ namespace AbilityNameSpace
             }
 
             direction = new Vector3(direction.x, 0, direction.z);
-
             ShootProjectile(direction);
         }
         
@@ -107,6 +120,67 @@ namespace AbilityNameSpace
             {
                 projectileObject.gameObject.SetActive(false);   
             }
+        }
+        
+        private bool rotationInProgress = false;
+
+        private async void RotateIndicatorAsync(Vector3 targetDirection)
+        {
+            if (rotationInProgress)
+            {
+                return; 
+            }
+
+            rotationInProgress = true;
+
+            try
+            {
+                // Scale to default value
+                float elapsedScaleTime = 0f;
+                while (elapsedScaleTime < scaleTransitionTime)
+                {
+                    float scaleValue = Mathf.Lerp(maxScaleZ, defaultScaleZ, elapsedScaleTime / scaleTransitionTime);
+                    indicatorGD.transform.localScale = new Vector3(1f, 1f, scaleValue);
+                    elapsedScaleTime += Time.deltaTime;
+                    await Task.Yield();
+                }
+
+                indicatorGD.transform.localRotation = directionIndex switch
+                {
+                    0 => Quaternion.Euler(0, 0.0f, 0),
+                    1 => Quaternion.Euler(0, -90.0f, 0),
+                    2 => Quaternion.Euler(0, 90.0f, 0),
+                };
+
+                // Rotate
+                float elapsedRotateTime = 0f;
+                while (elapsedRotateTime < scaleTransitionTime)
+                {
+                    float scaleValue = Mathf.Lerp(defaultScaleZ, maxScaleZ, elapsedRotateTime / scaleTransitionTime);
+                    indicatorGD.transform.localScale = new Vector3(1f, 1f, scaleValue);
+                    elapsedRotateTime += Time.deltaTime;
+                    await Task.Yield();
+                }
+
+                previousDirectionIndex = directionIndex;
+            }
+            finally
+            {
+                rotationInProgress = false;
+            }
+        }
+
+        private void RotateIndicator()
+        {
+            if (directionIndex != previousDirectionIndex)
+            {
+                RotateIndicatorAsync(targetDirection);
+            }
+        }
+
+        private void SetIndicatorActive(bool isActive)
+        {
+            indicatorGD.SetActive(isActive);
         }
     }
 }
