@@ -969,6 +969,8 @@ MonoBehaviour:
   lifeText: {fileID: 7842913738772953013}
   lr: {fileID: 0}
   damageTakenByDoorOnDeath: 90
+  fluidSplashFx: {fileID: 5392875274033442831, guid: f5fc0867f1f55314c94076585360229a,
+    type: 3}
   aimAngle: 100
   angleOffset: 4.75
   aimRadius: 20.3

@@ -10,6 +10,7 @@ public class Sentinels : Enemy, IDamageable
     public Enemy parentEnemy;
     public TextMeshProUGUI lifeText;
     [SerializeField] private int damageToDoOnDieToParentEnemy = 20;
+    [SerializeField] private ParticleSystem puddleFx;
     
     private void Start()
     {
@@ -20,6 +21,8 @@ public class Sentinels : Enemy, IDamageable
     protected override void OnDie()
     {
         base.OnDie();
+        Pooler.instance.SpawnTemporaryInstance(Key.FX_Puddle, new Vector3(transform.position.x, 0.4f, transform.position.z),
+            Quaternion.identity,10);
         Destroy(gameObject);
     }
 

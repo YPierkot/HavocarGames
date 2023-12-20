@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Barriers
-  m_Shader: {fileID: -6465566751694194690, guid: 9e98a49179be26348bdfa1e23aab9a8f,
+  m_Shader: {fileID: -6465566751694194690, guid: 6ad2475e94675e44c91f0540028a3373,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -51,11 +51,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _FluidLevel: 0
+    - _FoamLevel: -0.1
     - _FresnelPower: 1.46
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _WaveDensity: 0
+    - _WaveStrenght: 0
     m_Colors:
+    - _BackColor: {r: 0, g: 0, b: 0, a: 0}
     - _Emissive: {r: 0, g: 0.8604513, b: 1.9622642, a: 0}
+    - _FoamColor: {r: 0, g: 0, b: 0, a: 0}
     - _MainColor: {r: 0.52672356, g: 0.11764705, b: 0.7176471, a: 0}
     - _TopColor: {r: 0, g: 0.3254902, b: 0.5176471, a: 0}
   m_BuildTextureStacks: []

@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
+using ManagerNameSpace;
 using TMPro;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -34,7 +36,9 @@ namespace EnemyNamespace
         [SerializeField] protected LineRenderer lr;
 
         [SerializeField] private int damageTakenByDoorOnDeath = 90;
-        
+
+        [SerializeField] private ParticleSystem fluidSplashFx;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -201,6 +205,8 @@ namespace EnemyNamespace
             base.OnDie();
             await LevelManager.Instance.OnTowerDie(this, damageTakenByDoorOnDeath);
             await Task.Yield();
+            Pooler.instance.SpawnTemporaryInstance(Key.FX_FluidSplash, new Vector3(transform.position.x, 3.4f, transform.position.z),
+                Quaternion.identity,15);
             Destroy(gameObject); // TODO -> Passer en state mort quand on aura des assets & gamefeel pour différencier les deux states
         }
 
