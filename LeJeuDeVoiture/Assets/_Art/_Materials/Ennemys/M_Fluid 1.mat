@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fluid 1
+  m_Name: M_Fluid 1
   m_Shader: {fileID: -6465566751694194690, guid: 9e98a49179be26348bdfa1e23aab9a8f,
     type: 3}
   m_Parent: {fileID: 0}
@@ -51,11 +51,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FresnelPower: 3
+    - _FluidLevel: 0
+    - _FoamLevel: -0.1
+    - _FresnelPower: 4.5
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _WaveDensity: 4
+    - _WaveStrenght: 0.05
     m_Colors:
-    - _Emissive: {r: 7.8490567, g: 4.843748, b: 0, a: 0}
-    - _MainColor: {r: 1, g: 0.69943273, b: 0, a: 0}
-    - _TopColor: {r: 1, g: 0.82188463, b: 0.3160377, a: 0}
+    - _BackColor: {r: 0, g: 0, b: 0, a: 0}
+    - _Emissive: {r: 1.0035852, g: 0, b: 0.3592302, a: 0}
+    - _FoamColor: {r: 1.7169812, g: 0.6560164, b: 1.0804024, a: 0}
+    - _MainColor: {r: 1, g: 0, b: 0.46384, a: 0}
+    - _TopColor: {r: 0.41509432, g: 0.26824492, b: 0.32647827, a: 0}
   m_BuildTextureStacks: []

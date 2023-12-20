@@ -147,11 +147,11 @@ namespace CarNameSpace
 
             speedDisplay.text = ((int) speed) + "/" + ((int) maxSpeed);
 
-            if(speedFactor > 1) rb.velocity = Vector3.Lerp(rb.velocity,Vector3.ClampMagnitude(rb.velocity,maxSpeed),Time.deltaTime);
+            if (speedFactor > 1) rb.velocity = Vector3.Lerp(rb.velocity,Vector3.ClampMagnitude(rb.velocity,maxSpeed),Time.deltaTime);
 
             if (maxSpeed > baseMaxSpeed) maxSpeed -= Time.deltaTime * maxSpeedLostPerSecond * maxSpeedLostByMaxSpeed.Evaluate(maxSpeed) * maxSpeedLostByTimeWithoutGain.Evaluate(timeWithoutGain);
             
-            if(onGround) transform.rotation = Quaternion.Euler(Mathf.Clamp(transform.eulerAngles.x,-maxRotation,maxRotation),transform.eulerAngles.y,Mathf.Clamp(transform.eulerAngles.z,-maxRotation,maxRotation));
+            if (onGround) transform.rotation = Quaternion.Euler(Mathf.Clamp(transform.eulerAngles.x,-maxRotation,maxRotation),transform.eulerAngles.y,Mathf.Clamp(transform.eulerAngles.z,-maxRotation,maxRotation));
 
             if (nitroMode)
             {

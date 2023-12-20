@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_BreakableGlass
-  m_Shader: {fileID: -6465566751694194690, guid: 70a19be6fbf27784993c2400eeb488f1,
+  m_Name: M_FluidPuddle
+  m_Shader: {fileID: -6465566751694194690, guid: 6ad2475e94675e44c91f0540028a3373,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -38,16 +38,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CrackAmount: 0.63
-    - _CracksWidth: 0.5
+    - _FresnelPower: 2.5
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _CracksColor: {r: 0.6886792, g: 0, b: 0.49422854, a: 1}
-    - _GlassColor: {r: 0.41960785, g: 0.6313726, b: 0.6784314, a: 0.46666667}
-    - _Tiling: {r: 3, g: 1.5, b: 0, a: 0}
+    - _Emissive: {r: 1, g: 0, b: 0.36078432, a: 0}
+    - _MainColor: {r: 1, g: 0, b: 0.4627451, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &1367050392209896754
+--- !u!114 &7327515902536625779
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
