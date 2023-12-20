@@ -21,7 +21,14 @@ namespace AbilityNameSpace
         
         [SerializeField] private float dashAngleSwitch = 0.5f;
         [SerializeField] private float cooldown;
+        [Header("Indicator Direction Projectile")]
+        [SerializeField]private float maxScaleZ = 3.0f;
+        [SerializeField] private float defaultScaleZ = 1.0f;
+        [SerializeField] private float scaleTransitionTime = 0.3f;
+        [SerializeField] private GameObject indicatorGD;
         private float timer;
+        private int previousDirectionIndex;
+
 
         
         Vector2 carForwardCamera => Quaternion.Euler(0, 0, -45) * new Vector2(
@@ -47,21 +54,33 @@ namespace AbilityNameSpace
                 if (Mathf.Abs(signedAngle) < 45)
                 {
                     directionIndex = 0;
+                    RotateIndicator();
                 }
                 else if (Mathf.Abs(signedAngle) < 135)
                 {
                     directionIndex = signedAngle > 0 ? 2 : 1;
+                    RotateIndicator();
                 }
             }
         }
 
         public void PressProjectile(InputAction.CallbackContext context)
         {
-            if (context.started) GameManager.instance.controller.steeringInputEnabled = false;
+            if (context.started)
+            {
+                GameManager.instance.controller.steeringInputEnabled = false;
+                SetIndicatorActive(true);
+            }
+
+            if (context.performed)
+            {
+                RotateIndicator();
+            }
 
             else if (context.canceled)
             {
                 GameManager.instance.controller.steeringInputEnabled = true;
+                SetIndicatorActive(false);
                 ReleaseProjectile();
             }
         }
@@ -107,6 +126,81 @@ namespace AbilityNameSpace
             {
                 projectileObject.gameObject.SetActive(false);   
             }
+        }
+
+
+        private async Task RotateIndicatorAsync(Vector3 targetDirection)
+        {
+            // Scale to default value
+            float elapsedScaleTime = 0f;
+            while (elapsedScaleTime < scaleTransitionTime)
+            {
+                float scaleValue = Mathf.Lerp(maxScaleZ, defaultScaleZ, elapsedScaleTime / scaleTransitionTime);
+                indicatorGD.transform.localScale = new Vector3(1f, 1f, scaleValue);
+                elapsedScaleTime += Time.deltaTime;
+                await Task.Yield();
+            }
+
+            // Rotate
+            indicatorGD.transform.rotation = Quaternion.LookRotation(targetDirection);
+
+            // Scale to max value
+            float elapsedRotateTime = 0f;
+            while (elapsedRotateTime < scaleTransitionTime)
+            {
+                float scaleValue = Mathf.Lerp(defaultScaleZ, maxScaleZ, elapsedRotateTime / scaleTransitionTime);
+                indicatorGD.transform.localScale = new Vector3(1f, 1f, scaleValue);
+                elapsedRotateTime += Time.deltaTime;
+                await Task.Yield();
+            }
+            previousDirectionIndex = directionIndex;
+        }
+
+        private void RotateIndicator()
+        {
+            Vector3 targetDirection = transform.forward;
+
+            /*
+            switch (directionIndex)
+            {
+                case 0:
+                    targetDirection = GameManager.instance.controller.transform.forward;
+                    break;
+                case 1:
+                    targetDirection = -GameManager.instance.controller.transform.right;
+                    break;
+                case 2:
+                    targetDirection = GameManager.instance.controller.transform.right;
+                    break;
+            }
+            */
+            
+            switch (directionIndex)
+            {
+                case 0:
+                    targetDirection = transform.forward;
+                    break;
+                case 1:
+                    targetDirection = -transform.right;
+                    break;
+                case 2:
+                    targetDirection = transform.right;
+                    break;
+                default:
+                    targetDirection = transform.forward;
+                    break;
+            }
+            
+            if (directionIndex != previousDirectionIndex)
+            {
+               _ = RotateIndicatorAsync(targetDirection);
+            }
+        }
+
+        
+        private void SetIndicatorActive(bool isActive)
+        {
+            indicatorGD.SetActive(isActive);
         }
     }
 }
