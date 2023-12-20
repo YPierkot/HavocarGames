@@ -9,7 +9,7 @@ namespace AbilityNameSpace
     public class DashAbility : MonoBehaviour
     {
         [SerializeField] private int directionIndex;
-        [SerializeField] private float dashDuration, dashSpeed;
+        [SerializeField] private float dashLenght, dashSpeed;
 
         [SerializeField] private Vector2 stickValue = Vector2.up;
         [SerializeField] private GameObject forwardParticles, rightParticles, leftParticles;
@@ -110,6 +110,11 @@ namespace AbilityNameSpace
 
         public async void Dash(Vector3 dir)
         {
+            Debug.Log(dir);
+            Vector3 velocity = GameManager.instance.controller.rb.velocity;
+            float speed = directionIndex == 0 ? 0 :velocity.magnitude;
+            //GameManager.instance.controller.rb.velocity = Vector3.zero;
+            Vector3 pos1 = transform.position;
             
             isDashing = true;
             Collider[] results;
@@ -117,35 +122,14 @@ namespace AbilityNameSpace
             bool dashThrough = dashThroughWall;
             if (dashThrough) GameManager.instance.controller.gameObject.layer = 11;
 
-            bool dashBoosted = boostedDashs > 0;
-
             particleObj.SetActive(true);
             particleObj.transform.localScale = Vector3.zero;
-
-            if (dashBoosted)
+            
+            float duration = 0;
+            while (duration < dashLenght)
             {
-                GameManager.instance.controller.abilitiesManager.EnterBulletMode(BulletModeSources.DashCapacity);
-                boostedDashs--;
-            }
-
-            float i = 0;
-            float duration = dashDuration * (dashBoosted ? dashExpansion : 1);
-
-            while (i < duration)
-            {
-                if (dashThrough)
-                {
-                    results = Physics.OverlapSphere(GameManager.instance.controller.rb.position, collisionCheckRadius,
-                        wallMask);
-                    if (results.Length == 0) i += Time.deltaTime;
-                }
-                else
-                {
-                    i += Time.deltaTime;
-                }
-
                 Vector3 newPos = GameManager.instance.controller.rb.position +
-                                 dir * Time.deltaTime * dashSpeed * speedCurve.Evaluate(i / duration);
+                                 dir * Time.deltaTime * (dashSpeed + speed) * speedCurve.Evaluate(duration / dashLenght);
                 results = Physics.OverlapSphere(newPos, collisionCheckRadius, dashThrough ? dashThroughMask : wallMask);
                 if (results.Length == 0)
                 {
@@ -153,18 +137,24 @@ namespace AbilityNameSpace
                 }
                 else
                 {
+                    Debug.Log("HIT SMTHING");
                     break;
                 }
 
-                particleObj.transform.localScale = Vector3.one * particleSizeCurve.Evaluate(i / duration);
+                particleObj.transform.localScale = Vector3.one * particleSizeCurve.Evaluate(duration / dashLenght);
+                
+                duration = Vector3.Distance(pos1,transform.position);
                 await Task.Yield();
             }
-
-            if (dashBoosted)
-                GameManager.instance.controller.abilitiesManager.QuitBulletMode(BulletModeSources.DashCapacity);
+            
             if (dashThrough) GameManager.instance.controller.gameObject.layer = 8;
             particleObj.SetActive(false);
             isDashing = false;
+
+            GameManager.instance.controller.rb.velocity = velocity;
+            Vector3 pos2 = transform.position;
+            Debug.DrawLine(pos1,pos2,Color.green,300);
+            Debug.Log("DASH DISTANCE : "+Vector3.Distance(pos1,pos2));
         }
     }
 }
