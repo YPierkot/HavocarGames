@@ -211,6 +211,8 @@ namespace CarNameSpace
                 wheelForce = wheel.transform.up * suspension +
                              wheel.transform.right * directionalDamp +
                              wheel.transform.forward * drivingForce;   
+                
+                Debug.DrawRay(wheel.transform.position,wheel.transform.right * directionalDamp,Color.red);
             }
 
             return wheelForce;
