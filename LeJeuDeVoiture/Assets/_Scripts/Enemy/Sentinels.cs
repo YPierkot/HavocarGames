@@ -21,9 +21,8 @@ public class Sentinels : Enemy, IDamageable
     protected override void OnDie()
     {
         base.OnDie();
-        Pooler.instance.SpawnTemporaryInstance(Key.FX_Puddle, new Vector3(transform.position.x, 0.4f, transform.position.z),
-            Quaternion.identity,10);
         Destroy(gameObject);
+        Pooler.instance.SpawnTemporaryInstance(Key.FX_Puddle, new Vector3(transform.position.x, 0.4f, transform.position.z), Quaternion.identity,10);
     }
 
     public override void Death()

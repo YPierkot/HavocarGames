@@ -106,7 +106,7 @@ public class LevelManager : MonoBehaviour
         }
     }
     
-    public Task OnTowerDie(Tower tower, int damages)
+    public async Task OnTowerDie(Tower tower, int damages)
     {
         for (int i = 0; i < levels[currentLevelIndex].isEnemyAtPosAlive.Count; i++)
         {
@@ -114,6 +114,7 @@ public class LevelManager : MonoBehaviour
             {
                 Debug.Log("No more towers in level");
                 for (int j = 0; j < levels[currentLevelIndex].isEnemyAtPosAlive.Count; j++) levels[currentLevelIndex].isEnemyAtPosAlive[j] = false;
+                for (int j = 0; j < levels[currentLevelIndex].levelEnemies.Count; j++) Destroy(levels[currentLevelIndex].levelEnemies[j].gameObject);
             }
             
             if (levels[currentLevelIndex].levelEnemies[i] == tower)
@@ -130,10 +131,13 @@ public class LevelManager : MonoBehaviour
                     case Tower.EnemyAttribute.Regeneration: levels[currentLevelIndex].levelDoor.RemoveRegenerationTower(); break;
                     default: throw new ArgumentOutOfRangeException();
                 }
+                Debug.Log("Good soup");
+            }
+            else
+            {
+                Debug.Log("AAAAAAAAAAAAAA");
             }
         }
-
-        return Task.CompletedTask;
     }
 
     public void GoNextLevel()
