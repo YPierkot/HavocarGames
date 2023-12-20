@@ -1593,7 +1593,7 @@ PrefabInstance:
     - target: {fileID: 6791725035820633250, guid: 09a6e36649870ca4fbf5f23e4b1e9737,
         type: 3}
       propertyPath: bulletInRumbleCount
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6524,17 +6524,27 @@ PrefabInstance:
     - target: {fileID: 6791725035820633250, guid: 09a6e36649870ca4fbf5f23e4b1e9737,
         type: 3}
       propertyPath: aimAngle
-      value: 150
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791725035820633250, guid: 09a6e36649870ca4fbf5f23e4b1e9737,
+        type: 3}
+      propertyPath: aimRadius
+      value: 18.5
       objectReference: {fileID: 0}
     - target: {fileID: 6791725035820633250, guid: 09a6e36649870ca4fbf5f23e4b1e9737,
         type: 3}
       propertyPath: angleOffset
-      value: 2.3
+      value: 1.36
       objectReference: {fileID: 0}
     - target: {fileID: 6791725035820633250, guid: 09a6e36649870ca4fbf5f23e4b1e9737,
         type: 3}
       propertyPath: bulletInRumbleCount
-      value: 10
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791725035820633250, guid: 09a6e36649870ca4fbf5f23e4b1e9737,
+        type: 3}
+      propertyPath: shootLoadingDuration
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10875,11 +10885,106 @@ PrefabInstance:
       propertyPath: whiteIndicator
       value: 
       objectReference: {fileID: 2129534362}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostPerSecond
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByMaxSpeed.m_Curve.Array.data[1].time
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByMaxSpeed.m_Curve.Array.data[1].value
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByMaxSpeed.m_Curve.Array.data[0].inSlope
+      value: 0.011111111
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByMaxSpeed.m_Curve.Array.data[1].inSlope
+      value: 0.011111111
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByMaxSpeed.m_Curve.Array.data[0].outSlope
+      value: 0.011111111
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByMaxSpeed.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByMaxSpeed.m_Curve.Array.data[1].outSlope
+      value: 0.011111111
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByMaxSpeed.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByTimeWithoutGain.m_Curve.Array.data[1].time
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByTimeWithoutGain.m_Curve.Array.data[1].value
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByTimeWithoutGain.m_Curve.Array.data[0].inSlope
+      value: 0.033333335
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByTimeWithoutGain.m_Curve.Array.data[1].inSlope
+      value: 0.033333335
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByTimeWithoutGain.m_Curve.Array.data[0].outSlope
+      value: 0.033333335
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByTimeWithoutGain.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByTimeWithoutGain.m_Curve.Array.data[1].outSlope
+      value: 0.033333335
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952043192983453746, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: maxSpeedLostByTimeWithoutGain.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
     - target: {fileID: 6644548871987067360, guid: c2199272b0c3d91469c0c831564d6040,
         type: 3}
       propertyPath: prowessMultiplierText
       value: 
       objectReference: {fileID: 603232203}
+    - target: {fileID: 7896358455825768559, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: dashSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7896358455825768559, guid: c2199272b0c3d91469c0c831564d6040,
+        type: 3}
+      propertyPath: dashDuration
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 7938592832149290605, guid: c2199272b0c3d91469c0c831564d6040,
         type: 3}
       propertyPath: m_Enabled
@@ -11093,7 +11198,7 @@ PrefabInstance:
     - target: {fileID: 6791725035820633250, guid: 09a6e36649870ca4fbf5f23e4b1e9737,
         type: 3}
       propertyPath: bulletInRumbleCount
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

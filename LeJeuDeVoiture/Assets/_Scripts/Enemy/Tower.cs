@@ -89,7 +89,7 @@ namespace EnemyNamespace
             lr.enabled = true;
         }
 
-        protected virtual void TurretAiming()
+        protected virtual async Task TurretAiming()
         {
         }
 

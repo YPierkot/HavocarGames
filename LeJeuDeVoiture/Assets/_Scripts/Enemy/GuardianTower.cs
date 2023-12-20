@@ -24,7 +24,7 @@ namespace EnemyNamespace
 
         #region AimingModify
         
-        protected override async void TurretAiming()
+        protected override async Task TurretAiming()
         {
             Vector3[] positions = new Vector3[2];
             positions[0] = projectileLaunchPos.position;
