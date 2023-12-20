@@ -6,7 +6,7 @@ namespace EnemyNamespace
     public class TowerProjectileFollowPlayer : Tower
     {
         #region ModifyAiming
-        protected override void TurretAiming()
+        protected override async Task TurretAiming()
         {
             Vector3[] positions = new Vector3[2];
             positions[0] = projectileLaunchPos.position;
@@ -37,7 +37,7 @@ namespace EnemyNamespace
             // Lancer le BulletBill
             var go = Instantiate(turretProjectilePrefab, projectileLaunchPos.position, Quaternion.identity);
             go.transform.LookAt(shootPos);
-            go.GetComponent<BulletBill>().Setup(car);
+            //go.GetComponent<BulletBill>().Setup(car);
             return Task.CompletedTask;
         }
         #endregion

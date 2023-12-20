@@ -31,7 +31,7 @@ namespace EnemyNamespace
                 float x = Mathf.Cos(angle) * aimRadius;
                 float z = Mathf.Sin(angle) * aimRadius;
 
-                aimPositions[i] = new Vector3(transform.position.x + x, 1.5f, transform.position.z + z);
+                aimPositions[i] = new Vector3(transform.position.x + x, projectileLaunchPos.transform.position.y, transform.position.z + z);
             }
         }
 
@@ -71,7 +71,7 @@ namespace EnemyNamespace
 #endif
         
         #region AimingModify
-        protected override async void TurretAiming()
+        protected override async Task TurretAiming()
         {
             if (isAiming)
             {

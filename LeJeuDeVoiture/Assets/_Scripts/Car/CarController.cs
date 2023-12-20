@@ -374,8 +374,9 @@ namespace CarNameSpace
         /// Method to subtract speed to the Car from another script
         /// </summary>
         /// <param name="amount"></param>
-        public void SubtractMaxSpeed(int amount)
+        public void SubtractMaxSpeed(float amount)
         {
+            Debug.Log("Damages = amount");
             var speedSub = maxSpeed - amount;
             maxSpeed = speedSub < minSpeed ? minSpeed : speedSub;
         }
