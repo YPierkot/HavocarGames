@@ -349,6 +349,12 @@ namespace CarNameSpace
             }
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!abilitiesManager.dash.isDashing) return;
+            if (other.CompareTag("Enemy")) other.GetComponent<IDamageable>()?.TakeDamage(Mathf.FloorToInt(speed));
+        }
+
         #endregion
 
         public void TakeDamage(int damages)
@@ -376,7 +382,7 @@ namespace CarNameSpace
         /// <param name="amount"></param>
         public void SubtractMaxSpeed(float amount)
         {
-            Debug.Log("Damages = amount");
+            Debug.Log("Damages:" + amount);
             var speedSub = maxSpeed - amount;
             maxSpeed = speedSub < minSpeed ? minSpeed : speedSub;
         }
