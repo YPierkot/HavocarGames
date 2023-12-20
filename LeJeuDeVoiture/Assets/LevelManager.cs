@@ -14,15 +14,17 @@ public class LevelManager : MonoBehaviour
     public Level[] levels = Array.Empty<Level>();
 
     [SerializeField] private GameObject guardianTowerPrefab;
+    [SerializeField] private GameObject guardianTowerVariantPrefab;
     
     [Serializable]
     public struct Level
     {
-        public int levelCount;
-        public LevelDoor levelDoor;
-        public List<Enemy> levelEnemies;
-        public List<Vector3> enemiesPos;
-        public List<bool> isEnemyAtPosAlive;
+        [Tooltip("A REMPLIR")]      public LevelDoor levelDoor;
+        [Tooltip("A REMPLIR")]      public List<Tower> levelEnemies;
+        [Tooltip("NE PAS REMPLIR")] public List<Vector3> enemiesPos;
+        [Tooltip("NE PAS REMPLIR")] public List<bool> isEnemyAtPosAlive;
+        [Tooltip("NE PAS REMPLIR")] public List<EnemyType> enemyTypes;
+        [Tooltip("NE PAS REMPLIR")] public List<Tower.EnemyAttribute> enemyAttribute;
     }
 
     private void Awake()
@@ -49,8 +51,12 @@ public class LevelManager : MonoBehaviour
             for (int j = 0; j < levels[i].levelEnemies.Count; j++)
             {
                 levels[i].levelEnemies[j].enabled = false;
-                levels[i].enemiesPos.Add(levels[i].levelEnemies[j].transform.position);
-                levels[i].isEnemyAtPosAlive.Add(true);
+                levels[i].enemiesPos.Add(levels[i].levelEnemies[j].transform.position); // Set enemy WorldPos
+                levels[i].isEnemyAtPosAlive.Add(true); // Set enemy isAlive
+                levels[i].enemyAttribute.Add(levels[i].levelEnemies[j].enemyAttribute); // Set enemy attribute
+                //Set enemyTypes
+                if (levels[i].levelEnemies[j].GetComponent<GuardianTower>())       levels[i].enemyTypes.Add(EnemyType.Guardian);
+                else if(levels[i].levelEnemies[j].GetComponent<GuardianVariant>()) levels[i].enemyTypes.Add(EnemyType.GuardianVariant);
             }
         }
 
@@ -64,7 +70,7 @@ public class LevelManager : MonoBehaviour
 
         for (int i = 0; i < levels[currentLevelIndex].levelEnemies.Count; i++)
         {
-            if (levels[currentLevelIndex].levelEnemies[i].GetComponent<Tower>().attribute == Tower.EnemyAttribute.Regeneration)
+            if (levels[currentLevelIndex].levelEnemies[i].GetComponent<Tower>().enemyAttribute == Tower.EnemyAttribute.Regeneration)
             {
                 levels[currentLevelIndex].levelDoor.AddRegenerationTower();
             }
@@ -80,14 +86,27 @@ public class LevelManager : MonoBehaviour
         {
             if (levels[currentLevelIndex].isEnemyAtPosAlive[i] == false)
             {
-                var newEnemy = Instantiate(guardianTowerPrefab, levels[currentLevelIndex].enemiesPos[i], Quaternion.identity).GetComponent<Enemy>();
+                Tower newEnemy = null;
+                
+                switch (levels[currentLevelIndex].enemyTypes[i])
+                {
+                    case EnemyType.Guardian:
+                        newEnemy = Instantiate(guardianTowerPrefab, levels[currentLevelIndex].enemiesPos[i], Quaternion.identity).GetComponent<Tower>();
+                        break;
+                    case EnemyType.GuardianVariant:
+                        newEnemy = Instantiate(guardianTowerVariantPrefab, levels[currentLevelIndex].enemiesPos[i], Quaternion.identity).GetComponent<Tower>();
+                        break;
+                    default: Debug.Log("Appeler 0782535570"); break;
+                }
+                
+                newEnemy.enemyAttribute = levels[currentLevelIndex].enemyAttribute[i];
                 levels[currentLevelIndex].isEnemyAtPosAlive[i] = true;
                 levels[currentLevelIndex].levelEnemies.Add(newEnemy);
             }
         }
     }
     
-    public Task OnTowerDie(Tower tower, int damages)
+    public async Task OnTowerDie(Tower tower, int damages)
     {
         for (int i = 0; i < levels[currentLevelIndex].isEnemyAtPosAlive.Count; i++)
         {
@@ -95,6 +114,7 @@ public class LevelManager : MonoBehaviour
             {
                 Debug.Log("No more towers in level");
                 for (int j = 0; j < levels[currentLevelIndex].isEnemyAtPosAlive.Count; j++) levels[currentLevelIndex].isEnemyAtPosAlive[j] = false;
+                for (int j = 0; j < levels[currentLevelIndex].levelEnemies.Count; j++) Destroy(levels[currentLevelIndex].levelEnemies[j].gameObject);
             }
             
             if (levels[currentLevelIndex].levelEnemies[i] == tower)
@@ -103,18 +123,21 @@ public class LevelManager : MonoBehaviour
                 levels[currentLevelIndex].isEnemyAtPosAlive[i] = false;
                 levels[currentLevelIndex].levelEnemies.RemoveAt(i);
                 
-                Debug.Log(tower.attribute);
-                switch (tower.attribute)
+                Debug.Log(tower.enemyAttribute);
+                switch (tower.enemyAttribute)
                 {
                     case Tower.EnemyAttribute.None: break;
                     case Tower.EnemyAttribute.Fragile: levels[currentLevelIndex].levelDoor.SetWeakness(); break;
                     case Tower.EnemyAttribute.Regeneration: levels[currentLevelIndex].levelDoor.RemoveRegenerationTower(); break;
                     default: throw new ArgumentOutOfRangeException();
                 }
+                Debug.Log("Good soup");
+            }
+            else
+            {
+                Debug.Log("AAAAAAAAAAAAAA");
             }
         }
-
-        return Task.CompletedTask;
     }
 
     public void GoNextLevel()
@@ -122,6 +145,12 @@ public class LevelManager : MonoBehaviour
         currentLevelIndex++;
         GameManager.instance.controller.AddMaxSpeed(25);
         StartLevel();
+    }
+
+    public enum EnemyType
+    {
+        Guardian,
+        GuardianVariant
     }
 }
 

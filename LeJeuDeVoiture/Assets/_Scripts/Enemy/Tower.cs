@@ -13,7 +13,7 @@ namespace EnemyNamespace
         [Space(3)]
         [Header("Turret Section")]
         [SerializeField] private TurretState currentState = TurretState.Sleep;
-        public EnemyAttribute attribute = EnemyAttribute.None;
+        public EnemyAttribute enemyAttribute = EnemyAttribute.None;
         
         [SerializeField] protected bool isAiming;
         [Tooltip("Distance à laquelle la tourelle détecte le joueur")] 
@@ -155,6 +155,8 @@ namespace EnemyNamespace
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
+            if (Application.isPlaying) return;
+            
             Handles.color = Color.red;
             Handles.DrawWireDisc(transform.position, Vector3.up, detectionDst, 8f);
 
@@ -204,10 +206,8 @@ namespace EnemyNamespace
         {
             base.OnDie();
             await LevelManager.Instance.OnTowerDie(this, damageTakenByDoorOnDeath);
-            await Task.Yield();
-            Pooler.instance.SpawnTemporaryInstance(Key.FX_FluidSplash, new Vector3(transform.position.x, 3.4f, transform.position.z),
-                Quaternion.identity,15);
             Destroy(gameObject); // TODO -> Passer en state mort quand on aura des assets & gamefeel pour différencier les deux states
+            Pooler.instance.SpawnTemporaryInstance(Key.FX_FluidSplash, new Vector3(transform.position.x, 3.4f, transform.position.z), Quaternion.identity,15);
         }
 
         // TODO -> Connecter avec le nv system de collision directement sur la voiture
