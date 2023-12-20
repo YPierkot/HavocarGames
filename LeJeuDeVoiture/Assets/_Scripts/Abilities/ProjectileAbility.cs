@@ -48,6 +48,7 @@ namespace AbilityNameSpace
         {
             if (context.performed)
             {
+                SetIndicatorActive(true);
                 stickValue = context.ReadValue<Vector2>();
                 
                 float signedAngle = Vector2.SignedAngle(stickValue.normalized, carForwardCamera.normalized);
@@ -62,20 +63,16 @@ namespace AbilityNameSpace
                 }
                 RotateIndicator();
             }
+            
+            else if (context.canceled) {
+                SetIndicatorActive(false);
+            }
         }
 
         public void PressProjectile(InputAction.CallbackContext context)
         {
             if (context.started)
             {
-                GameManager.instance.controller.steeringInputEnabled = false;
-                SetIndicatorActive(true);
-            }
-
-            else if (context.canceled)
-            {
-                GameManager.instance.controller.steeringInputEnabled = true; 
-                SetIndicatorActive(false);
                 ReleaseProjectile();
             }
         }

@@ -945,7 +945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealthPoints: 150
-  maxHealthPoints: 30
+  maxHealthPoints: 150
   unitBaseSpeed: 0
   updatePath: 0.35
   sentinelRandomRange: {x: 3, y: 3}
