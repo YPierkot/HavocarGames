@@ -1,16 +1,19 @@
 using System.Threading.Tasks;
 using EnemyNamespace;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MultishotsTower : Tower
 {
     [Space]
     [Header("MultiShots Turret Section")]
     [SerializeField] private int bulletInRumbleCount;
-    [SerializeField] private float Y;
-    [SerializeField] private float Z;
+    [SerializeField] private float bombCastingDuration;
+    [SerializeField] private float damageToApply;
+    [SerializeField] private float explosionSize;
     [SerializeField] private int waitingDurationBetweenShotsInMilliseconds;
-    [SerializeField] private float shootMaxDisplacement = 8f;
+    [SerializeField] private float attackRadius;
     [SerializeField] private GameObject bombPrefab;
 
     protected override async Task TurretAiming()
@@ -60,7 +63,17 @@ public class MultishotsTower : Tower
 
     private void DoShoot()
     {
-        Vector3 nextShootPos = new Vector3(Random.Range(-shootMaxDisplacement, shootMaxDisplacement), 0, Random.Range(-shootMaxDisplacement, shootMaxDisplacement));
-        Instantiate(bombPrefab, nextShootPos, Quaternion.identity);
+        Vector2 v = Random.insideUnitCircle * attackRadius;
+        Vector3 nextShootPos = new Vector3(transform.position.x + v.x, transform.position.y + 0.2f, transform.position.z + v.y);
+        var bomb = Instantiate(bombPrefab, nextShootPos, Quaternion.identity);
+        var bill = Instantiate(turretProjectilePrefab, transform.position, Quaternion.identity).GetComponent<BulletBill>();
+        bomb.GetComponent<Enemy_Bomb>().Setup(bombCastingDuration, damageToApply, explosionSize, projectileLaunchPos.position, bill);
     }
+#if UNITY_EDITOR
+    public void OnDrawGizmos()
+    {
+        Handles.color = Color.blue;
+        Handles.DrawWireDisc(transform.position, Vector3.up, attackRadius, 4f);
+    }
+#endif
 }

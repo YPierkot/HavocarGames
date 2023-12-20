@@ -37,7 +37,7 @@ namespace EnemyNamespace
             // Lancer le BulletBill
             var go = Instantiate(turretProjectilePrefab, projectileLaunchPos.position, Quaternion.identity);
             go.transform.LookAt(shootPos);
-            go.GetComponent<BulletBill>().Setup(car);
+            //go.GetComponent<BulletBill>().Setup(car);
             return Task.CompletedTask;
         }
         #endregion

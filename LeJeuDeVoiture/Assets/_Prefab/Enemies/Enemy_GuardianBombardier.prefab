@@ -1141,12 +1141,14 @@ MonoBehaviour:
   lifeText: {fileID: 7842913738772953013}
   lr: {fileID: 4030756772394299184}
   damageTakenByDoorOnDeath: 90
-  X: 15
-  Y: 2
-  Z: 4
+  bulletInRumbleCount: 11
+  bombCastingDuration: 2
+  damageToApply: 4
+  explosionSize: 10
   waitingDurationBetweenShotsInMilliseconds: 200
-  shootMaxDisplacement: 8
-  bombPrefab: {fileID: 0}
+  attackRadius: 35
+  bombPrefab: {fileID: 385454214577904644, guid: 7d29a1395494ef748bf3998d156391a8,
+    type: 3}
 --- !u!1 &4774191787485169375
 GameObject:
   m_ObjectHideFlags: 0
