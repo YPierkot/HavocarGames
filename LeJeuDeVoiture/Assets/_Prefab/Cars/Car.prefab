@@ -40224,8 +40224,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionIndex: 0
-  dashLenght: 0
-  dashSpeed: 70
+  dashLenght: 15
+  dashSpeed: 100
   stickValue: {x: 0, y: 1}
   forwardParticles: {fileID: 9036007017441127556}
   rightParticles: {fileID: 1845306421571942513}

@@ -11338,11 +11338,6 @@ PrefabInstance:
       objectReference: {fileID: 603232203}
     - target: {fileID: 7896358455825768559, guid: c2199272b0c3d91469c0c831564d6040,
         type: 3}
-      propertyPath: dashSpeed
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 7896358455825768559, guid: c2199272b0c3d91469c0c831564d6040,
-        type: 3}
       propertyPath: dashDuration
       value: 0.35
       objectReference: {fileID: 0}
