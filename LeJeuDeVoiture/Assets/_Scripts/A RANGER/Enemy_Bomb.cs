@@ -1,4 +1,5 @@
 using ManagerNameSpace;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class Enemy_Bomb : MonoBehaviour
     private float size;
     private bool isDone;
     private Vector3 v0, v1, v2, v3;
+    private Quaternion initRot, finalRot;
     private BulletBill projectileBomb;
 
     public void Setup(float castingTime, float damagesToApply, float explosionSize, Vector3 launchPos, BulletBill i)
@@ -27,6 +29,8 @@ public class Enemy_Bomb : MonoBehaviour
         v3 = transform.position;
         v2 = v3 + new Vector3(0, 3, 0);
         projectileBomb = i;
+        //initRot = Quaternion.Euler(-90, 0, 0);
+        //finalRot = Quaternion.Euler(90, 0, 0);
     }
     
     // Update is called once per frame
@@ -51,6 +55,8 @@ public class Enemy_Bomb : MonoBehaviour
             _image.color = Color.Lerp(Color.white, Color.red,timer / castingTime);
             Vector3 pos = Ex.CubicBeziersCurve(v0, v1, v2, v3, timer / castingTime);
             projectileBomb.transform.position = pos;
+            //projectileBomb.transform.rotation = Quaternion.Lerp(initRot, finalRot, timer / castingTime);
+            projectileBomb.transform.LookAt(v3);
         }
     }
 }

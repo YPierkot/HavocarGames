@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Threading.Tasks;
-using UnityEditor;
 
 namespace EnemyNamespace
 {
@@ -10,7 +9,7 @@ namespace EnemyNamespace
         [SerializeField] private int timeBewteenShotsInMilliseconds = 100;
         [SerializeField] private float speedLooseByPlayer = 1.5f;
         [SerializeField] private float bulletScattering = 1;
-        //[SerializeField] private float shootLoadingDuration = 1.5f;
+        [SerializeField] private GameObject turretHead;
         
         public LayerMask playerMask;
         public LayerMask groundMask;
@@ -36,6 +35,7 @@ namespace EnemyNamespace
             if (isAiming)
             {
                 Vector3 dir = (playerPos.position - projectileLaunchPos.position).normalized;
+                turretHead.transform.LookAt(dir);
                 if(Physics.Raycast(projectileLaunchPos.position, dir, out var hit, 1000))
                 {
                     aimingTimer = hit.collider.CompareTag("Player") || hit.collider.CompareTag("Enemy")
@@ -68,6 +68,7 @@ namespace EnemyNamespace
 
         private void DoShoot()
         {
+            visual.Shoot();
             var shootPos = playerPos.position; // Get la pos du player
             shootPos += new Vector3(Random.Range(-bulletScattering, bulletScattering), 0, Random.Range(-bulletScattering, bulletScattering));
             
@@ -136,9 +137,6 @@ namespace EnemyNamespace
             muzzleParticuleSystem.Stop();
             hitPointParticeSystem.Stop();
         }
-
         #endregion
-        
-
     }
 }

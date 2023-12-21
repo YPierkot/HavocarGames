@@ -53,12 +53,7 @@ namespace EnemyNamespace
 
             if (sentinelRandomRange.y > 0) SetupSentinel();
         }
-
-        /// <summary>
-        /// Méthod appelé lorsque l'entité est en collision avec la voiture (joueur)
-        /// </summary>
-        public abstract void CollideWithPlayer();
-
+        
         private void SetupSentinel()
         {
             //isAutoRegen = true;

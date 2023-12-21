@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using ManagerNameSpace;
 using TMPro;
-using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -38,6 +37,7 @@ namespace EnemyNamespace
         [SerializeField] private int damageTakenByDoorOnDeath = 90;
 
         [SerializeField] private ParticleSystem fluidSplashFx;
+        [SerializeField] protected TurretVisual visual;
 
         // Start is called before the first frame update
         void Start()
@@ -195,24 +195,23 @@ namespace EnemyNamespace
         }
 
         #region IDamageable Implementation
-
-        public override void CollideWithPlayer()
-        {
-            if(!car.abilitiesManager.isInBulletMode) return;
-            EnemyTakeDamage(Mathf.FloorToInt(car.speed));
-        }
         
         protected override async void OnDie() {
             GetComponent<Collider>().enabled = false;
-            Debug.Log(this.gameObject);
             base.OnDie();
             await LevelManager.Instance.OnTowerDie(this, damageTakenByDoorOnDeath);
-            Destroy(gameObject); // TODO -> Passer en state mort quand on aura des assets & gamefeel pour différencier les deux states
+            visual.DestroyTurret();
             Pooler.instance.SpawnTemporaryInstance(Key.FX_FluidSplash, new Vector3(transform.position.x, 3.4f, transform.position.z), Quaternion.identity,15);
+            await Task.Delay(5000);
+            Destroy(gameObject); // TODO -> Passer en state mort quand on aura des assets & gamefeel pour différencier les deux states
+        }
+        
+        public void TakeDamage(int damages)
+        {
+            visual.SetDamagedValue((float)currentHealthPoints/maxHealthPoints);
+            EnemyTakeDamage(Mathf.FloorToInt(car.speed));
         }
 
-        // TODO -> Connecter avec le nv system de collision directement sur la voiture
-        public void TakeDamage(int damages) => EnemyTakeDamage(Mathf.FloorToInt(car.speed));
         public void Kill() => OnDie();
 
         #endregion
