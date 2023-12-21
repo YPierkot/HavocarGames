@@ -182,7 +182,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c2d7609d56a4524798cded42000cd40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraSize: 0
   cam: {fileID: 6320248199739257317}
-  fovMin: 0
-  fovMax: 0
+  zoomMin: 5
+  zoomMax: 10
+  minMaxSpeed: 25
+  maxMaxSpeed: 100
+  cameraOffset: {x: 0, y: 0, z: 0}

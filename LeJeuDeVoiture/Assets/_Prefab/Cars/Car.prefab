@@ -38956,9 +38956,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3952043192983453746}
-        m_TargetAssemblyTypeName: CarController, Assembly-CSharp
-        m_MethodName: LShoulder
+      - m_Target: {fileID: 7896358455825768559}
+        m_TargetAssemblyTypeName: AbilityNameSpace.DashAbility, Assembly-CSharp
+        m_MethodName: PressDash
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -39009,19 +39009,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3952043192983453746}
-        m_TargetAssemblyTypeName: CarController, Assembly-CSharp
-        m_MethodName: LStick
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 7896358455825768559}
-        m_TargetAssemblyTypeName: DashAbility, Assembly-CSharp
+        m_TargetAssemblyTypeName: CarNameSpace.CarController, Assembly-CSharp
         m_MethodName: LStick
         m_Mode: 0
         m_Arguments:
@@ -39036,9 +39024,9 @@ MonoBehaviour:
     m_ActionName: Inputs/LStick
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7896358455825768559}
-        m_TargetAssemblyTypeName: AbilityNameSpace.DashAbility, Assembly-CSharp
-        m_MethodName: PressDash
+      - m_Target: {fileID: 3952043192983453746}
+        m_TargetAssemblyTypeName: CarNameSpace.CarController, Assembly-CSharp
+        m_MethodName: LShoulder
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -39086,6 +39074,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1058546705144233145}
         m_TargetAssemblyTypeName: AbilityNameSpace.ProjectileAbility, Assembly-CSharp
+        m_MethodName: LStick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7896358455825768559}
+        m_TargetAssemblyTypeName: AbilityNameSpace.DashAbility, Assembly-CSharp
         m_MethodName: LStick
         m_Mode: 0
         m_Arguments:
@@ -40307,8 +40307,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionIndex: 0
-  dashLenght: 0
-  dashSpeed: 70
+  dashLenght: 15
+  dashSpeed: 100
   stickValue: {x: 0, y: 1}
   forwardParticles: {fileID: 9036007017441127556}
   rightParticles: {fileID: 1845306421571942513}
