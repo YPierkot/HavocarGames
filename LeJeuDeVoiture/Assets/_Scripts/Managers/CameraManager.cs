@@ -12,7 +12,7 @@ namespace ManagerNameSpace
         public int fovMin, fovMax;
         public float zoomByBonusSpeed;
         public Vector3 cameraOffset;
-        
+
 
         void Start()
         {
@@ -25,6 +25,8 @@ namespace ManagerNameSpace
                 controller.transform.position + controller.rb.velocity.normalized * dirCam * 0.5f + cameraOffset,
                 5 * Time.fixedDeltaTime);
             
+            float speedValue = controller.maxSpeed / controller.baseMaxSpeed;
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, Mathf.Lerp(fovMin, fovMax,speedValue - 1),Time.fixedDeltaTime * 5);
         }
     }
 }

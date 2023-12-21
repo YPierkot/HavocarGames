@@ -158,10 +158,10 @@ namespace EnemyNamespace
             if (Application.isPlaying) return;
             
             Handles.color = Color.red;
-            Handles.DrawWireDisc(transform.position, Vector3.up, detectionDst, 8f);
+            Handles.DrawWireDisc(transform.position, Vector3.up, detectionDst, 1f);
 
             Handles.color = Color.blue;
-            Handles.DrawWireDisc(transform.position, Vector3.up, spawningRadius, 4f);
+            Handles.DrawWireDisc(transform.position, Vector3.up, spawningRadius, .5f);
             
             var positions = new Vector3[currentSentinelCount];
             var currentPos = transform.position;
