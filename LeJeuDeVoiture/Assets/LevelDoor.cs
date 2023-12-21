@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LevelDoor : MonoBehaviour
 {
+    [SerializeField] private DoorSO doorSO;
+    
     [SerializeField] private bool isWeak;
     [SerializeField] private bool isDestructionReady;
 
@@ -23,10 +25,12 @@ public class LevelDoor : MonoBehaviour
     [SerializeField] private float regenerationTimer;
     [SerializeField] private int hpRegenPerTick;
     [SerializeField] private float regenerationCooldown = 7;
+    [SerializeField] private float multiplyerPerTowers;
     
     
     private void Start()
     {
+        if( doorSO != null) SetupSO();
         if (isDestructionReady) GetComponent<Collider>().isTrigger = true;
         currentLifePoints = maxLifePoints;
         regenerationTimer = regenerationCooldown;
@@ -80,7 +84,7 @@ public class LevelDoor : MonoBehaviour
         regenerationTimer -= Time.deltaTime;
         if (regenerationTimer < 0)
         {
-            currentLifePoints += (hpRegenPerTick * regenerationTowersCount);
+            currentLifePoints += Mathf.FloorToInt(hpRegenPerTick * (regenerationTowersCount * multiplyerPerTowers));
             if (currentLifePoints > maxLifePoints) currentLifePoints = maxLifePoints;
             UpdateCanvas();
             regenerationTimer = regenerationCooldown;
@@ -129,5 +133,16 @@ public class LevelDoor : MonoBehaviour
     {
         LevelManager.Instance.GoNextLevel();
         Destroy(gameObject);
+    }
+
+    private void SetupSO()
+    {
+        currentLifePoints = maxLifePoints = doorSO.maxLifePoints;
+        limitPercentageToSwitchDestructMode = doorSO.limitPercentageToSwitchDestructMode;
+        weaknessDuration = doorSO.weaknessDuration;
+        weaknessDamageMultiplyer = doorSO.weaknessDamageMultiplyer;
+        hpRegenPerTick = doorSO.hpRegenPerTick;
+        regenerationCooldown = doorSO.regenerationCooldown;
+        multiplyerPerTowers = doorSO.rengenerationMultiplierPerTower;
     }
 }
