@@ -17,6 +17,7 @@ public class TurretVisual : MonoBehaviour
     [SerializeField] private Transform[] shakingParts;
     [SerializeField] private Vector3[] shakingPartsPos;
     public Animation shootAnim;
+    public Transform turretBase;
 
     private void Start()
     {
@@ -90,5 +91,13 @@ public class TurretVisual : MonoBehaviour
     {
         shootAnim.Play();
         canonsparks.Play();
+    }
+    
+    public void LookDirection(Vector3 targetPosition)
+    {
+        Vector3 direction = targetPosition - transform.position;
+        direction = new Vector3(direction.x, 0, direction.z).normalized;
+        float angle = Vector3.SignedAngle(Vector3.forward, direction, Vector3.up);
+        turretBase.localRotation = Quaternion.Euler(-90,0,angle + 90);
     }
 }

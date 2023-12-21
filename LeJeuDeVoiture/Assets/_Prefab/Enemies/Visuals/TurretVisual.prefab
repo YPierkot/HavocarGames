@@ -6296,6 +6296,8 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   shootAnim: {fileID: 5637712569334039104}
+  turretBase: {fileID: 2158176367827294284}
+  target: {fileID: 0}
 --- !u!1 &6459719605968961862
 GameObject:
   m_ObjectHideFlags: 0

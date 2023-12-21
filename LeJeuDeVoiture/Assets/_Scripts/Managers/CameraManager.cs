@@ -11,6 +11,7 @@ namespace ManagerNameSpace
         public int zoomMin, zoomMax;
         public int minMaxSpeed, maxMaxSpeed;
         public Vector3 cameraOffset;
+        public float camPrevision;
 
 
         void Start()
@@ -20,6 +21,8 @@ namespace ManagerNameSpace
 
         void FixedUpdate()
         {
+            dirCam = controller.speed *camPrevision;
+            
             transform.position = Vector3.Lerp(transform.position,
                 controller.transform.position + controller.rb.velocity.normalized * dirCam * 0.5f + cameraOffset,
                 5 * Time.fixedDeltaTime);

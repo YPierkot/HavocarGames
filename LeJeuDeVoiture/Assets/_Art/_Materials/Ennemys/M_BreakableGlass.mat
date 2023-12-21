@@ -42,6 +42,7 @@ Material:
     - _CracksWidth: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Smoothness: 0.5
     m_Colors:
     - _CracksColor: {r: 0.754717, g: 0.48771805, b: 0.678865, a: 1}
     - _GlassColor: {r: 0.41960785, g: 0.6313726, b: 0.6784314, a: 0.46666667}
