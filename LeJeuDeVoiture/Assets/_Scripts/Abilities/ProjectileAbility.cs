@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using ManagerNameSpace;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Key = ManagerNameSpace.Key;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
@@ -133,23 +134,16 @@ namespace AbilityNameSpace
             ShootProjectile(direction);
         }
         
-        public async void ShootProjectile(Vector3 dir)
+        public void ShootProjectile(Vector3 dir)
         {
-            projectileObject.gameObject.SetActive(true);
-            projectileObject.transform.position = transform.position;
-            projectileObject.transform.rotation = transform.rotation;
-
-            projectileObject.movement = dir * projectileSpeed;
-            projectileObject.transform.rotation = Quaternion.LookRotation(projectileObject.movement);
-            projectileObject.damages = (int) GameManager.instance.controller.maxSpeed;
-            projectileObject.trail.Clear();
-
-            await Task.Delay(Mathf.RoundToInt(1000 * projectileDuration));
             
-            if (projectileObject.gameObject.activeSelf)
-            {
-                projectileObject.gameObject.SetActive(false);   
-            }
+            CarProjectileBehavior projectileBehavior = Pooler.instance.SpawnTemporaryInstance(Key.OBJ_CarProjectile,
+                    transform.position,transform.rotation,projectileDuration).GetComponent<CarProjectileBehavior>();
+            
+            projectileBehavior.movement = dir * (projectileSpeed + GameManager.instance.controller.speed);
+            projectileBehavior.damages = (int) GameManager.instance.controller.maxSpeed;
+            projectileBehavior.trail.Clear();
+            projectileBehavior.transform.rotation = Quaternion.LookRotation(projectileBehavior.movement);
         }
         
         private bool rotationInProgress = false;

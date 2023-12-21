@@ -7,10 +7,9 @@ namespace ManagerNameSpace
     {
         private float dirCam;
         private CarController controller;
-        public float cameraSize;
         public Camera cam;
-        public int fovMin, fovMax;
-        public float zoomByBonusSpeed;
+        public int zoomMin, zoomMax;
+        public int minMaxSpeed, maxMaxSpeed;
         public Vector3 cameraOffset;
 
 
@@ -24,9 +23,9 @@ namespace ManagerNameSpace
             transform.position = Vector3.Lerp(transform.position,
                 controller.transform.position + controller.rb.velocity.normalized * dirCam * 0.5f + cameraOffset,
                 5 * Time.fixedDeltaTime);
-            
-            float speedValue = controller.maxSpeed / controller.baseMaxSpeed;
-            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, Mathf.Lerp(fovMin, fovMax,speedValue - 1),Time.fixedDeltaTime * 5);
+
+            float speedValue = Mathf.InverseLerp(minMaxSpeed,maxMaxSpeed,controller.maxSpeed);
+            transform.localScale = Vector3.Lerp(transform.localScale,Vector3.Lerp(Vector3.one * zoomMin,Vector3.one * zoomMax, speedValue),Time.fixedDeltaTime * 5 );
         }
     }
 }

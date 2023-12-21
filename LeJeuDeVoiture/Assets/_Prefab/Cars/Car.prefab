@@ -39487,7 +39487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   directionIndex: 0
   projectileDuration: 2
-  projectileSpeed: 50
+  projectileSpeed: 25
   projectileObject: {fileID: 0}
   stickValue: {x: 0, y: 1}
   dashAngleSwitch: 0.5

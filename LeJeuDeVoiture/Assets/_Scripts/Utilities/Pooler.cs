@@ -38,7 +38,7 @@ namespace ManagerNameSpace
         /// <summary>
         /// Get an instance of a Transform or ParticleSystem from pool
         /// </summary>
-        public void SpawnTemporaryInstance(Key key, Vector3 position, Quaternion rotation, float time = 0)
+        public Component SpawnTemporaryInstance(Key key, Vector3 position, Quaternion rotation, float time = 0)
         {
             if (pools[key].queue.Count == 0)
             {
@@ -50,6 +50,7 @@ namespace ManagerNameSpace
             objectInstance.gameObject.SetActive(true);
             objectInstance.transform.SetPositionAndRotation(position, rotation);
             DestroyInstance(key, objectInstance, time);
+            return objectInstance;
         }
 
         /// <summary>
@@ -127,6 +128,7 @@ namespace ManagerNameSpace
     {
         FX_Puddle,
         FX_FluidSplash,
+        OBJ_CarProjectile,
     }
 
     public enum ReturnType

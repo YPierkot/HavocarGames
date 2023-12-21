@@ -2139,6 +2139,12 @@ MonoBehaviour:
         type: 3}
       numberOfInstances: 4
       returnType: 1
+  - key: 2
+    pool:
+      prefab: {fileID: 5775909967504562680, guid: 59dd80a788d77fb4d8e8a84ef26cb2cf,
+        type: 3}
+      numberOfInstances: 5
+      returnType: 0
 --- !u!1 &6585192575050404538
 GameObject:
   m_ObjectHideFlags: 0
