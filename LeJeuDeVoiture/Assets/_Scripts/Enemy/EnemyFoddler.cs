@@ -44,11 +44,11 @@ namespace EnemyNamespace
         {
         }
 
-        public override void CollideWithPlayer()
-        {
-            GetComponent<Collider>().enabled = false;
-            EnableRagdoll();
-        }
+        // public override void CollideWithPlayer()
+        // {
+        //     GetComponent<Collider>().enabled = false;
+        //     EnableRagdoll();
+        // }
 
         private void EnableRagdoll()
         {

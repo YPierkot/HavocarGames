@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 3327530540169547448}
   m_Layer: 0
   m_Name: CanonBase
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 4973094697875067534}
   - component: {fileID: 4218938382410913451}
   - component: {fileID: 5637712569334039104}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: TurretHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +198,7 @@ Transform:
   m_GameObject: {fileID: 948451348144172532}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00006105423, y: 0, z: 0.011}
+  m_LocalPosition: {x: -0.000061035138, y: 0, z: 0.011000002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -416,9 +416,9 @@ GameObject:
   - component: {fileID: 4561158545074629236}
   - component: {fileID: 2955434423609909259}
   - component: {fileID: 8954846895208836792}
-  m_Layer: 13
+  m_Layer: 15
   m_Name: Point Light
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -487,7 +487,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 32769
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -5508,7 +5508,7 @@ GameObject:
   - component: {fileID: 535545842803148682}
   - component: {fileID: 5106536295228840259}
   - component: {fileID: 3054176768622509631}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5641,7 +5641,7 @@ GameObject:
   - component: {fileID: 5113385661140236458}
   m_Layer: 0
   m_Name: Cylinder
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5722,7 +5722,7 @@ GameObject:
   - component: {fileID: 5551096337162426651}
   m_Layer: 0
   m_Name: Turret
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5759,7 +5759,7 @@ GameObject:
   - component: {fileID: 1646933926151491956}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5794,9 +5794,9 @@ GameObject:
   - component: {fileID: 7112001390619711660}
   - component: {fileID: 7524294500456185524}
   - component: {fileID: 3147188948167119776}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Foot (2)
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5940,17 +5940,17 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5525679400827056256}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15587829, y: 0.6897121, z: 0.6897107, w: -0.15587968}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 5.7, z: 0}
   m_LocalScale: {x: 300.0001, y: 300.00012, z: 300}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3824807632261628193}
   - {fileID: 3601961381503422593}
+  - {fileID: 3824807632261628193}
   - {fileID: 3290403007563719341}
   - {fileID: 7255023571188108815}
   m_Father: {fileID: 4135463828705515445}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -1234.529}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &7144640303535802644
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6013,7 +6013,7 @@ GameObject:
   - component: {fileID: 8392470967388550108}
   m_Layer: 13
   m_Name: w
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11285,9 +11285,9 @@ GameObject:
   - component: {fileID: 4017581427274524546}
   - component: {fileID: 3825832327410935346}
   - component: {fileID: 1052523174874646112}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Foot (1)
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11418,9 +11418,9 @@ GameObject:
   - component: {fileID: 5997150434727709316}
   - component: {fileID: 2285879637653136083}
   - component: {fileID: 9040503168050823209}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: BackTank
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11556,7 +11556,7 @@ GameObject:
   - component: {fileID: 7449744024917582812}
   m_Layer: 0
   m_Name: BezierCurve
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11639,9 +11639,9 @@ GameObject:
   - component: {fileID: 575420976613342781}
   - component: {fileID: 3537974558699729018}
   - component: {fileID: 8063675476955988869}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Foot (3)
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11772,7 +11772,7 @@ GameObject:
   - component: {fileID: 4849675403403277866}
   m_Layer: 0
   m_Name: Canon
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

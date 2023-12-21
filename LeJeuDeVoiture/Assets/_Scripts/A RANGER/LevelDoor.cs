@@ -9,23 +9,23 @@ public class LevelDoor : MonoBehaviour
     [SerializeField] private bool isWeak;
     [SerializeField] private bool isDestructionReady;
 
-    [SerializeField] private int maxLifePoints;
+    private int maxLifePoints;
     [SerializeField] private int currentLifePoints;
 
     [SerializeField] private TextMeshProUGUI lifeText;
 
     [Header("Weakness Attribute Section")]
-    [SerializeField] private float limitPercentageToSwitchDestructMode = 10;
-    [SerializeField] private float weaknessDuration = 20;
+    private float limitPercentageToSwitchDestructMode = 10;
+    private float weaknessDuration = 20;
     private float weakTimer;
-    [SerializeField] private float weaknessDamageMultiplyer = 2;
+    private float weaknessDamageMultiplyer = 2;
 
     [Header("Regeneration Attribute Section")] 
     [SerializeField] private int regenerationTowersCount;
     [SerializeField] private float regenerationTimer;
-    [SerializeField] private int hpRegenPerTick;
-    [SerializeField] private float regenerationCooldown = 7;
-    [SerializeField] private float multiplyerPerTowers;
+    private int hpRegenPerTick;
+    private float regenerationCooldown = 7;
+    private float multiplyerPerTowers;
     
     
     private void Start()
@@ -95,7 +95,7 @@ public class LevelDoor : MonoBehaviour
     {
         if (!isDestructionReady) return;
         if (!other.CompareTag("Player")) return;
-        if (!GameManager.instance.controller.abilitiesManager.dash.isDashing) return;
+        //if (!GameManager.instance.controller.abilitiesManager.dash.isDashing) return;
 
         DestroyTower();
     }

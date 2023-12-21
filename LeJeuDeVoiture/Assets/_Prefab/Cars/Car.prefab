@@ -39491,7 +39491,7 @@ MonoBehaviour:
   projectileObject: {fileID: 0}
   stickValue: {x: 0, y: 1}
   dashAngleSwitch: 0.5
-  cooldown: 1
+  cooldown: 0.6
   maxScaleZ: 3
   defaultScaleZ: 0.2
   scaleTransitionTime: 0.1

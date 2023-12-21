@@ -31,15 +31,15 @@ public class Sentinels : Enemy, IDamageable
         OnDie();
     }
 
-    public override void CollideWithPlayer()
-    {
-        if(!car.abilitiesManager.isInBulletMode) return;
-        Kill();
-        //Death();
-        //currentHealthPoints -= (int)Math.Floor(car.speed) * car.abilitiesManager.bulletModeSources.Count;
-        //lifeText.text = $"{currentHealthPoints} / {maxHealthPoints}";
-        //if (currentHealthPoints < 1 ) Death();
-    }
+    // public override void CollideWithPlayer()
+    // {
+    //     if(!car.abilitiesManager.isInBulletMode) return;
+    //     Kill();
+    //     //Death();
+    //     //currentHealthPoints -= (int)Math.Floor(car.speed) * car.abilitiesManager.bulletModeSources.Count;
+    //     //lifeText.text = $"{currentHealthPoints} / {maxHealthPoints}";
+    //     //if (currentHealthPoints < 1 ) Death();
+    // }
 
     public void TakeDamage(int damages) => Kill();
     public void Kill() => Death();

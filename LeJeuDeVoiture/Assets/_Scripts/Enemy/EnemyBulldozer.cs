@@ -149,11 +149,7 @@ public class EnemyBulldozer : Enemy
     {
         
     }
-
-    public override void CollideWithPlayer()
-    {
-        
-    }
+    
     
     void OnCollisionEnter(Collision other)
     {
