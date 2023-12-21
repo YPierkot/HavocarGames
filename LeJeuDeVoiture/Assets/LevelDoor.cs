@@ -95,7 +95,7 @@ public class LevelDoor : MonoBehaviour
     {
         if (!isDestructionReady) return;
         if (!other.CompareTag("Player")) return;
-        if (!GameManager.instance.controller.abilitiesManager.dash.isDashing) return;
+        //if (!GameManager.instance.controller.abilitiesManager.dash.isDashing) return;
 
         DestroyTower();
     }

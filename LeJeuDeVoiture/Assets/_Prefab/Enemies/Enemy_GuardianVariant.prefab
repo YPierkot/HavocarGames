@@ -955,7 +955,7 @@ MonoBehaviour:
     type: 3}
   energyBonusAfterKillingEnemy: 4.5
   currentState: 1
-  enemyAttribute: 0
+  enemyAttribute: 2
   isAiming: 0
   detectionDst: 120
   shootLoadingDuration: 5

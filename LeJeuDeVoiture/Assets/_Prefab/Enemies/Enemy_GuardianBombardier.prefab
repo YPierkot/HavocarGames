@@ -972,10 +972,10 @@ MonoBehaviour:
   fluidSplashFx: {fileID: 5392875274033442831, guid: f5fc0867f1f55314c94076585360229a,
     type: 3}
   bulletInRumbleCount: 15
-  bombCastingDuration: 2
-  damageToApply: 4
+  bombCastingDuration: 1.6
+  damageToApply: 15
   explosionSize: 15
-  waitingDurationBetweenShotsInMilliseconds: 250
+  waitingDurationBetweenShotsInMilliseconds: 100
   attackRadius: 60
   bombPrefab: {fileID: 385454214577904644, guid: 7d29a1395494ef748bf3998d156391a8,
     type: 3}

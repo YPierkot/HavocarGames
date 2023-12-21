@@ -49,6 +49,7 @@ namespace EnemyNamespace
             }
 
             currentHealthPoints = maxHealthPoints;
+            UpdateCanvas();
             isDead = false;
 
             if (sentinelRandomRange.y > 0) SetupSentinel();
