@@ -8338,6 +8338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a246808503ca0ac458cebfa4d215ac3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorSO: {fileID: 0}
   isWeak: 0
   isDestructionReady: 0
   maxLifePoints: 300
@@ -8350,6 +8351,7 @@ MonoBehaviour:
   regenerationTimer: 0
   hpRegenPerTick: 2
   regenerationCooldown: 4
+  multiplyerPerTowers: 0
 --- !u!1001 &677780844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9864,6 +9866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a246808503ca0ac458cebfa4d215ac3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorSO: {fileID: 11400000, guid: c4bedeee696ba134680b8d1e88557452, type: 2}
   isWeak: 0
   isDestructionReady: 0
   maxLifePoints: 200
@@ -9876,6 +9879,7 @@ MonoBehaviour:
   regenerationTimer: 0
   hpRegenPerTick: 0
   regenerationCooldown: 7
+  multiplyerPerTowers: 0
 --- !u!1001 &1136477758
 PrefabInstance:
   m_ObjectHideFlags: 0
