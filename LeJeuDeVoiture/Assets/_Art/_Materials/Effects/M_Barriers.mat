@@ -60,8 +60,8 @@ Material:
     - _WaveStrenght: 0
     m_Colors:
     - _BackColor: {r: 0, g: 0, b: 0, a: 0}
-    - _Emissive: {r: 0, g: 0.8604513, b: 1.9622642, a: 0}
+    - _Emissive: {r: 0, g: 1.3251565, b: 1.9622642, a: 0}
     - _FoamColor: {r: 0, g: 0, b: 0, a: 0}
-    - _MainColor: {r: 0.52672356, g: 0.11764705, b: 0.7176471, a: 0}
+    - _MainColor: {r: 0.19339621, g: 0.5871834, b: 1, a: 0}
     - _TopColor: {r: 0, g: 0.3254902, b: 0.5176471, a: 0}
   m_BuildTextureStacks: []

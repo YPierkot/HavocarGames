@@ -49,8 +49,8 @@ Material:
     - _speed: 5
     - _vertexDisplacement: 0.08
     m_Colors:
-    - _BotColor: {r: 0.15859735, g: 0.17827407, b: 0.33962262, a: 0}
-    - _TopColor: {r: 0.5668446, g: 0.52812386, b: 0.8679245, a: 0}
+    - _BotColor: {r: 0.3726415, g: 0.6778878, b: 1, a: 0}
+    - _TopColor: {r: 0.7688679, g: 0.9834905, b: 1, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5336032359247594616
 MonoBehaviour:
