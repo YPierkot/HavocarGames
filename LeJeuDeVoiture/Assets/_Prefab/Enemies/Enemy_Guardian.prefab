@@ -248,7 +248,7 @@ MonoBehaviour:
     type: 3}
   energyBonusAfterKillingEnemy: 0.5
   currentState: 1
-  attribute: 1
+  enemyAttribute: 0
   isAiming: 0
   detectionDst: 80
   shootLoadingDuration: 2.5
@@ -800,6 +800,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2396182323134116519}
     m_Modifications:
+    - target: {fileID: 1345457588005112514, guid: 8b8197fa55dd6b247bc3e9320f5b4257,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2158176367827294284, guid: 8b8197fa55dd6b247bc3e9320f5b4257,
         type: 3}
       propertyPath: m_LocalRotation.w
