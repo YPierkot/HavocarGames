@@ -33,7 +33,7 @@ public class TurretVisual : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G)) DestroyTurret();
         if (Input.GetKeyDown(KeyCode.S)) Shoot();
         
-        glassMat.SetFloat("_CrackAmount",damageValue);
+        //glassMat.SetFloat("_CrackAmount",damageValue);
 
         for (int i = 0; i < shakingParts.Length; i++)
         {
@@ -83,7 +83,7 @@ public class TurretVisual : MonoBehaviour
 
     public void SetDamagedValue(float damageValue)
     {
-        
+        glassMat.SetFloat("_CrackAmount",damageValue);
     }
 
     public void Shoot()
