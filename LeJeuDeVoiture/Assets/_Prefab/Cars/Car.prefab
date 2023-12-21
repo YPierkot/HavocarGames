@@ -39496,8 +39496,8 @@ MonoBehaviour:
   defaultScaleZ: 0.2
   scaleTransitionTime: 0.1
   indicatorGD: {fileID: 3530589832121481743}
-  offsetValue: 20
-  smoothFactor: 0.05
+  offsetValue: 10
+  smoothFactor: 0.75
 --- !u!1 &3675665750976638010
 GameObject:
   m_ObjectHideFlags: 0

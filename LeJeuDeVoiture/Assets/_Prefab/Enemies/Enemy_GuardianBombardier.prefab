@@ -900,11 +900,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2396182323134116519}
+  - component: {fileID: 8864395542368469618}
   - component: {fileID: 5905061834332253367}
   - component: {fileID: 1067330640178276046}
   - component: {fileID: 4030756772394299184}
   - component: {fileID: 5435273543235827400}
-  - component: {fileID: 8864395542368469618}
   m_Layer: 13
   m_Name: Enemy_GuardianBombardier
   m_TagString: Enemy
@@ -932,6 +932,53 @@ Transform:
   - {fileID: 3488093380688120866}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8864395542368469618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4550381487084244893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6a4c29a4cacf5b4e83c54baa4921e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealthPoints: 300
+  maxHealthPoints: 300
+  unitBaseSpeed: 0
+  updatePath: 0.35
+  sentinelRandomRange: {x: 3, y: 5}
+  currentSentinelCount: 0
+  spawningRadius: 14
+  sentinelsPrefab: {fileID: 4625916277476175915, guid: dfa16819e20da2c46ab1708d67ca9b11,
+    type: 3}
+  energyBonusAfterKillingEnemy: 10
+  currentState: 1
+  enemyAttribute: 0
+  isAiming: 0
+  detectionDst: 90
+  shootLoadingDuration: 5
+  turretProjectilePrefab: {fileID: 3048132865379694985, guid: 2112a68b487bbbd45a40eb465afd2442,
+    type: 3}
+  projectileLaunchPos: {fileID: 5411852750489440918}
+  turretShotCooldown: 5
+  isInCooldown: 0
+  meshRenderer: {fileID: 0}
+  mats: []
+  lifeText: {fileID: 7842913738772953013}
+  lr: {fileID: 4030756772394299184}
+  damageTakenByDoorOnDeath: 90
+  fluidSplashFx: {fileID: 5392875274033442831, guid: f5fc0867f1f55314c94076585360229a,
+    type: 3}
+  bulletInRumbleCount: 15
+  bombCastingDuration: 2
+  damageToApply: 4
+  explosionSize: 15
+  waitingDurationBetweenShotsInMilliseconds: 250
+  attackRadius: 60
+  bombPrefab: {fileID: 385454214577904644, guid: 7d29a1395494ef748bf3998d156391a8,
+    type: 3}
 --- !u!136 &5905061834332253367
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1105,51 +1152,6 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
---- !u!114 &8864395542368469618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4550381487084244893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6a4c29a4cacf5b4e83c54baa4921e2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealthPoints: 300
-  maxHealthPoints: 300
-  unitBaseSpeed: 0
-  updatePath: 0.35
-  sentinelRandomRange: {x: 3, y: 5}
-  currentSentinelCount: 0
-  spawningRadius: 14
-  sentinelsPrefab: {fileID: 4625916277476175915, guid: dfa16819e20da2c46ab1708d67ca9b11,
-    type: 3}
-  energyBonusAfterKillingEnemy: 10
-  currentState: 1
-  enemyAttribute: 0
-  isAiming: 0
-  detectionDst: 70
-  shootLoadingDuration: 5
-  turretProjectilePrefab: {fileID: 0}
-  projectileLaunchPos: {fileID: 5411852750489440918}
-  turretShotCooldown: 5
-  isInCooldown: 0
-  meshRenderer: {fileID: 0}
-  mats: []
-  lifeText: {fileID: 7842913738772953013}
-  lr: {fileID: 4030756772394299184}
-  damageTakenByDoorOnDeath: 90
-  fluidSplashFx: {fileID: 0}
-  bulletInRumbleCount: 11
-  bombCastingDuration: 2
-  damageToApply: 4
-  explosionSize: 10
-  waitingDurationBetweenShotsInMilliseconds: 200
-  attackRadius: 35
-  bombPrefab: {fileID: 385454214577904644, guid: 7d29a1395494ef748bf3998d156391a8,
-    type: 3}
 --- !u!1 &4774191787485169375
 GameObject:
   m_ObjectHideFlags: 0
