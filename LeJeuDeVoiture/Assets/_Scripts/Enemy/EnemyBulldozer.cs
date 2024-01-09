@@ -143,13 +143,6 @@ public class EnemyBulldozer : Enemy
     
 
     #endregion
-
-
-    public override void Death()
-    {
-        
-    }
-    
     
     void OnCollisionEnter(Collision other)
     {

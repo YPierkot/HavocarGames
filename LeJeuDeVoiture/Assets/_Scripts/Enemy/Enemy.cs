@@ -22,19 +22,15 @@ namespace EnemyNamespace
         protected CarController car;
         public Transform playerPos => car.transform;
 
-        [Space(8)] [Header("SENTINEL SECTION")] 
-        protected List<Sentinels> sentinelsList = new();
-        [SerializeField] private Vector2Int sentinelRandomRange;
-        [SerializeField] protected int currentSentinelCount;
+        [Space(8)] [Header("SENTINEL SECTION")]
+        public bool holdSentinel = false;
+        public List<Sentinels> sentinelsList = new();
+        [SerializeField] public Vector2Int sentinelRandomRange;
+        [SerializeField] public int currentSentinelCount;
         public float spawningRadius = 14;
         public GameObject sentinelsPrefab;
         //[SerializeField] private bool isAutoRegen = false;
-
-        /// <summary>
-        /// Method appelé à la mort de l'entitée
-        /// </summary>
-        public abstract void Death();
-
+        
         /// <summary>
         /// Method appelé au spawn de l'entitée
         /// </summary>

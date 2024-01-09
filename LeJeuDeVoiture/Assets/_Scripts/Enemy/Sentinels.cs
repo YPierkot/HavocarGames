@@ -22,15 +22,10 @@ public class Sentinels : Enemy, IDamageable
     {
         base.OnDie();
         Destroy(gameObject);
+        parentEnemy.OnSentinelDie(damageToDoOnDieToParentEnemy);
         Pooler.instance.SpawnTemporaryInstance(Key.FX_Puddle, new Vector3(transform.position.x, 0.4f, transform.position.z), Quaternion.identity,10);
     }
-
-    public override void Death()
-    {
-        parentEnemy.OnSentinelDie(damageToDoOnDieToParentEnemy);
-        OnDie();
-    }
-
+    
     // public override void CollideWithPlayer()
     // {
     //     if(!car.abilitiesManager.isInBulletMode) return;
@@ -42,5 +37,5 @@ public class Sentinels : Enemy, IDamageable
     // }
 
     public void TakeDamage(int damages) => Kill();
-    public void Kill() => Death();
+    public void Kill() => OnDie();
 }

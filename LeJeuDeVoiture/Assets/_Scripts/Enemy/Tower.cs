@@ -58,9 +58,7 @@ namespace EnemyNamespace
             {
                 case TurretState.Aiming: TurretAiming(); break;
                 case TurretState.Sleep: TurretSleep(); break;
-                case TurretState.Dead: Death(); break;
-                default:
-                    break;
+                //case TurretState.Dead: OnDie(); break; default: break;
             }
             
             //UpdateRegen();
@@ -133,13 +131,6 @@ namespace EnemyNamespace
 
         protected virtual void ToDead()
         {
-        }
-
-        public override void Death() // Perso
-        {
-            //LevelManager.Instance.OnTowerDie(this, damageTakenByDoorOnDeath);
-            //isDead = true;
-            //SwitchState(TurretState.None);
         }
         #endregion
 

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4167976511641240287}
   - component: {fileID: 3916495389845908864}
   - component: {fileID: 8714317132301030970}
-  - component: {fileID: 946935662069614782}
   - component: {fileID: 3596496815193560141}
   m_Layer: 0
   m_Name: Enemy_Bulldozer
@@ -98,13 +97,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f33c6767a1c9fd42bdac3cbf010aca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Enemy Bulldozer
-  healthPoints: 10
+  currentHealthPoints: 0
+  maxHealthPoints: 0
   unitBaseSpeed: 10
   updatePath: 0.1
-  playerPos: {fileID: 0}
+  sentinelRandomRange: {x: 0, y: 0}
+  currentSentinelCount: 0
+  spawningRadius: 14
+  sentinelsPrefab: {fileID: 0}
+  energyBonusAfterKillingEnemy: 4.5
   currentState: 0
-  isRolling: 1
   isAccelerating: 0
   accelerateSpeed: 0
   rollingStartTime: 0
@@ -112,25 +114,12 @@ MonoBehaviour:
   rollingTime: 0
   unitCurrentSpeed: 0
   unitMaxSpeed: 40
-  isDizzy: 0
   isImmobilize: 0
   normalPos: {x: 0, y: 0, z: 0}
   dizzyTime: 0
   timeBeforeImmobilize: 1
   immobilizeDuration: 4.5
   immobilizeDurationFeedback: {fileID: 6703106062132011157}
---- !u!114 &946935662069614782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2996152509370638223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ed78adf02553f94d919b80a3850e330, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!195 &3596496815193560141
 NavMeshAgent:
   m_ObjectHideFlags: 0

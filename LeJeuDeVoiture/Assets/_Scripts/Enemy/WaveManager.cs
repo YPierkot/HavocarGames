@@ -1,20 +1,19 @@
-using System;
-using EnemyNamespace;
+using ManagerNameSpace;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class WaveManager : MonoBehaviour
 {
     private Vector3[] positions;
+    [SerializeField] private Transform carTransform;
     
     [Header("Spawning Attributes")]
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Vector2Int enemyPerWaveBoundsCount;
-    [SerializeField] private float maxDistFromSpawner = 2.5f;
+    [SerializeField] private float maxDistFromSpawner = 4f;
     [SerializeField] private float spawningInterval = 3f;
 
-    private float timer = 10;
+    public float timer = 10;
 
     [SerializeField] private SpawningShape SpawningShape = SpawningShape.Rect;
 
@@ -47,15 +46,14 @@ public class WaveManager : MonoBehaviour
         UpdateEnemySpawingPos();
         timer = 0;
         var temp = Random.Range(0, spawnPointsCount);
-        var spawnTr = positions[temp] + transform.InverseTransformPoint(positions[temp]);
+        var spawnTr = positions[temp] + carTransform.InverseTransformPoint(positions[temp]);
         var nbThisWave = Random.Range(enemyPerWaveBoundsCount.x, enemyPerWaveBoundsCount.y + 1);
             
         for (int i = 0; i < nbThisWave; i++)
         {
             Vector2 spawnPos =  Random.insideUnitCircle * maxDistFromSpawner;
-            Vector3 initPos = spawnTr + new Vector3(spawnPos.x, 0, spawnPos.y);
-
-            var GO = Instantiate(enemyPrefab, initPos, Quaternion.identity);
+            Vector3 initPos = spawnTr + new Vector3(spawnPos.x, 0.5f, spawnPos.y);
+            Pooler.instance.SpawnInstance(Key.OBJ_Foddler, initPos, Quaternion.identity);
         }
     }
     
@@ -64,7 +62,7 @@ public class WaveManager : MonoBehaviour
     /// </summary>
     void UpdateEnemySpawingPos()
     {
-        var currentPos = transform.position;
+        var currentPos = carTransform.position;
         
         if (SpawningShape == SpawningShape.Circle)
         {
@@ -128,13 +126,13 @@ public class WaveManager : MonoBehaviour
         }
     }
     
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         UpdateEnemySpawingPos();
         
         for (int i = 0; i < positions.Length; i++)
         {
-            Gizmos.DrawSphere( positions[i]+ transform.InverseTransformPoint(positions[i]), 1);
+            Gizmos.DrawSphere( positions[i]+ carTransform.InverseTransformPoint(positions[i]), 1);
         }
     }
 }
