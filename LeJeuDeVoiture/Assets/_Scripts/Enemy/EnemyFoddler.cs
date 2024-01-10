@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CarNameSpace;
 using ManagerNameSpace;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace EnemyNamespace
 {
@@ -16,6 +18,9 @@ namespace EnemyNamespace
         [SerializeField] private List<Collider> ragdollColliders;
         [SerializeField] public FoddlerState State = FoddlerState.Spawning;
         [SerializeField] private float deadTimer = 0;
+        [SerializeField] private LayerMask playerLayer;
+        public float timer;
+        public bool isAttacking = false;
         
         void Start()
         {
@@ -39,6 +44,8 @@ namespace EnemyNamespace
                 case FoddlerState.Dead: DeadState(); break;
                 default: throw new ArgumentOutOfRangeException();
             }
+
+            timer += Time.deltaTime;
         }
         
         private void FollowPlayer()
@@ -51,6 +58,9 @@ namespace EnemyNamespace
                 agent.SetDestination(playerPos.position);
                 aimingTimer = 0;
             }
+
+            if (Vector3.Distance(transform.position, playerPos.position) < 3f)
+                SwitchState(FoddlerState.AttackPlayer);
         }
         
         private void AttackPlayer()
@@ -58,11 +68,51 @@ namespace EnemyNamespace
             // Attack en direction du joueur au moment ou il trigger l'attaque
             // Si voiture présente après l'anim dans un radius -> Apply dégats
             // Switch state
-
-            agent.SetDestination(transform.position);
-            agent.transform.LookAt(playerPos);
+            
+            if (timer > 1.75f)
+            {
+                if (isAttacking) return;
+                LaunchAttack();
+            }
         }
-        
+
+        private async void LaunchAttack()
+        {
+            isAttacking = true;
+            animator.SetBool("isAttack", isAttacking);
+            int randAttack = Random.Range(0, 3);
+            animator.SetFloat("RandomAttack", randAttack);
+            
+            await Task.Yield();
+
+            int animTime = 0;
+            switch (randAttack)
+            {
+                case 0: animTime = 658; break;
+                case 1: animTime = 1158; break;
+                case 2: animTime = 566; break;
+            }
+            
+            
+            Debug.Log(animTime);
+            await Task.Delay(animTime);
+            
+            Debug.Log("Attack");
+            Collider[] cols = new Collider[1];
+            int count = Physics.OverlapSphereNonAlloc(transform.position + transform.forward * 1.5f + transform.up, 1.5f, cols, playerLayer);
+
+            if (count > 0)
+            {
+                //Debug.Log(cols[0].name);
+                //GameManager.instance.healthManager.TakeDamage(1); // TODO -  PLAYER TAKE DAMAGE
+            }
+
+            await Task.Delay((animTime / 4) - 100);
+            
+            timer = 0f;
+            SwitchState(FoddlerState.FollowPlayer);
+        }
+
         private void DeadState()
         {
             // timer & au bout de 10 secondes dépop
@@ -91,15 +141,14 @@ namespace EnemyNamespace
             State = nextState;
         }
 
-        private async void ToAttack()
+        private void ToAttack()
         {
-            animator.SetBool("isAttack", true);
-            animator.SetFloat("RandomAttack", UnityEngine.Random.Range(0, 3));
-            await Task.Delay(450);
+            agent.SetDestination(transform.position);
         }
 
         private void ToFollow()
         {
+            isAttacking = false;
             animator.SetBool("isAttack", false);
         }
 
@@ -150,6 +199,12 @@ namespace EnemyNamespace
         {
             if (!Application.isPlaying) return;
           
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position + transform.forward * 1.5f + transform.up, 1.5f);
+            
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, 1.5f);
+            
             if (agent.destination != null)
             {
                 Gizmos.color = Color.white;
@@ -163,6 +218,15 @@ namespace EnemyNamespace
                     }
                 }
             }
+        }
+        
+        AnimatorClipInfo[] m_CurrentClipInfo;
+        void OnGUI()
+        {
+            //Output the current Animation name and length to the screen
+            m_CurrentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
+            GUI.Label(new Rect(0, 0, 200, 20),  "Clip Name : " + m_CurrentClipInfo[0].clip.length);
+            GUI.Label(new Rect(0, 30, 200, 20),  "Clip Length : " + m_CurrentClipInfo[0].clip.name);
         }
     }
 }
